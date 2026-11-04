@@ -1,0 +1,24 @@
+All files CC0 1.0 (Freesound / Kenney), selected from the Barty-Bart/motion-graphics sound-effects skill manifest.
+
+whoosh.ogg: "Whoosh" by qubodup (https://freesound.org/people/qubodup/sounds/60013/), CC0
+click.ogg: "Classic Click" by adh.dreaming (https://freesound.org/people/adh.dreaming/sounds/671105/), CC0
+pop.ogg: "POP SFX Neutral" by ethernel0 (https://freesound.org/people/ethernel0/sounds/776016/), CC0
+riser.ogg: "Cinematic Riser #3 subtle" by BeaconStudio (https://freesound.org/people/BeaconStudio/sounds/859482/), CC0
+impact.ogg: "soft_impact3" by peoplearehappy (https://freesound.org/people/peoplearehappy/sounds/841274/), CC0
+tick.ogg: "Click / Tick" by Squirrel_404 (https://freesound.org/people/Squirrel_404/sounds/683048/), CC0
+whoosh2.ogg: "None" by None (https://freesound.org/people/Shinplaster/sounds/264777/), CC0 1.0
+pop2.ogg: "None" by None (https://freesound.org/people/Breviceps/sounds/447910/), CC0 1.0
+riser2.ogg: "None" by None (https://freesound.org/people/syntheffects/sounds/685256/), CC0 1.0
+impact2.ogg: "None" by None (https://freesound.org/people/deleted_user_3277771/sounds/177242/), CC0 1.0
+ding.ogg: "None" by None (https://freesound.org/people/cabled_mess/sounds/349504/), CC0 1.0
+ding2.ogg: "None" by None (https://freesound.org/people/adh.dreaming/sounds/634690/), CC0 1.0
+transition.ogg: "None" by None (https://freesound.org/people/LilMati/sounds/702773/), CC0 1.0
+transition2.ogg: "None" by None (https://freesound.org/people/migoreng1/sounds/786514/), CC0 1.0
+glitch.ogg: "None" by None (https://freesound.org/people/plasterbrain/sounds/402451/), CC0 1.0
+glitch2.ogg: "None" by None (https://freesound.org/people/lucaslima/sounds/339521/), CC0 1.0
+ambience.ogg: "None" by None (https://freesound.org/people/leonelmail/sounds/329533/), CC0 1.0
+ambience2.ogg: "None" by None (https://freesound.org/people/cMilan/sounds/426767/), CC0 1.0
+click2.ogg: "None" by None (https://kenney.nl/assets/interface-sounds), CC0 1.0
+ui-blip.ogg: "None" by None (https://kenney.nl/assets/ui-audio), CC0 1.0
+ui-blip2.ogg: "None" by None (https://kenney.nl/assets/ui-audio), CC0 1.0
+tick2.ogg: "None" by None (https://freesound.org/people/Jummit/sounds/528561/), CC0 1.0

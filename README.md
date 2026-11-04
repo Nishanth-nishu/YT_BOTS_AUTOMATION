@@ -1,0 +1,60 @@
+# REELFORGE
+
+A local-first, autonomous production studio for faceless AI and technology Instagram Reels. Research, script, storyboard, original motion graphics, local voiceover, synced captions, local rendering, QA and export, with zero paid API or cloud rendering spend.
+
+- Video engine: Remotion 4 (React, TypeScript, Three.js) in `video-engine/`
+- Services: Python 3.11, pydantic, SQLite in `services/`
+- Dashboard: React, Vite, Tailwind in `apps/dashboard/` (Phase 7)
+- GPU work: optional Ada cluster offload via `infra/ada/` (RTX 3090 nodes). Everything has a local CPU fallback.
+
+## Quick start
+
+```bash
+cd video-engine
+npm install
+npx remotion studio
+```
+
+Render the Phase 1 smoke test:
+
+```bash
+cd video-engine
+npx remotion render src/index.ts SmokeTest ../output/drafts/smoke-test.mp4 --codec h264 --crf 18 --concurrency 2
+```
+
+Python services:
+
+```bash
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pytest tests
+```
+
+## Documents
+
+- [docs/ENVIRONMENT_REPORT.md](docs/ENVIRONMENT_REPORT.md): verified hardware and software, local and Ada.
+- [SKILLS_REGISTRY.md](SKILLS_REGISTRY.md): every Claude Code skill evaluated, installed or rejected, with security notes.
+- [ARCHITECTURE.md](ARCHITECTURE.md): system design, data model, engine layout, Ada integration.
+- [ROADMAP.md](ROADMAP.md): phases, acceptance criteria and status.
+
+## Layout
+
+```
+apps/            dashboard (React) and backend (FastAPI)
+video-engine/    Remotion project: design tokens, layers, typography, scenes, compositions
+services/        research, scripts, storyboard, tts, captions, rendering, quality, publishing, scheduler
+data/            SQLite database, topic / script / storyboard JSON
+assets/          fonts (OFL), sfx (CC0), music, images
+output/          drafts, approved, rejected, covers, reports, frames (git-ignored media)
+infra/ada/       SLURM templates and sync scripts for the Ada cluster
+tests/           pytest suites
+.claude/skills/  installed third-party skills and REELFORGE's own project skills
+```
+
+## Budget rules
+
+No paid AI, video, image, TTS or stock APIs. No cloud GPU rentals. No paid hosting or databases. Free open-source software, local hardware and the authorised Ada cluster only. Generated videos, model weights and secrets are never committed.
+
+## Publishing
+
+REELFORGE prepares a publication package (MP4, cover, caption, hashtags, checklist) for manual upload. It never posts to Instagram on its own.

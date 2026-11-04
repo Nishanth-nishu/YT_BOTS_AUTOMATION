@@ -1,0 +1,59 @@
+# --- Node ---
+node_modules/
+video-engine/node_modules/
+apps/dashboard/node_modules/
+dist/
+.remotion/
+*.tsbuildinfo
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Generated media (never commit) ---
+output/**/*.mp4
+output/**/*.mov
+output/**/*.wav
+output/**/*.mp3
+output/**/*.png
+output/**/*.jpg
+output/**/*.webm
+assets/audio/**/*.wav
+assets/audio/**/*.mp3
+assets/music/**/*.mp3
+assets/music/**/*.wav
+video-engine/public/audio/
+video-engine/public/voice/
+video-engine/out/
+data/database/*.sqlite*
+data/database/*.db
+*.log
+
+# --- Model weights ---
+models/
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.bin
+
+# --- Secrets / env ---
+.env
+.env.*
+!.env.example
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Scratch ---
+tmp/
+.sound-effects/
+sound-effects-cache/
