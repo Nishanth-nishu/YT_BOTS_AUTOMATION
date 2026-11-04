@@ -46,6 +46,27 @@ Observations:
 
 Visual QA on run 1 found: hook and payoff titles wrapping into 5 to 7 lines and colliding with captions, title/diagram overlap on loop and workflow, strike line on the wrong words, CTA overflow, and caption pages containing bare punctuation tokens that bled across scene boundaries. All fixed in the code (auto-sized `SceneTitle`, inline strike, shared vertical layout, scene-aware caption paging, Kokoro punctuation merging).
 
-## Run 2 (final)
+## Run 2 (final, after fixes)
 
-Filled in below after the final renders.
+| Metric | Local draft 720x1280, concurrency 2 | Ada standard 1080x1920, concurrency 16 (gnode116) |
+|---|---|---|
+| Render time | 80.2 s (21.3 frames/s) | about 230 s of a 240 s job (7.4 frames/s), 117 memory samples at 2 s |
+| Encode | libx264 crf 24 + two-pass loudnorm, 5.2 s | NVENC refused ("unsupported device" on gnode116); raw render fetched and encoded locally with libx264 crf 18 + two-pass loudnorm in 9.8 s |
+| Peak render process tree RSS | 2.08 GB | 9.84 GB (sum of user RSS on the node) |
+| Peak system RAM used | 16.8 GB (min available 20 MB) | n/a |
+| CPU | avg 26.9%, peak 63.6% | n/a |
+| Output | 4.93 MB | 11.50 MB |
+| Loudness | -16.0 LUFS, TP -1.2 dBFS | -16.0 LUFS, TP -1.2 dBFS |
+| Technical QA | 14/14 PASS | 14/14 PASS |
+| Visual QA | 15 frames inspected, no defects | 5 frames + 16-tile contact sheet inspected, no defects |
+
+Deliverables:
+- `output/approved/2026-11-05/agents-benchmark/agents-benchmark.mp4` (final), `cover.png`, `caption.txt`, `hashtags.txt`, `sources.txt`, `checklist.md`.
+- `output/drafts/agents-benchmark.draft.mp4` (local draft).
+- `output/reports/agents-benchmark.{draft,standard}.technical.json`, contact sheets, `agents-benchmark.draft.benchmark.json`.
+
+Conclusions for the resource policy:
+- Local: draft only, concurrency 1 to 2, and only when at least 2.5 GB RAM is free. A full-resolution local render would need about 2.25x the per-frame time (roughly 3 to 4 minutes) and the same RAM.
+- Ada: 16 Chrome tabs are RAM-cheap on a 251 GB node; render time is bound by Chrome paint cost of blur and glow, so the next optimisation target is cheaper backgrounds (pre-rendered mesh image, fewer SVG filters) rather than more tabs.
+- NVENC worked on gnode113 but not on gnode116 in the same session; the job template now falls back to libx264 so a render never fails on the encoder.
+- The pipeline is fully data-driven: storyboard JSON -> voiceover and timing -> ReelSpec -> render. No per-reel code was written after the scene kinds existed.

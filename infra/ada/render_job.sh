@@ -54,11 +54,17 @@ if s < 0: print("loudnorm=I=-16:TP=-1.5:LRA=11"); sys.exit()
 m = json.loads(t[s:e+1])
 print("loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=%s:measured_TP=%s:measured_LRA=%s:measured_thresh=%s:offset=%s:linear=true" % (m["input_i"], m["input_tp"], m["input_lra"], m["input_thresh"], m["target_offset"]))')
 
-# Final encode with NVENC to Instagram-safe settings.
-ffmpeg -y -v error -i "$RAW" \
-  -c:v h264_nvenc -preset p5 -rc vbr -cq 20 -b:v 0 -profile:v high \
-  -pix_fmt yuv420p -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
-  -af "$LN" -c:a aac -b:a 192k -ar 48000 -movflags +faststart "$ROOT/$OUT"
+# Final encode: NVENC first, libx264 fallback (NVENC can report "unsupported
+# device" on a shared node; the CPU path keeps the job from failing).
+COMMON=(-pix_fmt yuv420p -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 -af "$LN" -c:a aac -b:a 192k -ar 48000 -movflags +faststart)
+if ffmpeg -y -v error -i "$RAW" -c:v h264_nvenc -preset p5 -rc vbr -cq 20 -b:v 0 -profile:v high "${COMMON[@]}" "$ROOT/$OUT"; then
+  ENCODER=h264_nvenc
+else
+  echo "NVENC failed, falling back to libx264"
+  ffmpeg -y -v error -i "$RAW" -c:v libx264 -preset medium -crf "$CRF" -profile:v high -threads "$SLURM_CPUS_PER_TASK" "${COMMON[@]}" "$ROOT/$OUT"
+  ENCODER=libx264
+fi
+echo "ENCODER=$ENCODER"
 ENC_END=$(date +%s)
 
 PEAK_MB=$(sort -n "$ROOT/logs/mem_${SLURM_JOB_ID}.txt" | tail -1)

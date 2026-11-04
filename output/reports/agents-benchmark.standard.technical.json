@@ -49,22 +49,22 @@
   {
    "name": "duration_matches_spec",
    "passed": true,
-   "detail": "56.94s vs spec 56.92s"
+   "detail": "57.00s vs spec 56.92s"
   },
   {
    "name": "duration_20_to_60s",
    "passed": true,
-   "detail": "56.94s"
+   "detail": "57.00s"
   },
   {
    "name": "loudness_target",
-   "passed": false,
-   "detail": "-22.5 LUFS (target -16 +/- 4)"
+   "passed": true,
+   "detail": "-16.0 LUFS (target -16 +/- 4)"
   },
   {
    "name": "true_peak",
-   "passed": false,
-   "detail": "0.0 dBFS"
+   "passed": true,
+   "detail": "-1.2 dBFS"
   },
   {
    "name": "no_static_sections",
@@ -74,8 +74,8 @@
  ],
  "probe": {
   "format": "mov,mp4,m4a,3gp,3g2,mj2",
-  "duration": 56.938,
-  "size": 11939702,
+  "duration": 57.0,
+  "size": 11502599,
   "codec": "h264",
   "width": 1080,
   "height": 1920,
@@ -87,10 +87,10 @@
   "channels": 2
  },
  "loudness": {
-  "integrated_lufs": -22.5,
-  "true_peak_dbfs": 0.0,
-  "lra_lu": 5.6
+  "integrated_lufs": -16.0,
+  "true_peak_dbfs": -1.2,
+  "lra_lu": 4.0
  },
  "contact_sheet": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\reports\\agents-benchmark.standard.contact.png",
- "passed": false
+ "passed": true
 }
