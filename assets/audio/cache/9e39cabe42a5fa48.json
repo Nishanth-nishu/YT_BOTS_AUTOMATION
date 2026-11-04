@@ -1,0 +1,141 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "So",
+   "start": 0.275,
+   "end": 0.4125
+  },
+  {
+   "text": "an",
+   "start": 0.4125,
+   "end": 0.5375
+  },
+  {
+   "text": "agent",
+   "start": 0.5375,
+   "end": 1.0
+  },
+  {
+   "text": "is",
+   "start": 1.0,
+   "end": 1.15
+  },
+  {
+   "text": "not",
+   "start": 1.15,
+   "end": 1.3625
+  },
+  {
+   "text": "a",
+   "start": 1.3625,
+   "end": 1.4625
+  },
+  {
+   "text": "smarter",
+   "start": 1.4625,
+   "end": 1.925
+  },
+  {
+   "text": "chatbot",
+   "start": 1.925,
+   "end": 2.7
+  },
+  {
+   "text": ".",
+   "start": 2.7,
+   "end": 2.8
+  },
+  {
+   "text": "It's",
+   "start": 2.8,
+   "end": 2.9875
+  },
+  {
+   "text": "a",
+   "start": 2.9875,
+   "end": 3.075
+  },
+  {
+   "text": "model",
+   "start": 3.075,
+   "end": 3.4375
+  },
+  {
+   "text": "with",
+   "start": 3.4375,
+   "end": 3.6
+  },
+  {
+   "text": "hands",
+   "start": 3.6,
+   "end": 4.0625
+  },
+  {
+   "text": "and",
+   "start": 4.0625,
+   "end": 4.1875
+  },
+  {
+   "text": "a",
+   "start": 4.1875,
+   "end": 4.25
+  },
+  {
+   "text": "memory",
+   "start": 4.25,
+   "end": 5.025
+  },
+  {
+   "text": ".",
+   "start": 5.025,
+   "end": 5.2
+  },
+  {
+   "text": "Follow",
+   "start": 5.2,
+   "end": 5.55
+  },
+  {
+   "text": "for",
+   "start": 5.55,
+   "end": 5.7125
+  },
+  {
+   "text": "AI",
+   "start": 5.7125,
+   "end": 6.225
+  },
+  {
+   "text": "explained",
+   "start": 6.225,
+   "end": 6.85
+  },
+  {
+   "text": "in",
+   "start": 6.85,
+   "end": 7.0
+  },
+  {
+   "text": "under",
+   "start": 7.0,
+   "end": 7.2125
+  },
+  {
+   "text": "a",
+   "start": 7.2125,
+   "end": 7.275
+  },
+  {
+   "text": "minute",
+   "start": 7.275,
+   "end": 7.85
+  },
+  {
+   "text": ".",
+   "start": 7.85,
+   "end": 8.0
+  }
+ ]
+}

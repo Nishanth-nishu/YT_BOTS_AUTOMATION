@@ -1,0 +1,96 @@
+{
+ "file": "output\\drafts\\agents-benchmark.standard.mp4",
+ "checks": [
+  {
+   "name": "valid_mp4",
+   "passed": true,
+   "detail": "mov,mp4,m4a,3gp,3g2,mj2"
+  },
+  {
+   "name": "video_stream",
+   "passed": true,
+   "detail": "h264"
+  },
+  {
+   "name": "h264",
+   "passed": true,
+   "detail": "h264"
+  },
+  {
+   "name": "resolution",
+   "passed": true,
+   "detail": "1080x1920 expected 1080x1920"
+  },
+  {
+   "name": "aspect_9_16",
+   "passed": true,
+   "detail": "0.5625"
+  },
+  {
+   "name": "fps",
+   "passed": true,
+   "detail": "30.00"
+  },
+  {
+   "name": "pix_fmt_yuv420p",
+   "passed": true,
+   "detail": "yuv420p"
+  },
+  {
+   "name": "audio_stream",
+   "passed": true,
+   "detail": "aac"
+  },
+  {
+   "name": "aac",
+   "passed": true,
+   "detail": "aac"
+  },
+  {
+   "name": "duration_matches_spec",
+   "passed": true,
+   "detail": "56.94s vs spec 56.92s"
+  },
+  {
+   "name": "duration_20_to_60s",
+   "passed": true,
+   "detail": "56.94s"
+  },
+  {
+   "name": "loudness_target",
+   "passed": false,
+   "detail": "-22.5 LUFS (target -16 +/- 4)"
+  },
+  {
+   "name": "true_peak",
+   "passed": false,
+   "detail": "0.0 dBFS"
+  },
+  {
+   "name": "no_static_sections",
+   "passed": true,
+   "detail": "none over 2.5s"
+  }
+ ],
+ "probe": {
+  "format": "mov,mp4,m4a,3gp,3g2,mj2",
+  "duration": 56.938,
+  "size": 11939702,
+  "codec": "h264",
+  "width": 1080,
+  "height": 1920,
+  "pix_fmt": "yuv420p",
+  "r_frame_rate": "30/1",
+  "color_range": "tv",
+  "audio_codec": "aac",
+  "sample_rate": "48000",
+  "channels": 2
+ },
+ "loudness": {
+  "integrated_lufs": -22.5,
+  "true_peak_dbfs": 0.0,
+  "lra_lu": 5.6
+ },
+ "contact_sheet": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\reports\\agents-benchmark.standard.contact.png",
+ "passed": false
+}

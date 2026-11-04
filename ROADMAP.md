@@ -28,6 +28,7 @@ Implemented:
 Outstanding from Phase 1:
 - `claude plugin install remotion@remotion` not run (CLI not on PATH in this shell; identical content installed as skills).
 - Local renders output `yuvj420p` by default; the production encoder re-wraps to `yuv420p` limited range.
+- Remotion rejects non-integer scaled sizes (1920 x 2/3 = 1280.064), so the draft profile sets the composition canvas to 720x1280 through `calculateMetadata` and scales the 1080-wide layout inside, instead of using `--scale`.
 
 ## Hardware-driven decisions
 

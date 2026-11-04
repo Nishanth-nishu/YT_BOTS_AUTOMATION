@@ -1,0 +1,159 @@
+{
+  "id": "agents-benchmark",
+  "title": "How AI Agents Actually Work",
+  "style": "cinematic",
+  "voice": {
+    "provider": "kokoro",
+    "voice": "af_heart",
+    "speed": 1.0
+  },
+  "music": {
+    "file": "music/ambient_bed.wav",
+    "volume": 0.22,
+    "bpm": 84
+  },
+  "caption": "Most people think an AI agent is a chatbot with extra steps. It is a loop: reason, call a tool, observe, remember, repeat. Here is the whole trick in under a minute.",
+  "hashtags": [
+    "#aiagents",
+    "#artificialintelligence",
+    "#machinelearning",
+    "#llm",
+    "#techexplained",
+    "#reelforge"
+  ],
+  "sources": [
+    "https://arxiv.org/abs/2210.03629",
+    "https://lilianweng.github.io/posts/2023-06-23-agent/"
+  ],
+  "scenes": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "narration": "Most people think an AI agent is just a chatbot with extra steps. It isn't.",
+      "title": "Not a chatbot with extra steps.",
+      "highlight": [
+        "not",
+        "chatbot"
+      ],
+      "transition": "current",
+      "padAfterMs": 350,
+      "data": {
+        "strike": [
+          "chatbot"
+        ]
+      }
+    },
+    {
+      "id": "loop",
+      "kind": "loop",
+      "narration": "A chatbot answers once. An agent runs a loop: it thinks, it acts, it observes the result, and it thinks again.",
+      "title": "Chatbots answer once. Agents run a loop.",
+      "highlight": [
+        "loop"
+      ],
+      "data": {
+        "nodes": [
+          "Think",
+          "Act",
+          "Observe"
+        ]
+      },
+      "transition": "zoomIn",
+      "padAfterMs": 350
+    },
+    {
+      "id": "reason",
+      "kind": "reasoning",
+      "narration": "First, it reasons. The model breaks your goal into steps and picks the next one. Find the paper. Read the abstract. Summarize it.",
+      "title": "Step one: reason",
+      "highlight": [
+        "reason"
+      ],
+      "data": {
+        "goal": "Summarize the latest paper on agent memory",
+        "steps": [
+          "Find the paper",
+          "Read the abstract",
+          "Summarize it"
+        ]
+      },
+      "transition": "current",
+      "padAfterMs": 350
+    },
+    {
+      "id": "tool",
+      "kind": "toolCall",
+      "narration": "Then it acts by calling a tool. It writes a structured request, like search with a query, and a real program runs it and sends the result back.",
+      "title": "Step two: call a tool",
+      "highlight": [
+        "tool"
+      ],
+      "data": {
+        "tool": "search",
+        "request": {
+          "query": "agent memory arxiv 2026",
+          "limit": 3
+        },
+        "response": {
+          "results": 3,
+          "top": "Memory in LLM agents: a survey"
+        }
+      },
+      "transition": "current",
+      "padAfterMs": 350
+    },
+    {
+      "id": "memory",
+      "kind": "memory",
+      "narration": "Every result goes into memory. A scratchpad for this task, and sometimes a vector store it can search again later.",
+      "title": "Step three: remember",
+      "highlight": [
+        "memory"
+      ],
+      "data": {
+        "scratchpad": [
+          "goal",
+          "plan",
+          "search result",
+          "abstract"
+        ],
+        "vectors": 36
+      },
+      "transition": "up",
+      "padAfterMs": 350
+    },
+    {
+      "id": "workflow",
+      "kind": "workflow",
+      "narration": "Now loop it. Reason, call, observe, remember, until the goal is done. That loop is the whole trick.",
+      "title": "The loop is the whole trick.",
+      "highlight": [
+        "loop"
+      ],
+      "data": {
+        "stages": [
+          "Reason",
+          "Call tool",
+          "Observe",
+          "Remember"
+        ],
+        "goal": "Done"
+      },
+      "transition": "zoomOut",
+      "padAfterMs": 350
+    },
+    {
+      "id": "payoff",
+      "kind": "payoff",
+      "narration": "So an agent is not a smarter chatbot. It's a model with hands and a memory. Follow for AI explained in under a minute.",
+      "title": "A model with hands and a memory.",
+      "highlight": [
+        "hands",
+        "memory"
+      ],
+      "cta": "Follow for AI explained in a minute",
+      "transition": "current",
+      "padAfterMs": 900
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Most",
+   "start": 0.3,
+   "end": 0.6
+  },
+  {
+   "text": "people",
+   "start": 0.6,
+   "end": 0.925
+  },
+  {
+   "text": "think",
+   "start": 0.925,
+   "end": 1.1125
+  },
+  {
+   "text": "an",
+   "start": 1.1125,
+   "end": 1.2375
+  },
+  {
+   "text": "AI",
+   "start": 1.2375,
+   "end": 1.65
+  },
+  {
+   "text": "agent",
+   "start": 1.65,
+   "end": 2.175
+  },
+  {
+   "text": "is",
+   "start": 2.175,
+   "end": 2.35
+  },
+  {
+   "text": "just",
+   "start": 2.35,
+   "end": 2.5625
+  },
+  {
+   "text": "a",
+   "start": 2.5625,
+   "end": 2.6625
+  },
+  {
+   "text": "chatbot",
+   "start": 2.6625,
+   "end": 3.1625
+  },
+  {
+   "text": "with",
+   "start": 3.1625,
+   "end": 3.3375
+  },
+  {
+   "text": "extra",
+   "start": 3.3375,
+   "end": 3.725
+  },
+  {
+   "text": "steps",
+   "start": 3.725,
+   "end": 4.475
+  },
+  {
+   "text": ".",
+   "start": 4.475,
+   "end": 4.6
+  },
+  {
+   "text": "It",
+   "start": 4.6,
+   "end": 4.75
+  },
+  {
+   "text": "isn't",
+   "start": 4.75,
+   "end": 5.4
+  },
+  {
+   "text": ".",
+   "start": 5.4,
+   "end": 5.55
+  }
+ ]
+}

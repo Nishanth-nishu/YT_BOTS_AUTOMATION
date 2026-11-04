@@ -1,0 +1,151 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "First",
+   "start": 0.3,
+   "end": 0.575
+  },
+  {
+   "text": ",",
+   "start": 0.575,
+   "end": 0.6125
+  },
+  {
+   "text": "it",
+   "start": 0.6125,
+   "end": 0.7
+  },
+  {
+   "text": "reasons",
+   "start": 0.7,
+   "end": 1.525
+  },
+  {
+   "text": ".",
+   "start": 1.525,
+   "end": 1.65
+  },
+  {
+   "text": "The",
+   "start": 1.65,
+   "end": 1.75
+  },
+  {
+   "text": "model",
+   "start": 1.75,
+   "end": 2.1
+  },
+  {
+   "text": "breaks",
+   "start": 2.1,
+   "end": 2.3625
+  },
+  {
+   "text": "your",
+   "start": 2.3625,
+   "end": 2.475
+  },
+  {
+   "text": "goal",
+   "start": 2.475,
+   "end": 2.7625
+  },
+  {
+   "text": "into",
+   "start": 2.7625,
+   "end": 3.0125
+  },
+  {
+   "text": "steps",
+   "start": 3.0125,
+   "end": 3.45
+  },
+  {
+   "text": "and",
+   "start": 3.45,
+   "end": 3.575
+  },
+  {
+   "text": "picks",
+   "start": 3.575,
+   "end": 3.8625
+  },
+  {
+   "text": "the",
+   "start": 3.8625,
+   "end": 3.95
+  },
+  {
+   "text": "next",
+   "start": 3.95,
+   "end": 4.2375
+  },
+  {
+   "text": "one",
+   "start": 4.2375,
+   "end": 4.8
+  },
+  {
+   "text": ".",
+   "start": 4.8,
+   "end": 4.95
+  },
+  {
+   "text": "Find",
+   "start": 4.95,
+   "end": 5.2625
+  },
+  {
+   "text": "the",
+   "start": 5.2625,
+   "end": 5.35
+  },
+  {
+   "text": "paper",
+   "start": 5.35,
+   "end": 5.975
+  },
+  {
+   "text": ".",
+   "start": 5.975,
+   "end": 6.1125
+  },
+  {
+   "text": "Read",
+   "start": 6.1125,
+   "end": 6.3625
+  },
+  {
+   "text": "the",
+   "start": 6.3625,
+   "end": 6.475
+  },
+  {
+   "text": "abstract",
+   "start": 6.475,
+   "end": 7.175
+  },
+  {
+   "text": ".",
+   "start": 7.175,
+   "end": 7.2875
+  },
+  {
+   "text": "Summarize",
+   "start": 7.2875,
+   "end": 7.8375
+  },
+  {
+   "text": "it",
+   "start": 7.8375,
+   "end": 8.25
+  },
+  {
+   "text": ".",
+   "start": 8.25,
+   "end": 8.4
+  }
+ ]
+}

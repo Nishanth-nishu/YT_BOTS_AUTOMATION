@@ -1,0 +1,166 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Then",
+   "start": 0.275,
+   "end": 0.3875
+  },
+  {
+   "text": "it",
+   "start": 0.3875,
+   "end": 0.4875
+  },
+  {
+   "text": "acts",
+   "start": 0.4875,
+   "end": 0.85
+  },
+  {
+   "text": "by",
+   "start": 0.85,
+   "end": 1.0375
+  },
+  {
+   "text": "calling",
+   "start": 1.0375,
+   "end": 1.4
+  },
+  {
+   "text": "a",
+   "start": 1.4,
+   "end": 1.5125
+  },
+  {
+   "text": "tool",
+   "start": 1.5125,
+   "end": 2.25
+  },
+  {
+   "text": ".",
+   "start": 2.25,
+   "end": 2.375
+  },
+  {
+   "text": "It",
+   "start": 2.375,
+   "end": 2.55
+  },
+  {
+   "text": "writes",
+   "start": 2.55,
+   "end": 2.7875
+  },
+  {
+   "text": "a",
+   "start": 2.7875,
+   "end": 2.8625
+  },
+  {
+   "text": "structured",
+   "start": 2.8625,
+   "end": 3.3625
+  },
+  {
+   "text": "request",
+   "start": 3.3625,
+   "end": 3.975
+  },
+  {
+   "text": ",",
+   "start": 3.975,
+   "end": 4.05
+  },
+  {
+   "text": "like",
+   "start": 4.05,
+   "end": 4.2875
+  },
+  {
+   "text": "search",
+   "start": 4.2875,
+   "end": 4.5875
+  },
+  {
+   "text": "with",
+   "start": 4.5875,
+   "end": 4.7125
+  },
+  {
+   "text": "a",
+   "start": 4.7125,
+   "end": 4.775
+  },
+  {
+   "text": "query",
+   "start": 4.775,
+   "end": 5.375
+  },
+  {
+   "text": ",",
+   "start": 5.375,
+   "end": 5.475
+  },
+  {
+   "text": "and",
+   "start": 5.475,
+   "end": 5.5875
+  },
+  {
+   "text": "a",
+   "start": 5.5875,
+   "end": 5.6875
+  },
+  {
+   "text": "real",
+   "start": 5.6875,
+   "end": 5.975
+  },
+  {
+   "text": "program",
+   "start": 5.975,
+   "end": 6.425
+  },
+  {
+   "text": "runs",
+   "start": 6.425,
+   "end": 6.75
+  },
+  {
+   "text": "it",
+   "start": 6.75,
+   "end": 6.9875
+  },
+  {
+   "text": "and",
+   "start": 6.9875,
+   "end": 7.15
+  },
+  {
+   "text": "sends",
+   "start": 7.15,
+   "end": 7.4625
+  },
+  {
+   "text": "the",
+   "start": 7.4625,
+   "end": 7.55
+  },
+  {
+   "text": "result",
+   "start": 7.55,
+   "end": 7.975
+  },
+  {
+   "text": "back",
+   "start": 7.975,
+   "end": 8.6
+  },
+  {
+   "text": ".",
+   "start": 8.6,
+   "end": 8.75
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Every",
+   "start": 0.275,
+   "end": 0.575
+  },
+  {
+   "text": "result",
+   "start": 0.575,
+   "end": 1.05
+  },
+  {
+   "text": "goes",
+   "start": 1.05,
+   "end": 1.2875
+  },
+  {
+   "text": "into",
+   "start": 1.2875,
+   "end": 1.525
+  },
+  {
+   "text": "memory",
+   "start": 1.525,
+   "end": 2.325
+  },
+  {
+   "text": ".",
+   "start": 2.325,
+   "end": 2.4875
+  },
+  {
+   "text": "A",
+   "start": 2.4875,
+   "end": 2.6
+  },
+  {
+   "text": "scratchpad",
+   "start": 2.6,
+   "end": 3.225
+  },
+  {
+   "text": "for",
+   "start": 3.225,
+   "end": 3.3375
+  },
+  {
+   "text": "this",
+   "start": 3.3375,
+   "end": 3.525
+  },
+  {
+   "text": "task",
+   "start": 3.525,
+   "end": 4.175
+  },
+  {
+   "text": ",",
+   "start": 4.175,
+   "end": 4.275
+  },
+  {
+   "text": "and",
+   "start": 4.275,
+   "end": 4.4
+  },
+  {
+   "text": "sometimes",
+   "start": 4.4,
+   "end": 4.8875
+  },
+  {
+   "text": "a",
+   "start": 4.8875,
+   "end": 4.9625
+  },
+  {
+   "text": "vector",
+   "start": 4.9625,
+   "end": 5.375
+  },
+  {
+   "text": "store",
+   "start": 5.375,
+   "end": 5.725
+  },
+  {
+   "text": "it",
+   "start": 5.725,
+   "end": 5.825
+  },
+  {
+   "text": "can",
+   "start": 5.825,
+   "end": 6.0125
+  },
+  {
+   "text": "search",
+   "start": 6.0125,
+   "end": 6.2875
+  },
+  {
+   "text": "again",
+   "start": 6.2875,
+   "end": 6.575
+  },
+  {
+   "text": "later",
+   "start": 6.575,
+   "end": 7.225
+  },
+  {
+   "text": ".",
+   "start": 7.225,
+   "end": 7.375
+  }
+ ]
+}
