@@ -1,0 +1,2 @@
+https://arxiv.org/abs/2611.06500
+https://github.com/THU-Agent/Coca-cola

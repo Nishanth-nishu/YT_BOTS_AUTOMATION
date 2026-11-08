@@ -1,0 +1,10 @@
+{
+ "id": "latent-tool-compression",
+ "title": "Stop pasting tool output into the prompt",
+ "video": "latent-tool-compression.mp4",
+ "cover": "cover.png",
+ "duration_s": 58.635,
+ "qa": "PASS",
+ "status": "ready_for_manual_upload",
+ "post_url": null
+}

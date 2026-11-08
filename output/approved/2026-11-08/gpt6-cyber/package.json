@@ -1,0 +1,10 @@
+{
+ "id": "gpt6-cyber",
+ "title": "OpenAI built a model to break software",
+ "video": "gpt6-cyber.mp4",
+ "cover": "cover.png",
+ "duration_s": 59.275,
+ "qa": "PASS",
+ "status": "ready_for_manual_upload",
+ "post_url": null
+}

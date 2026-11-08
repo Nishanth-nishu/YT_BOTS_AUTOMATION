@@ -1,0 +1,5 @@
+DeepSeek open-sourced dsh-superagent: an agent that listens to one GitHub repo, opens its own work items, works in its own session and answers with pull requests. 21k stars in about a week. Research prototype, MIT licensed.
+
+Repo: github.com/deepseek-ai/dsh-superagent-prototype
+
+#deepseek #opensource #aiagents #github #devtools #artificialintelligence

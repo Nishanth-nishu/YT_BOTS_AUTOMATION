@@ -1,0 +1,5 @@
+OpenAI just released GPT-6 Cyber, a model trained to find and prove exploitable bugs and then stay inside the scope researchers set. The numbers from the announcement, in 50 seconds.
+
+Source: openai.com/index/introducing-gpt-6-cyber
+
+#openai #cybersecurity #aiagents #artificialintelligence #infosec #technews

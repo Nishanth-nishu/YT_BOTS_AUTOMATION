@@ -1,0 +1,6 @@
+Your AI agent is drowning in its own tool output. A new Tsinghua paper compresses tool results into latent tokens instead of text: 70 to 89 percent fewer tokens, up to 56 percent faster, and more accurate.
+
+Paper: arxiv.org/abs/2611.06500
+Code: github.com/THU-Agent/Coca-cola
+
+#aiagents #llm #machinelearning #airesearch #artificialintelligence #techexplained
