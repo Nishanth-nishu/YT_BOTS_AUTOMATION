@@ -1,0 +1,23 @@
+{
+  "id": "latent-tool-compression",
+  "topic_id": "tools-need-not-speak-in-text-latent-context-compression-for-agents",
+  "category": "research",
+  "title": "Stop pasting tool output into the prompt",
+  "hooks": [
+    {"text": "Every tool call your agent makes pastes thousands of tokens of noise into its memory. A new paper says: stop.", "curiosity": 5, "clarity": 4, "novelty": 4, "relevance": 5, "accuracy": 5},
+    {"text": "What if an AI agent never read its tool results as text?", "curiosity": 5, "clarity": 4, "novelty": 5, "relevance": 4, "accuracy": 5},
+    {"text": "This trick cut an agent's token bill by up to 89 percent and made it more accurate.", "curiosity": 5, "clarity": 5, "novelty": 4, "relevance": 5, "accuracy": 5}
+  ],
+  "hook_selected": 0,
+  "sources": ["https://arxiv.org/abs/2611.06500", "https://github.com/THU-Agent/Coca-cola"],
+  "source_date": "2026-11-04",
+  "verified_claims": [
+    "Agents usually append raw tool outputs to context; long noisy observations add overhead and dilute attention",
+    "Coca-Cola compresses tool observations into latent tokens embedded in the agent's input embedding space",
+    "Action-Preserving Training aligns next-action distributions under full and compressed observations",
+    "Web-search agents on four QA benchmarks and two model families: token consumption reduced 70.01% to 89.24%, end-to-end runtime reduced 24.45% to 55.97%, task performance consistently improved",
+    "Authors Yuetong Liu et al., Tsinghua University; code released on GitHub"
+  ],
+  "unverified_claims": [],
+  "notes": "Abstract fetched from the arXiv export API on 2026-11-08."
+}

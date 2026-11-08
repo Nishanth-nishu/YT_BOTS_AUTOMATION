@@ -1,0 +1,106 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Across",
+   "start": 0.25,
+   "end": 0.6625
+  },
+  {
+   "text": "four",
+   "start": 0.6625,
+   "end": 0.9625
+  },
+  {
+   "text": "QA",
+   "start": 0.9625,
+   "end": 1.325
+  },
+  {
+   "text": "benchmarks,",
+   "start": 1.325,
+   "end": 2.2
+  },
+  {
+   "text": "token",
+   "start": 2.2,
+   "end": 2.575
+  },
+  {
+   "text": "use",
+   "start": 2.575,
+   "end": 2.875
+  },
+  {
+   "text": "fell",
+   "start": 2.875,
+   "end": 3.125
+  },
+  {
+   "text": "70",
+   "start": 3.125,
+   "end": 3.6
+  },
+  {
+   "text": "to",
+   "start": 3.6,
+   "end": 3.7625
+  },
+  {
+   "text": "89",
+   "start": 3.7625,
+   "end": 4.3
+  },
+  {
+   "text": "percent,",
+   "start": 4.3,
+   "end": 5.125
+  },
+  {
+   "text": "runtime",
+   "start": 5.125,
+   "end": 5.55
+  },
+  {
+   "text": "24",
+   "start": 5.55,
+   "end": 6.125
+  },
+  {
+   "text": "to",
+   "start": 6.125,
+   "end": 6.25
+  },
+  {
+   "text": "56",
+   "start": 6.25,
+   "end": 6.8
+  },
+  {
+   "text": "percent,",
+   "start": 6.8,
+   "end": 7.575
+  },
+  {
+   "text": "and",
+   "start": 7.575,
+   "end": 7.7125
+  },
+  {
+   "text": "accuracy",
+   "start": 7.7125,
+   "end": 8.225
+  },
+  {
+   "text": "went",
+   "start": 8.225,
+   "end": 8.3875
+  },
+  {
+   "text": "up.",
+   "start": 8.3875,
+   "end": 9.0
+  }
+ ]
+}

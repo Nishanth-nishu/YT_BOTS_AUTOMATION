@@ -1,0 +1,24 @@
+{
+  "id": "dsh-superagent",
+  "topic_id": "deepseek-ai-dsh-superagent-prototype",
+  "category": "repos",
+  "title": "DeepSeek open-sourced an agent that runs your repo",
+  "hooks": [
+    {"text": "DeepSeek just open-sourced an agent that runs your GitHub repo on its own. 21 thousand stars in about a week.", "curiosity": 5, "clarity": 5, "novelty": 5, "relevance": 5, "accuracy": 5},
+    {"text": "What if your repo had a teammate that only spoke when you had to decide something?", "curiosity": 4, "clarity": 4, "novelty": 4, "relevance": 4, "accuracy": 5},
+    {"text": "This agent opens its own work items and answers with pull requests.", "curiosity": 4, "clarity": 5, "novelty": 4, "relevance": 5, "accuracy": 5}
+  ],
+  "hook_selected": 0,
+  "sources": ["https://github.com/deepseek-ai/dsh-superagent-prototype"],
+  "source_date": "2026-10-31",
+  "verified_claims": [
+    "Repo deepseek-ai/dsh-superagent-prototype created 2026-10-31, MIT license, 21,004 stars on 2026-11-08",
+    "README: research prototype for reference only, not an official DeepSeek product",
+    "Proactive coding agent for one GitHub repository, packaged as a bundle for DeepSeek Harness; listens to GitHub and optionally Feishu",
+    "When someone allowed asks for work it opens a work item, works in its own agent session and directory, and answers in the original conversation, for example with a pull request; a web panel shows what needs a person",
+    "Principle: take as little human attention as possible, give as much value as possible; acts only when asked or when a team-written rule allows, speaks only when someone must act or can use a result",
+    "Setup is driven by a coding agent reading SETUP.md, one short question at a time; pnpm check runs typecheck, tests and build"
+  ],
+  "unverified_claims": [],
+  "notes": "Metadata and README fetched with gh api on 2026-11-08."
+}

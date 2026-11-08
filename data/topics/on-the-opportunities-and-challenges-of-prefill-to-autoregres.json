@@ -1,0 +1,33 @@
+{
+ "id": "on-the-opportunities-and-challenges-of-prefill-to-autoregres",
+ "name": "On the Opportunities and Challenges of Prefill-to-Autoregressive Cross-Model Transfer",
+ "category": "research",
+ "description": "Prefill-to-Autoregressive Cross-model Transfer (PACT), a form of latent communication between language models, combines a larger model's prompt representations with a smaller model's efficient generation, offering a promising way to balance capability and inference cost. However, existing systems provide limited support for independently evaluating large-small model collaboration, and improved task performance alone does not establish whether the receiver benefits from the sender's information. We introduce PLatour, an open-source PACT framework that connects frozen models through lightweight,",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.06976",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 15,
+    "arxiv": "https://arxiv.org/abs/2611.06976"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.06976"
+  }
+ ],
+ "published_at": "2026-11-04T08:33:47+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 72.0,
+  "audience": 65.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 63.3,
+  "shareability": 66.2
+ },
+ "score_total": 79.0,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.513460+00:00"
+}

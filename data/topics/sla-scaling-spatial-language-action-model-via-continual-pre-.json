@@ -1,0 +1,33 @@
+{
+ "id": "sla-scaling-spatial-language-action-model-via-continual-pre-",
+ "name": "SLA: Scaling Spatial-Language-Action Model via Continual Pre-training",
+ "category": "research",
+ "description": "Reliable robotic manipulation requires both semantic understanding and precise control in three-dimensional space. However, vision-language-action (VLA) foundations largely inherit visual representations from 2D vision-language pre-training, while spatial supervision is often introduced only during task-specific adaptation. Developing spatial understanding as a transferable foundation-model capability therefore calls for learning from broader robot experience. We present SLA, a Spatial-Language-Action Model that scales implicit spatial alignment to continual pre-training and maintains it durin",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.08373",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 83,
+    "arxiv": "https://arxiv.org/abs/2611.08373"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.08373"
+  }
+ ],
+ "published_at": "2026-11-04T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 80.3,
+  "audience": 73.6,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 67.2,
+  "shareability": 71.9
+ },
+ "score_total": 83.7,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.514461+00:00"
+}

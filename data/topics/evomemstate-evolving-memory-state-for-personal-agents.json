@@ -1,0 +1,33 @@
+{
+ "id": "evomemstate-evolving-memory-state-for-personal-agents",
+ "name": "EvoMemState: Evolving Memory State for Personal Agents",
+ "category": "research",
+ "description": "Long-term memory enables large language model (LLM) agents to provide continuous personalized assistance by retaining user information across interactions. Existing systems support this process through fact extraction, organization, updating, and retrieval, but largely maintain memories as independent facts. This fact-centric paradigm may overlook how new facts update, constrain, or conflict with earlier ones, while leaving their applicability, role, and priority for the current request implicit. In this paper, we introduce EvoMemState, a state-centric framework that augments persistent facts ",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.03743",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 32,
+    "arxiv": "https://arxiv.org/abs/2611.03743"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.03743"
+  }
+ ],
+ "published_at": "2026-11-01T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 64.1,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 40.2,
+  "shareability": 74.8
+ },
+ "score_total": 76.5,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.514461+00:00"
+}

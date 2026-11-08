@@ -1,0 +1,116 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.225,
+   "end": 0.3375
+  },
+  {
+   "text": "fix,",
+   "start": 0.3375,
+   "end": 0.8
+  },
+  {
+   "text": "called",
+   "start": 0.8,
+   "end": 1.1
+  },
+  {
+   "text": "Coca-Cola,",
+   "start": 1.1,
+   "end": 2.075
+  },
+  {
+   "text": "compresses",
+   "start": 2.075,
+   "end": 2.6375
+  },
+  {
+   "text": "each",
+   "start": 2.6375,
+   "end": 2.9375
+  },
+  {
+   "text": "tool",
+   "start": 2.9375,
+   "end": 3.225
+  },
+  {
+   "text": "output",
+   "start": 3.225,
+   "end": 3.6375
+  },
+  {
+   "text": "into",
+   "start": 3.6375,
+   "end": 3.8375
+  },
+  {
+   "text": "a",
+   "start": 3.8375,
+   "end": 3.9
+  },
+  {
+   "text": "few",
+   "start": 3.9,
+   "end": 4.125
+  },
+  {
+   "text": "latent",
+   "start": 4.125,
+   "end": 4.4
+  },
+  {
+   "text": "tokens:",
+   "start": 4.4,
+   "end": 5.525
+  },
+  {
+   "text": "vectors",
+   "start": 5.525,
+   "end": 6.0375
+  },
+  {
+   "text": "in",
+   "start": 6.0375,
+   "end": 6.1125
+  },
+  {
+   "text": "the",
+   "start": 6.1125,
+   "end": 6.2
+  },
+  {
+   "text": "model's",
+   "start": 6.2,
+   "end": 6.625
+  },
+  {
+   "text": "embedding",
+   "start": 6.625,
+   "end": 7.1125
+  },
+  {
+   "text": "space",
+   "start": 7.1125,
+   "end": 7.6625
+  },
+  {
+   "text": "instead",
+   "start": 7.6625,
+   "end": 8.0125
+  },
+  {
+   "text": "of",
+   "start": 8.0125,
+   "end": 8.1
+  },
+  {
+   "text": "words.",
+   "start": 8.1,
+   "end": 8.875
+  }
+ ]
+}

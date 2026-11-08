@@ -1,0 +1,161 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.25,
+   "end": 0.325
+  },
+  {
+   "text": "design",
+   "start": 0.325,
+   "end": 0.8125
+  },
+  {
+   "text": "rule",
+   "start": 0.8125,
+   "end": 1.2
+  },
+  {
+   "text": "is",
+   "start": 1.2,
+   "end": 1.325
+  },
+  {
+   "text": "attention.",
+   "start": 1.325,
+   "end": 2.25
+  },
+  {
+   "text": "It",
+   "start": 2.25,
+   "end": 2.4
+  },
+  {
+   "text": "acts",
+   "start": 2.4,
+   "end": 2.675
+  },
+  {
+   "text": "only",
+   "start": 2.675,
+   "end": 2.9625
+  },
+  {
+   "text": "when",
+   "start": 2.9625,
+   "end": 3.1375
+  },
+  {
+   "text": "asked,",
+   "start": 3.1375,
+   "end": 3.775
+  },
+  {
+   "text": "or",
+   "start": 3.775,
+   "end": 3.9375
+  },
+  {
+   "text": "when",
+   "start": 3.9375,
+   "end": 4.0625
+  },
+  {
+   "text": "a",
+   "start": 4.0625,
+   "end": 4.1625
+  },
+  {
+   "text": "rule",
+   "start": 4.1625,
+   "end": 4.5
+  },
+  {
+   "text": "the",
+   "start": 4.5,
+   "end": 4.6375
+  },
+  {
+   "text": "team",
+   "start": 4.6375,
+   "end": 4.95
+  },
+  {
+   "text": "wrote",
+   "start": 4.95,
+   "end": 5.175
+  },
+  {
+   "text": "allows",
+   "start": 5.175,
+   "end": 5.5625
+  },
+  {
+   "text": "it.",
+   "start": 5.5625,
+   "end": 6.175
+  },
+  {
+   "text": "And",
+   "start": 6.175,
+   "end": 6.3125
+  },
+  {
+   "text": "it",
+   "start": 6.3125,
+   "end": 6.4
+  },
+  {
+   "text": "speaks",
+   "start": 6.4,
+   "end": 6.8375
+  },
+  {
+   "text": "only",
+   "start": 6.8375,
+   "end": 7.15
+  },
+  {
+   "text": "when",
+   "start": 7.15,
+   "end": 7.3625
+  },
+  {
+   "text": "someone",
+   "start": 7.3625,
+   "end": 7.65
+  },
+  {
+   "text": "must",
+   "start": 7.65,
+   "end": 7.9
+  },
+  {
+   "text": "act.",
+   "start": 7.9,
+   "end": 8.775
+  },
+  {
+   "text": "Minimum",
+   "start": 8.775,
+   "end": 9.175
+  },
+  {
+   "text": "attention,",
+   "start": 9.175,
+   "end": 9.9875
+  },
+  {
+   "text": "maximum",
+   "start": 9.9875,
+   "end": 10.55
+  },
+  {
+   "text": "value.",
+   "start": 10.55,
+   "end": 11.425
+  }
+ ]
+}

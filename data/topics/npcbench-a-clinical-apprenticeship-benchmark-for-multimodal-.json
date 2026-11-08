@@ -1,0 +1,40 @@
+{
+ "id": "npcbench-a-clinical-apprenticeship-benchmark-for-multimodal-",
+ "name": "NPCBench: A Clinical Apprenticeship Benchmark for Multimodal Care-Pathway Reasoning in Nasopharyngeal Carcinoma",
+ "category": "research",
+ "description": "Current medical benchmarks typically break down clinical competence into isolated factual questions, single-image tasks, or static case vignettes. These tests score individual answers, but reveal less about whether a model can integrate subspecialty knowledge with multimodal evidence and track a patient's condition throughout a course of care. To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). NPCBench mirrors specialist training, from guideline and foundational knowledge to case planning, longitudinal review, CarePath integration,",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08369v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.AI"
+   }
+  },
+  {
+   "url": "https://huggingface.co/papers/2611.08369",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 3,
+    "arxiv": "https://arxiv.org/abs/2611.08369"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.08369"
+  }
+ ],
+ "published_at": "2026-11-05T17:48:55+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.5,
+  "audience": 57.5,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 75.8,
+  "shareability": 36.8
+ },
+ "score_total": 79.1,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.511461+00:00"
+}

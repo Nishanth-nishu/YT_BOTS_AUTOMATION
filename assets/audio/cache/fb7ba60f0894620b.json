@@ -1,0 +1,126 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.25,
+   "end": 0.325
+  },
+  {
+   "text": "problem:",
+   "start": 0.325,
+   "end": 1.2
+  },
+  {
+   "text": "long,",
+   "start": 1.2,
+   "end": 1.7375
+  },
+  {
+   "text": "noisy",
+   "start": 1.7375,
+   "end": 2.15
+  },
+  {
+   "text": "observations",
+   "start": 2.15,
+   "end": 3.0125
+  },
+  {
+   "text": "eat",
+   "start": 3.0125,
+   "end": 3.1875
+  },
+  {
+   "text": "the",
+   "start": 3.1875,
+   "end": 3.275
+  },
+  {
+   "text": "context",
+   "start": 3.275,
+   "end": 3.875
+  },
+  {
+   "text": "window",
+   "start": 3.875,
+   "end": 4.45
+  },
+  {
+   "text": "and",
+   "start": 4.45,
+   "end": 4.6
+  },
+  {
+   "text": "dilute",
+   "start": 4.6,
+   "end": 4.95
+  },
+  {
+   "text": "the",
+   "start": 4.95,
+   "end": 5.05
+  },
+  {
+   "text": "model's",
+   "start": 5.05,
+   "end": 5.425
+  },
+  {
+   "text": "attention.",
+   "start": 5.425,
+   "end": 6.55
+  },
+  {
+   "text": "Summaries",
+   "start": 6.55,
+   "end": 7.075
+  },
+  {
+   "text": "help,",
+   "start": 7.075,
+   "end": 7.65
+  },
+  {
+   "text": "but",
+   "start": 7.65,
+   "end": 7.8125
+  },
+  {
+   "text": "text",
+   "start": 7.8125,
+   "end": 8.175
+  },
+  {
+   "text": "can",
+   "start": 8.175,
+   "end": 8.325
+  },
+  {
+   "text": "only",
+   "start": 8.325,
+   "end": 8.625
+  },
+  {
+   "text": "be",
+   "start": 8.625,
+   "end": 8.7875
+  },
+  {
+   "text": "squeezed",
+   "start": 8.7875,
+   "end": 9.275
+  },
+  {
+   "text": "so",
+   "start": 9.275,
+   "end": 9.4625
+  },
+  {
+   "text": "far.",
+   "start": 9.4625,
+   "end": 10.2
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "id": "social-humanoid-socially-responsive-human-humanoid-interacti",
+ "name": "Social Humanoid: Socially Responsive Human-Humanoid Interaction",
+ "category": "research",
+ "description": "Humanoid robots are typically trained as solitary agents, leaving them unable to coordinate physically with human partners who naturally anticipate and adjust to one another. To bridge this gap, we present Social Humanoid, a hierarchical system that generates and executes socially responsive whole-body motion on a 29-DoF Unitree G1 conditioned on a human partner's motion. Its high-level policy performs flexible sequence modeling of human and humanoid motion through a shared tokenized representation, generating reactive humanoid motion and anticipating the partner's motion when they are occlude",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08407v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.RO"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T18:14:06+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.6,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 55,
+  "timeliness": 75.9,
+  "shareability": 40.5
+ },
+ "score_total": 75.3,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.510460+00:00"
+}

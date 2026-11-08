@@ -1,0 +1,31 @@
+{
+ "id": "discovering-learning-rules-that-shape-others",
+ "name": "Discovering Learning Rules that Shape Others",
+ "category": "research",
+ "description": "In general-sum games, self-interested learners can reach outcomes that are poor for everyone, which has motivated methods that shape the opponent's learning. Methods like Learning with Opponent-Learning Awareness (LOLA), which differentiates through the opponent's learning process, and Model-Free Opponent Shaping (M-FOS), which uses model-free optimisation methods for long-horizon opponent shaping, have enabled mutual cooperation and exploitation of learners. However, these methods require access to the opponent's parameters, policy, rewards or learning rule during deployment. In single-agent ",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08335v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.LG"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T17:23:34+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.4,
+  "audience": 100.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 75.6,
+  "shareability": 50.2
+ },
+ "score_total": 88.9,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.512460+00:00"
+}

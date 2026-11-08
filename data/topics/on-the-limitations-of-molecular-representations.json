@@ -1,0 +1,31 @@
+{
+ "id": "on-the-limitations-of-molecular-representations",
+ "name": "On the limitations of molecular representations",
+ "category": "research",
+ "description": "Molecular representations such as fingerprints and learned embeddings play a central role in cheminformatics and small-molecule machine learning. They serve as the primary input for a diverse array of tasks, including clustering, dataset splitting, and virtual screening, yet their evaluation is often limited to downstream model performance on narrow benchmark tasks. We carried out a systematic investigation of the quality of molecular representations, finding that none of the state-of-the-art molecular embedding models capture graph structure, 3D shape, or ADMET endpoint similarity better than",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08420v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.LG"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T18:19:19+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.6,
+  "audience": 57.5,
+  "visual": 100.0,
+  "educational": 55,
+  "timeliness": 76.0,
+  "shareability": 36.8
+ },
+ "score_total": 72.4,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.510460+00:00"
+}

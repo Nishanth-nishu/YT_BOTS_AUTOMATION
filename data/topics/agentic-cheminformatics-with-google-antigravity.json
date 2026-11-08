@@ -1,0 +1,29 @@
+{
+ "id": "agentic-cheminformatics-with-google-antigravity",
+ "name": "Agentic cheminformatics with Google Antigravity",
+ "category": "news",
+ "description": "Learn how Google Antigravity and our Cheminformatics Skills accelerate drug discovery workflows, search compounds, and propose novel rigidified macrocycles.",
+ "sources": [
+  {
+   "url": "https://deepmind.google/blog/agentic-cheminformatics-with-google-antigravity/",
+   "source": "rss:deepmind",
+   "signals": {}
+  }
+ ],
+ "published_at": null,
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 71.0,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 75.0,
+  "timeliness": 55.0,
+  "shareability": 40.5
+ },
+ "score_total": 72.5,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.517892+00:00"
+}

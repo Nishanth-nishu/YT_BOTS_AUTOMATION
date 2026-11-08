@@ -1,0 +1,19 @@
+{
+ "machine": "local",
+ "composition": "Reel",
+ "profile": "draft",
+ "concurrency": 2,
+ "frames": 1778,
+ "render_seconds": 105.0,
+ "encode_seconds": 6.3,
+ "frames_per_second_rendered": 16.94,
+ "output": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\drafts\\gpt6-cyber.draft.mp4",
+ "output_bytes": 4913548,
+ "gpu": "none (Intel UHD 770, no NVENC)",
+ "peak_tree_rss_mb": 2031,
+ "peak_sys_used_mb": 16474,
+ "min_sys_avail_mb": 359,
+ "avg_cpu_percent": 20.1,
+ "peak_cpu_percent": 35.3,
+ "samples": 103
+}

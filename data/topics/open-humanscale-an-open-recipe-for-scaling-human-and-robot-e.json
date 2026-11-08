@@ -1,0 +1,33 @@
+{
+ "id": "open-humanscale-an-open-recipe-for-scaling-human-and-robot-e",
+ "name": "Open-HumanScale: An Open Recipe for Scaling Human and Robot Experience for Embodied Foundation Models",
+ "category": "research",
+ "description": "Egocentric human video offers a scalable source of manipulation priors for robot learning, yet translating raw data scale into generalizable robot policies demands rigorous data curation and training recipes. We introduce Open-HumanScale, the first fully open recipe for scaling egocentric pretraining to 50,000 hours, anchored by Open-HumanScale-50K---a curated egocentric video corpus densely annotated with hand motion and natural language. Leveraging this corpus, we systematically investigate pure human pretraining via closed-loop simulation evaluations and uncover an empirical log-linear scal",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.06817",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 31,
+    "arxiv": "https://arxiv.org/abs/2611.06817"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.06817"
+  }
+ ],
+ "published_at": "2026-11-03T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 74.9,
+  "audience": 62.8,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 58.2,
+  "shareability": 62.5
+ },
+ "score_total": 76.9,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.515461+00:00"
+}

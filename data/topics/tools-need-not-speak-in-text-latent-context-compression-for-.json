@@ -1,0 +1,33 @@
+{
+ "id": "tools-need-not-speak-in-text-latent-context-compression-for-",
+ "name": "Tools Need Not Speak in Text: Latent Context Compression for Agents",
+ "category": "research",
+ "description": "Large language model (LLM) agents typically append raw tool outputs to their context. Over multi-step interactions, long and noisy observations incur substantial context overhead and dilute the agent's attention to task-relevant information. Existing token pruning and summarization methods remain constrained by discrete text representations, limiting the achievable compression ratios. In this work, we challenge the prevailing assumption that agents must consume tool observations as explicit text tokens. To this end, we propose Coca-Cola, a continuous latent context compression model for LLM ag",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.06500",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 5,
+    "arxiv": "https://arxiv.org/abs/2611.06500"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.06500"
+  }
+ ],
+ "published_at": "2026-11-03T19:00:00+00:00",
+ "notes": "produced as reel latent-tool-compression on 2026-11-08",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 74.9,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 82.5,
+  "timeliness": 58.2,
+  "shareability": 58.1
+ },
+ "score_total": 76.7,
+ "status": "used",
+ "used_at": "2026-11-08T10:30:38.231481+00:00",
+ "discovered_at": "2026-11-08T10:24:35.512460+00:00"
+}

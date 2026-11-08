@@ -1,0 +1,29 @@
+{
+ "id": "introducing-images-2-6",
+ "name": "Introducing Images 2.6",
+ "category": "news",
+ "description": "Images 2.6 brings faster image generation, GIF creation, more precise editing, and new API controls across ChatGPT, Codex, and the API.",
+ "sources": [
+  {
+   "url": "https://openai.com/index/introducing-images-2-6",
+   "source": "rss:openai",
+   "signals": {}
+  }
+ ],
+ "published_at": null,
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 71.0,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 75.0,
+  "timeliness": 55.0,
+  "shareability": 40.5
+ },
+ "score_total": 72.5,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.517892+00:00"
+}

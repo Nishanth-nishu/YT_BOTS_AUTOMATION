@@ -1,0 +1,23 @@
+{
+  "id": "gpt6-cyber",
+  "topic_id": "gpt-6-cyber-advancing-the-frontier-of-aligned-cybersecurity-agents",
+  "category": "news",
+  "title": "OpenAI built a model to break software",
+  "hooks": [
+    {"text": "OpenAI just built a model whose job is to break software. On purpose.", "curiosity": 5, "clarity": 5, "novelty": 4, "relevance": 5, "accuracy": 5},
+    {"text": "948 working Linux kernel exploits. Written by one model.", "curiosity": 5, "clarity": 4, "novelty": 5, "relevance": 4, "accuracy": 5},
+    {"text": "OpenAI rated its own new model Critical for cyber risk. Here is why.", "curiosity": 4, "clarity": 4, "novelty": 4, "relevance": 4, "accuracy": 5}
+  ],
+  "hook_selected": 0,
+  "sources": ["https://openai.com/index/introducing-gpt-6-cyber"],
+  "source_date": "2026-11-05",
+  "verified_claims": [
+    "GPT-6 Cyber finds and validates exploitable vulnerabilities and helps develop fixes, trained to stay within authorized scope",
+    "ExploitGym: 48.5% vs 32.1% for GPT-5.6 Cyber",
+    "Honeypot out-of-scope avoidance: 99.93% without deployment prompt (94.49% previous), 100% with it",
+    "81 novel high-severity Firefox vulnerabilities; 948 working Linux kernel exploits vs 166 for GPT-5.6 Sol (1,724 reproduced)",
+    "Classified Critical in cybersecurity under the Preparedness Framework; access via Daybreak Red (authorized testing) and Daybreak Blue (verified defenders)"
+  ],
+  "unverified_claims": [],
+  "notes": "Numbers quoted exactly as on the OpenAI page dated 2026-11-05. Page read via the in-app browser (automated fetchers get 403)."
+}

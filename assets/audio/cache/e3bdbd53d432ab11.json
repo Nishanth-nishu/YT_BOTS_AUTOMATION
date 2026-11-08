@@ -1,0 +1,131 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "MIT",
+   "start": 0.275,
+   "end": 0.875
+  },
+  {
+   "text": "licensed,",
+   "start": 0.875,
+   "end": 1.675
+  },
+  {
+   "text": "built",
+   "start": 1.675,
+   "end": 1.95
+  },
+  {
+   "text": "for",
+   "start": 1.95,
+   "end": 2.0625
+  },
+  {
+   "text": "the",
+   "start": 2.0625,
+   "end": 2.1875
+  },
+  {
+   "text": "DeepSeek",
+   "start": 2.1875,
+   "end": 2.65
+  },
+  {
+   "text": "Harness,",
+   "start": 2.65,
+   "end": 3.375
+  },
+  {
+   "text": "and",
+   "start": 3.375,
+   "end": 3.5
+  },
+  {
+   "text": "labelled",
+   "start": 3.5,
+   "end": 3.85
+  },
+  {
+   "text": "a",
+   "start": 3.85,
+   "end": 3.9625
+  },
+  {
+   "text": "research",
+   "start": 3.9625,
+   "end": 4.375
+  },
+  {
+   "text": "prototype,",
+   "start": 4.375,
+   "end": 5.1
+  },
+  {
+   "text": "not",
+   "start": 5.1,
+   "end": 5.2625
+  },
+  {
+   "text": "a",
+   "start": 5.2625,
+   "end": 5.325
+  },
+  {
+   "text": "product.",
+   "start": 5.325,
+   "end": 6.2875
+  },
+  {
+   "text": "Try",
+   "start": 6.2875,
+   "end": 6.575
+  },
+  {
+   "text": "it",
+   "start": 6.575,
+   "end": 6.6625
+  },
+  {
+   "text": "on",
+   "start": 6.6625,
+   "end": 6.7625
+  },
+  {
+   "text": "a",
+   "start": 6.7625,
+   "end": 6.825
+  },
+  {
+   "text": "repo",
+   "start": 6.825,
+   "end": 7.275
+  },
+  {
+   "text": "you",
+   "start": 7.275,
+   "end": 7.375
+  },
+  {
+   "text": "can",
+   "start": 7.375,
+   "end": 7.5
+  },
+  {
+   "text": "afford",
+   "start": 7.5,
+   "end": 7.85
+  },
+  {
+   "text": "to",
+   "start": 7.85,
+   "end": 7.95
+  },
+  {
+   "text": "break.",
+   "start": 7.95,
+   "end": 8.675
+  }
+ ]
+}

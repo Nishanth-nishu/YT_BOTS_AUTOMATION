@@ -1,0 +1,33 @@
+{
+ "id": "from-autonomous-agents-to-cognitive-symbionts-toward-ai-augm",
+ "name": "From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence",
+ "category": "research",
+ "description": "For a decade, progress in artificial intelligence has been measured by how much a machine can do on its own. Large foundation models now write code and run multistep tasks, and personal agents act on a person's behalf. Yet people still forget what they once knew, miss what they are not looking at, fail to find the right words, and face hard choices without the benefit of their own history, because the machine that could help stands outside the situation. As AI moves into the physical world, attention has settled on one kind of intelligent individual, the embodied robot; we argue that the era o",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.05376",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 87,
+    "arxiv": "https://arxiv.org/abs/2611.05376"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.05376"
+  }
+ ],
+ "published_at": "2026-11-03T13:59:52+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 73.8,
+  "audience": 74.1,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 56.3,
+  "shareability": 84.4
+ },
+ "score_total": 80.8,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.514461+00:00"
+}

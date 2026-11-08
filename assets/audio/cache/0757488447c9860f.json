@@ -1,0 +1,106 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Every",
+   "start": 0.25,
+   "end": 0.5375
+  },
+  {
+   "text": "tool",
+   "start": 0.5375,
+   "end": 0.825
+  },
+  {
+   "text": "call",
+   "start": 0.825,
+   "end": 1.0125
+  },
+  {
+   "text": "your",
+   "start": 1.0125,
+   "end": 1.125
+  },
+  {
+   "text": "agent",
+   "start": 1.125,
+   "end": 1.525
+  },
+  {
+   "text": "makes",
+   "start": 1.525,
+   "end": 1.8
+  },
+  {
+   "text": "pastes",
+   "start": 1.8,
+   "end": 2.2375
+  },
+  {
+   "text": "thousands",
+   "start": 2.2375,
+   "end": 2.6875
+  },
+  {
+   "text": "of",
+   "start": 2.6875,
+   "end": 2.775
+  },
+  {
+   "text": "tokens",
+   "start": 2.775,
+   "end": 3.1625
+  },
+  {
+   "text": "of",
+   "start": 3.1625,
+   "end": 3.25
+  },
+  {
+   "text": "noise",
+   "start": 3.25,
+   "end": 3.6125
+  },
+  {
+   "text": "into",
+   "start": 3.6125,
+   "end": 3.8375
+  },
+  {
+   "text": "its",
+   "start": 3.8375,
+   "end": 3.95
+  },
+  {
+   "text": "memory.",
+   "start": 3.95,
+   "end": 4.8625
+  },
+  {
+   "text": "A",
+   "start": 4.8625,
+   "end": 4.975
+  },
+  {
+   "text": "new",
+   "start": 4.975,
+   "end": 5.15
+  },
+  {
+   "text": "paper",
+   "start": 5.15,
+   "end": 5.525
+  },
+  {
+   "text": "says:",
+   "start": 5.525,
+   "end": 6.175
+  },
+  {
+   "text": "stop.",
+   "start": 6.175,
+   "end": 6.925
+  }
+ ]
+}

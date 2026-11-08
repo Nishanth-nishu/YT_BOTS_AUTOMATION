@@ -1,0 +1,155 @@
+{
+  "id": "gpt6-cyber",
+  "title": "OpenAI built a model to break software",
+  "style": "cinematic",
+  "voice": {
+    "provider": "kokoro",
+    "voice": "af_heart",
+    "speed": 1.06
+  },
+  "music": {
+    "file": "music/ambient_bed.wav",
+    "volume": 0.22,
+    "bpm": 84
+  },
+  "caption": "OpenAI just released GPT-6 Cyber, a model trained to find and prove exploitable bugs and then stay inside the scope researchers set. The numbers from the announcement, in 50 seconds.\n\nSource: openai.com/index/introducing-gpt-6-cyber",
+  "hashtags": [
+    "#openai",
+    "#cybersecurity",
+    "#aiagents",
+    "#artificialintelligence",
+    "#infosec",
+    "#technews"
+  ],
+  "sources": [
+    "https://openai.com/index/introducing-gpt-6-cyber"
+  ],
+  "scenes": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "narration": "OpenAI just built a model whose job is to break software. On purpose.",
+      "title": "A model built to break software.",
+      "highlight": [
+        "break"
+      ],
+      "transition": "current",
+      "padAfterMs": 260,
+      "data": {
+        "kicker": "AI NEWS / 8 NOV 2026"
+      }
+    },
+    {
+      "id": "what",
+      "kind": "concept",
+      "narration": "It is called GPT-6 Cyber. It finds exploitable bugs, proves the exploit works, proposes a fix, and stays inside the scope researchers set.",
+      "title": "GPT-6 Cyber, in one breath",
+      "highlight": [
+        "Cyber"
+      ],
+      "lines": [
+        "Finds exploitable vulnerabilities",
+        "Proves the exploit actually works",
+        "Proposes a patch",
+        "Stays inside the authorized scope"
+      ],
+      "data": {
+        "kicker": "WHAT IT IS"
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "exploitgym",
+      "kind": "chart",
+      "narration": "On ExploitGym it exploits a given vulnerability 48.5 percent of the time, up from 32.1 for the previous model.",
+      "title": "Exploit success rate",
+      "highlight": [
+        "success"
+      ],
+      "data": {
+        "kicker": "EXPLOITGYM BENCHMARK",
+        "type": "bar",
+        "unit": "%",
+        "decimals": 1,
+        "series": [
+          {
+            "label": "GPT-5.6 Cyber",
+            "value": 32.1
+          },
+          {
+            "label": "GPT-6 Cyber",
+            "value": 48.5,
+            "hero": true
+          }
+        ],
+        "note": "Source: OpenAI, 5 Nov 2026"
+      },
+      "transition": "zoomIn",
+      "padAfterMs": 260
+    },
+    {
+      "id": "realworld",
+      "kind": "concept",
+      "narration": "On real code it found 81 new high-severity Firefox bugs and wrote 948 working Linux kernel exploits, five times the previous model.",
+      "title": "Real bugs, real fixes",
+      "highlight": [
+        "Real"
+      ],
+      "lines": [
+        "81 new high-severity Firefox bugs",
+        "948 working Linux kernel exploits",
+        "Five times the previous model"
+      ],
+      "data": {
+        "kicker": "IN THE WILD"
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "scope",
+      "kind": "chart",
+      "narration": "The scary part is scope. In a honeypot test it ignored out-of-scope targets 99.93 percent of the time with no safety prompt, and 100 percent with one.",
+      "title": "Stays in scope, no safety prompt",
+      "highlight": [
+        "scope"
+      ],
+      "data": {
+        "kicker": "HONEYPOT TEST",
+        "type": "bar",
+        "unit": "%",
+        "decimals": 2,
+        "series": [
+          {
+            "label": "GPT-5.6 Cyber",
+            "value": 94.49
+          },
+          {
+            "label": "GPT-6 Cyber",
+            "value": 99.93,
+            "hero": true
+          }
+        ],
+        "note": "100% with the deployment prompt"
+      },
+      "transition": "up",
+      "padAfterMs": 260
+    },
+    {
+      "id": "payoff",
+      "kind": "payoff",
+      "narration": "OpenAI rates it Critical for cyber risk, so access runs through its Daybreak program for verified defenders. Offense is now a benchmark. Defense has to keep up.",
+      "title": "Offense is now a benchmark.",
+      "highlight": [
+        "Offense"
+      ],
+      "cta": "Follow for daily AI breakdowns",
+      "transition": "current",
+      "padAfterMs": 700,
+      "data": {
+        "kicker": "THE TAKEAWAY"
+      }
+    }
+  ]
+}

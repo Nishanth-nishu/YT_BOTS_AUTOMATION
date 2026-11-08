@@ -1,0 +1,33 @@
+{
+ "id": "welm-image-a-unified-image-generation-model-towards-visual-i",
+ "name": "WeLM-Image: A Unified Image Generation Model towards Visual Intelligence",
+ "category": "research",
+ "description": "We present WeLM-Image, a unified image foundation model that integrates multimodal understanding into text-to-image generation, instruction-guided editing, and multi-reference synthesis. Designed for single-GPU deployment in WeChat's large-scale consumer applications, the model processes text, reference images, and target latents as one interleaved sequence. A Mixture-of-Transformers (MoT) backbone combines shared attention with independent understanding and generation parameters to limit optimization interference. Equipping each path with Mixture-of-Experts (MoE) modules provides sparse capac",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.07392",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 43,
+    "arxiv": "https://arxiv.org/abs/2611.07392"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.07392"
+  }
+ ],
+ "published_at": "2026-11-04T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 80.3,
+  "audience": 66.4,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 67.2,
+  "shareability": 65.6
+ },
+ "score_total": 81.6,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.515461+00:00"
+}

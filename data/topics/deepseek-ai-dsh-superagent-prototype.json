@@ -1,0 +1,36 @@
+{
+ "id": "deepseek-ai-dsh-superagent-prototype",
+ "name": "deepseek-ai/dsh-superagent-prototype",
+ "category": "repos",
+ "description": "Towards a More Autonomous Agent System. Proactive coding agent for one GitHub repository, packaged for DeepSeek Harness.",
+ "sources": [
+  {
+   "url": "https://github.com/deepseek-ai/dsh-superagent-prototype",
+   "source": "github_search",
+   "signals": {
+    "stars": 21004,
+    "created": "2026-10-31"
+   }
+  }
+ ],
+ "published_at": "2026-10-31T09:32:46+00:00",
+ "notes": "produced as reel dsh-superagent on 2026-11-08; found via gh search because github.com/trending returned 504",
+ "verified_claims": [
+  "MIT license",
+  "21,004 stars on 2026-11-08",
+  "research prototype, not an official product"
+ ],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 90,
+  "audience": 95,
+  "visual": 70,
+  "educational": 60,
+  "timeliness": 90,
+  "shareability": 90
+ },
+ "score_total": 84.0,
+ "status": "used",
+ "used_at": "2026-11-08T10:30:38.231481+00:00",
+ "discovered_at": "2026-11-08T10:30:38.231481+00:00"
+}

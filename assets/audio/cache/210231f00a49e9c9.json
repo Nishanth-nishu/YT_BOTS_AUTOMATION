@@ -1,0 +1,126 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.25,
+   "end": 0.325
+  },
+  {
+   "text": "usual",
+   "start": 0.325,
+   "end": 0.775
+  },
+  {
+   "text": "loop:",
+   "start": 0.775,
+   "end": 1.4375
+  },
+  {
+   "text": "call",
+   "start": 1.4375,
+   "end": 1.6625
+  },
+  {
+   "text": "a",
+   "start": 1.6625,
+   "end": 1.7625
+  },
+  {
+   "text": "tool,",
+   "start": 1.7625,
+   "end": 2.4125
+  },
+  {
+   "text": "dump",
+   "start": 2.4125,
+   "end": 2.7
+  },
+  {
+   "text": "the",
+   "start": 2.7,
+   "end": 2.825
+  },
+  {
+   "text": "raw",
+   "start": 2.825,
+   "end": 3.05
+  },
+  {
+   "text": "output",
+   "start": 3.05,
+   "end": 3.4625
+  },
+  {
+   "text": "into",
+   "start": 3.4625,
+   "end": 3.675
+  },
+  {
+   "text": "context,",
+   "start": 3.675,
+   "end": 4.6
+  },
+  {
+   "text": "and",
+   "start": 4.6,
+   "end": 4.7125
+  },
+  {
+   "text": "make",
+   "start": 4.7125,
+   "end": 4.925
+  },
+  {
+   "text": "the",
+   "start": 4.925,
+   "end": 5.025
+  },
+  {
+   "text": "model",
+   "start": 5.025,
+   "end": 5.375
+  },
+  {
+   "text": "read",
+   "start": 5.375,
+   "end": 5.6625
+  },
+  {
+   "text": "all",
+   "start": 5.6625,
+   "end": 5.8625
+  },
+  {
+   "text": "of",
+   "start": 5.8625,
+   "end": 5.95
+  },
+  {
+   "text": "it",
+   "start": 5.95,
+   "end": 6.075
+  },
+  {
+   "text": "before",
+   "start": 6.075,
+   "end": 6.3625
+  },
+  {
+   "text": "the",
+   "start": 6.3625,
+   "end": 6.45
+  },
+  {
+   "text": "next",
+   "start": 6.45,
+   "end": 6.75
+  },
+  {
+   "text": "action.",
+   "start": 6.75,
+   "end": 7.575
+  }
+ ]
+}

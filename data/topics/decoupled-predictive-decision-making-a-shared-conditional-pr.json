@@ -1,0 +1,33 @@
+{
+ "id": "decoupled-predictive-decision-making-a-shared-conditional-pr",
+ "name": "Decoupled Predictive Decision Making: A Shared Conditional Predictor for Agents",
+ "category": "research",
+ "description": "Agent decisions depend on empirical relationships that deployment observations reveal and task descriptions alone may leave unresolved. We introduce Decoupled Predictive Decision Making (DPDM), an architecture that formulates heterogeneous agent decisions as conditional prediction with a shared pretrained learner. Language models provide semantic representations of current and historical records, while a general-purpose conditional predictor predicts task-defined targets from the represented evidence. Pretraining supplies reusable inference capability; deployment evidence instantiates problem-",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.02075",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 81,
+    "arxiv": "https://arxiv.org/abs/2611.02075"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.02075"
+  }
+ ],
+ "published_at": "2026-10-31T20:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 59.0,
+  "audience": 73.4,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 31.6,
+  "shareability": 83.7
+ },
+ "score_total": 76.0,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.514461+00:00"
+}

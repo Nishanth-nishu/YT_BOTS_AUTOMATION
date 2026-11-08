@@ -1,0 +1,161 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.25,
+   "end": 0.35
+  },
+  {
+   "text": "scary",
+   "start": 0.35,
+   "end": 0.725
+  },
+  {
+   "text": "part",
+   "start": 0.725,
+   "end": 1.0375
+  },
+  {
+   "text": "is",
+   "start": 1.0375,
+   "end": 1.1875
+  },
+  {
+   "text": "scope.",
+   "start": 1.1875,
+   "end": 2.1875
+  },
+  {
+   "text": "In",
+   "start": 2.1875,
+   "end": 2.325
+  },
+  {
+   "text": "a",
+   "start": 2.325,
+   "end": 2.4375
+  },
+  {
+   "text": "honeypot",
+   "start": 2.4375,
+   "end": 2.9875
+  },
+  {
+   "text": "test",
+   "start": 2.9875,
+   "end": 3.4
+  },
+  {
+   "text": "with",
+   "start": 3.4,
+   "end": 3.5875
+  },
+  {
+   "text": "tempting",
+   "start": 3.5875,
+   "end": 4.0625
+  },
+  {
+   "text": "out-of-scope",
+   "start": 4.0625,
+   "end": 4.775
+  },
+  {
+   "text": "targets,",
+   "start": 4.775,
+   "end": 5.675
+  },
+  {
+   "text": "it",
+   "start": 5.675,
+   "end": 5.8
+  },
+  {
+   "text": "stayed",
+   "start": 5.8,
+   "end": 6.15
+  },
+  {
+   "text": "in",
+   "start": 6.15,
+   "end": 6.3
+  },
+  {
+   "text": "bounds",
+   "start": 6.3,
+   "end": 6.7875
+  },
+  {
+   "text": "99.93",
+   "start": 6.7875,
+   "end": 8.375
+  },
+  {
+   "text": "percent",
+   "start": 8.375,
+   "end": 8.7125
+  },
+  {
+   "text": "of",
+   "start": 8.7125,
+   "end": 8.7875
+  },
+  {
+   "text": "the",
+   "start": 8.7875,
+   "end": 8.875
+  },
+  {
+   "text": "time",
+   "start": 8.875,
+   "end": 9.275
+  },
+  {
+   "text": "with",
+   "start": 9.275,
+   "end": 9.4625
+  },
+  {
+   "text": "no",
+   "start": 9.4625,
+   "end": 9.7375
+  },
+  {
+   "text": "safety",
+   "start": 9.7375,
+   "end": 10.15
+  },
+  {
+   "text": "prompt,",
+   "start": 10.15,
+   "end": 10.925
+  },
+  {
+   "text": "and",
+   "start": 10.925,
+   "end": 11.05
+  },
+  {
+   "text": "100",
+   "start": 11.05,
+   "end": 11.525
+  },
+  {
+   "text": "percent",
+   "start": 11.525,
+   "end": 11.9375
+  },
+  {
+   "text": "with",
+   "start": 11.9375,
+   "end": 12.1
+  },
+  {
+   "text": "one.",
+   "start": 12.1,
+   "end": 12.85
+  }
+ ]
+}

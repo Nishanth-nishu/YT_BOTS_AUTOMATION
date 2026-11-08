@@ -1,0 +1,31 @@
+{
+ "id": "enhancing-local-and-global-structure-in-compressed-ai-agent-",
+ "name": "Enhancing Local and Global Structure in Compressed AI Agent Memory",
+ "category": "research",
+ "description": "AI agents store text as embedding vectors and compress them at scale. A compression is accepted when each item's nearest neighbors survive, but agents also consolidate, delete, and compare memories, tasks that depend on which items lie far apart. We evaluate both ends with two label-free fidelities from our prior work: the local fidelity $L$ at 10 neighbors and the global fidelity $G$ at 30 to 50 percent of the memory. At 96 bytes per passage, rescored binary codes reach an $L$ of 0.97 yet move 10.1 percent of passages to another theme; PCA with 8-bit codes, at an $L$ of 0.77, moves 1.7 percen",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08341v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.AI"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T17:27:08+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.4,
+  "audience": 100.0,
+  "visual": 100.0,
+  "educational": 55,
+  "timeliness": 75.6,
+  "shareability": 51.0
+ },
+ "score_total": 82.3,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.512460+00:00"
+}

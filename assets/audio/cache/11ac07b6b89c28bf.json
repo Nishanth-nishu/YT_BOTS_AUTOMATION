@@ -1,0 +1,116 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "On",
+   "start": 0.25,
+   "end": 0.425
+  },
+  {
+   "text": "real",
+   "start": 0.425,
+   "end": 0.7125
+  },
+  {
+   "text": "code",
+   "start": 0.7125,
+   "end": 1.1
+  },
+  {
+   "text": "it",
+   "start": 1.1,
+   "end": 1.2
+  },
+  {
+   "text": "found",
+   "start": 1.2,
+   "end": 1.5375
+  },
+  {
+   "text": "81",
+   "start": 1.5375,
+   "end": 2.1375
+  },
+  {
+   "text": "new",
+   "start": 2.1375,
+   "end": 2.325
+  },
+  {
+   "text": "high-severity",
+   "start": 2.325,
+   "end": 3.0125
+  },
+  {
+   "text": "Firefox",
+   "start": 3.0125,
+   "end": 3.625
+  },
+  {
+   "text": "bugs",
+   "start": 3.625,
+   "end": 4.35
+  },
+  {
+   "text": "and",
+   "start": 4.35,
+   "end": 4.5
+  },
+  {
+   "text": "wrote",
+   "start": 4.5,
+   "end": 4.7625
+  },
+  {
+   "text": "948",
+   "start": 4.7625,
+   "end": 6.025
+  },
+  {
+   "text": "working",
+   "start": 6.025,
+   "end": 6.375
+  },
+  {
+   "text": "Linux",
+   "start": 6.375,
+   "end": 6.7
+  },
+  {
+   "text": "kernel",
+   "start": 6.7,
+   "end": 7.0
+  },
+  {
+   "text": "exploits,",
+   "start": 7.0,
+   "end": 8.0375
+  },
+  {
+   "text": "five",
+   "start": 8.0375,
+   "end": 8.4
+  },
+  {
+   "text": "times",
+   "start": 8.4,
+   "end": 8.7875
+  },
+  {
+   "text": "the",
+   "start": 8.7875,
+   "end": 8.875
+  },
+  {
+   "text": "previous",
+   "start": 8.875,
+   "end": 9.325
+  },
+  {
+   "text": "model.",
+   "start": 9.325,
+   "end": 10.1
+  }
+ ]
+}

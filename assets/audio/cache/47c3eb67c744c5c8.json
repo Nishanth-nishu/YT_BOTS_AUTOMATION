@@ -1,0 +1,171 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "It",
+   "start": 0.25,
+   "end": 0.3625
+  },
+  {
+   "text": "is",
+   "start": 0.3625,
+   "end": 0.5125
+  },
+  {
+   "text": "called",
+   "start": 0.5125,
+   "end": 0.9125
+  },
+  {
+   "text": "dsh-superagent.",
+   "start": 0.9125,
+   "end": 2.625
+  },
+  {
+   "text": "It",
+   "start": 2.625,
+   "end": 2.8
+  },
+  {
+   "text": "listens",
+   "start": 2.8,
+   "end": 3.275
+  },
+  {
+   "text": "to",
+   "start": 3.275,
+   "end": 3.375
+  },
+  {
+   "text": "your",
+   "start": 3.375,
+   "end": 3.525
+  },
+  {
+   "text": "repository.",
+   "start": 3.525,
+   "end": 4.875
+  },
+  {
+   "text": "When",
+   "start": 4.875,
+   "end": 5.0625
+  },
+  {
+   "text": "someone",
+   "start": 5.0625,
+   "end": 5.4
+  },
+  {
+   "text": "allowed",
+   "start": 5.4,
+   "end": 5.8375
+  },
+  {
+   "text": "asks",
+   "start": 5.8375,
+   "end": 6.2
+  },
+  {
+   "text": "for",
+   "start": 6.2,
+   "end": 6.325
+  },
+  {
+   "text": "work,",
+   "start": 6.325,
+   "end": 6.9
+  },
+  {
+   "text": "it",
+   "start": 6.9,
+   "end": 7.025
+  },
+  {
+   "text": "opens",
+   "start": 7.025,
+   "end": 7.375
+  },
+  {
+   "text": "a",
+   "start": 7.375,
+   "end": 7.475
+  },
+  {
+   "text": "work",
+   "start": 7.475,
+   "end": 7.725
+  },
+  {
+   "text": "item,",
+   "start": 7.725,
+   "end": 8.375
+  },
+  {
+   "text": "does",
+   "start": 8.375,
+   "end": 8.6
+  },
+  {
+   "text": "the",
+   "start": 8.6,
+   "end": 8.7375
+  },
+  {
+   "text": "job",
+   "start": 8.7375,
+   "end": 9.125
+  },
+  {
+   "text": "in",
+   "start": 9.125,
+   "end": 9.2125
+  },
+  {
+   "text": "its",
+   "start": 9.2125,
+   "end": 9.35
+  },
+  {
+   "text": "own",
+   "start": 9.35,
+   "end": 9.6
+  },
+  {
+   "text": "session,",
+   "start": 9.6,
+   "end": 10.325
+  },
+  {
+   "text": "and",
+   "start": 10.325,
+   "end": 10.45
+  },
+  {
+   "text": "replies",
+   "start": 10.45,
+   "end": 11.1
+  },
+  {
+   "text": "with",
+   "start": 11.1,
+   "end": 11.2375
+  },
+  {
+   "text": "a",
+   "start": 11.2375,
+   "end": 11.3125
+  },
+  {
+   "text": "pull",
+   "start": 11.3125,
+   "end": 11.575
+  },
+  {
+   "text": "request.",
+   "start": 11.575,
+   "end": 12.575
+  }
+ ]
+}

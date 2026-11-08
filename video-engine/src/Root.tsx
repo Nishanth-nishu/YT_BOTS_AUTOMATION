@@ -3,6 +3,7 @@ import { Composition, Folder, Still } from "remotion";
 import { SmokeTest } from "./compositions/SmokeTest";
 import { Reel, calculateReelMetadata } from "./compositions/Reel";
 import { Cover } from "./compositions/Cover";
+import { SceneLibrary, SAMPLES } from "./compositions/SceneLibrary";
 import { video } from "./design/tokens";
 
 export const RemotionRoot: React.FC = () => {
@@ -35,6 +36,29 @@ export const RemotionRoot: React.FC = () => {
             highlight: ["agents"],
           }}
         />
+      </Folder>
+      <Folder name="Library">
+        {Object.entries(SAMPLES).map(([name, sample]) => (
+          <Composition
+            key={name}
+            id={`Lib-${name}`}
+            component={SceneLibrary}
+            durationInFrames={6 * video.fps}
+            fps={video.fps}
+            width={video.width}
+            height={video.height}
+            defaultProps={{
+              kind: sample.kind ?? "concept",
+              styleId: "explainer",
+              title: sample.title ?? "",
+              highlight: sample.highlight ?? [],
+              lines: sample.lines ?? [],
+              data: sample.data ?? {},
+              cta: null,
+              durationSeconds: 6,
+            }}
+          />
+        ))}
       </Folder>
       <Folder name="System">
         <Composition

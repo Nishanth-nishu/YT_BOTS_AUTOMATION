@@ -1,0 +1,31 @@
+{
+ "id": "momasplat-dynamic-novel-view-demonstration-augmentation-for-",
+ "name": "MOMASPLAT: Dynamic Novel-View Demonstration Augmentation for Mobile Manipulation",
+ "category": "research",
+ "description": "Visuomotor policies trained through imitation learning are highly sensitive to changes in camera viewpoint. This is particularly problematic for mobile manipulation (MoMa), where robots rarely execute manipulation from the exact same base pose used during demonstration collection due to navigation uncertainty, localization drift, and environmental constraints. Recent approaches use novel-view synthesis (NVS) to augment demonstrations with unseen viewpoints, but they assume static scenes and therefore fail to re-render the manipulated object during the post-contact interaction phase, leaving th",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08372v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.RO"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T17:50:35+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 84.5,
+  "audience": 62.5,
+  "visual": 100.0,
+  "educational": 55,
+  "timeliness": 75.8,
+  "shareability": 38.2
+ },
+ "score_total": 73.3,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.511461+00:00"
+}

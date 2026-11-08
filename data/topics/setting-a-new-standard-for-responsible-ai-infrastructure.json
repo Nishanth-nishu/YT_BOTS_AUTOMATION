@@ -1,0 +1,29 @@
+{
+ "id": "setting-a-new-standard-for-responsible-ai-infrastructure",
+ "name": "Setting a new standard for responsible AI infrastructure",
+ "category": "news",
+ "description": "OpenAI introduces its National Community Compact and Compute Campus Policy Blueprint to protect local resources, create jobs, and guide responsible AI infrastructure development.",
+ "sources": [
+  {
+   "url": "https://openai.com/index/setting-new-standard-responsible-ai-infrastructure",
+   "source": "rss:openai",
+   "signals": {}
+  }
+ ],
+ "published_at": null,
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 53.0,
+  "audience": 100.0,
+  "visual": 65.0,
+  "educational": 100.0,
+  "timeliness": 55.0,
+  "shareability": 51.0
+ },
+ "score_total": 71.8,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.516890+00:00"
+}

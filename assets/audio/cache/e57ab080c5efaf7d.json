@@ -1,0 +1,141 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "It",
+   "start": 0.25,
+   "end": 0.3625
+  },
+  {
+   "text": "is",
+   "start": 0.3625,
+   "end": 0.5125
+  },
+  {
+   "text": "already",
+   "start": 0.5125,
+   "end": 0.9
+  },
+  {
+   "text": "working",
+   "start": 0.9,
+   "end": 1.275
+  },
+  {
+   "text": "on",
+   "start": 1.275,
+   "end": 1.475
+  },
+  {
+   "text": "real",
+   "start": 1.475,
+   "end": 1.75
+  },
+  {
+   "text": "code.",
+   "start": 1.75,
+   "end": 2.5625
+  },
+  {
+   "text": "81",
+   "start": 2.5625,
+   "end": 3.1375
+  },
+  {
+   "text": "new",
+   "start": 3.1375,
+   "end": 3.3375
+  },
+  {
+   "text": "high-severity",
+   "start": 3.3375,
+   "end": 4.0625
+  },
+  {
+   "text": "Firefox",
+   "start": 4.0625,
+   "end": 4.725
+  },
+  {
+   "text": "bugs.",
+   "start": 4.725,
+   "end": 5.625
+  },
+  {
+   "text": "948",
+   "start": 5.625,
+   "end": 6.875
+  },
+  {
+   "text": "working",
+   "start": 6.875,
+   "end": 7.225
+  },
+  {
+   "text": "Linux",
+   "start": 7.225,
+   "end": 7.55
+  },
+  {
+   "text": "kernel",
+   "start": 7.55,
+   "end": 7.875
+  },
+  {
+   "text": "exploits,",
+   "start": 7.875,
+   "end": 8.7875
+  },
+  {
+   "text": "five",
+   "start": 8.7875,
+   "end": 9.15
+  },
+  {
+   "text": "times",
+   "start": 9.15,
+   "end": 9.5375
+  },
+  {
+   "text": "the",
+   "start": 9.5375,
+   "end": 9.625
+  },
+  {
+   "text": "previous",
+   "start": 9.625,
+   "end": 10.075
+  },
+  {
+   "text": "model.",
+   "start": 10.075,
+   "end": 10.9
+  },
+  {
+   "text": "And",
+   "start": 10.9,
+   "end": 11.05
+  },
+  {
+   "text": "patches",
+   "start": 11.05,
+   "end": 11.5
+  },
+  {
+   "text": "proposed",
+   "start": 11.5,
+   "end": 12.125
+  },
+  {
+   "text": "alongside",
+   "start": 12.125,
+   "end": 12.7375
+  },
+  {
+   "text": "them.",
+   "start": 12.7375,
+   "end": 13.35
+  }
+ ]
+}

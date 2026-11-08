@@ -42,7 +42,7 @@ MEMPID=$!
 
 npx remotion render src/index.ts "$COMP" "$RAW" \
   --codec h264 --crf "$CRF" --concurrency "$CONCURRENCY" \
-  --color-space bt709 --gl angle "${PROPS_ARG[@]}" --log=warn
+  --color-space bt709 --gl angle --bundle-cache=false "${PROPS_ARG[@]}" --log=warn
 RENDER_END=$(date +%s)
 kill $MEMPID 2>/dev/null || true
 
@@ -54,21 +54,23 @@ if s < 0: print("loudnorm=I=-16:TP=-1.5:LRA=11"); sys.exit()
 m = json.loads(t[s:e+1])
 print("loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=%s:measured_TP=%s:measured_LRA=%s:measured_thresh=%s:offset=%s:linear=true" % (m["input_i"], m["input_tp"], m["input_lra"], m["input_thresh"], m["target_offset"]))')
 
-# Final encode: NVENC first, libx264 fallback (NVENC can report "unsupported
-# device" on a shared node; the CPU path keeps the job from failing).
-COMMON=(-pix_fmt yuv420p -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 -af "$LN" -c:a aac -b:a 192k -ar 48000 -movflags +faststart)
-if ffmpeg -y -v error -i "$RAW" -c:v h264_nvenc -preset p5 -rc vbr -cq 20 -b:v 0 -profile:v high "${COMMON[@]}" "$ROOT/$OUT"; then
+# Final encode with NVENC. The Ada ffmpeg module has no libx264, so when
+# NVENC refuses the device the raw render is kept and the local pipeline
+# encodes it (services/rendering/ada_render.py fetches the raw file).
+if ffmpeg -y -v error -i "$RAW" -c:v h264_nvenc -preset p5 -rc vbr -cq 20 -b:v 0 -profile:v high      -pix_fmt yuv420p -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709      -af "$LN" -c:a aac -b:a 192k -ar 48000 -movflags +faststart "$ROOT/$OUT"; then
   ENCODER=h264_nvenc
 else
-  echo "NVENC failed, falling back to libx264"
-  ffmpeg -y -v error -i "$RAW" -c:v libx264 -preset medium -crf "$CRF" -profile:v high -threads "$SLURM_CPUS_PER_TASK" "${COMMON[@]}" "$ROOT/$OUT"
-  ENCODER=libx264
+  echo "NVENC unavailable on $(hostname); raw render kept for local encode"
+  rm -f "$ROOT/$OUT"
+  ENCODER=none
 fi
 echo "ENCODER=$ENCODER"
 ENC_END=$(date +%s)
 
 PEAK_MB=$(sort -n "$ROOT/logs/mem_${SLURM_JOB_ID}.txt" | tail -1)
 echo "RENDER_SECONDS=$((RENDER_END-START)) ENCODE_SECONDS=$((ENC_END-RENDER_END)) PEAK_RSS_MB=${PEAK_MB}"
-ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate,pix_fmt,color_range -of compact "$ROOT/$OUT"
-rm -f "$RAW"
+if [ "$ENCODER" != "none" ]; then
+  ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate,pix_fmt,color_range -of compact "$ROOT/$OUT"
+  rm -f "$RAW"
+fi
 echo "JOB_OK"

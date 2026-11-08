@@ -1,0 +1,141 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.225,
+   "end": 0.3
+  },
+  {
+   "text": "scary",
+   "start": 0.3,
+   "end": 0.675
+  },
+  {
+   "text": "part",
+   "start": 0.675,
+   "end": 0.975
+  },
+  {
+   "text": "is",
+   "start": 0.975,
+   "end": 1.1125
+  },
+  {
+   "text": "scope.",
+   "start": 1.1125,
+   "end": 2.0625
+  },
+  {
+   "text": "In",
+   "start": 2.0625,
+   "end": 2.2
+  },
+  {
+   "text": "a",
+   "start": 2.2,
+   "end": 2.275
+  },
+  {
+   "text": "honeypot",
+   "start": 2.275,
+   "end": 2.75
+  },
+  {
+   "text": "test",
+   "start": 2.75,
+   "end": 3.325
+  },
+  {
+   "text": "it",
+   "start": 3.325,
+   "end": 3.45
+  },
+  {
+   "text": "ignored",
+   "start": 3.45,
+   "end": 3.9125
+  },
+  {
+   "text": "out-of-scope",
+   "start": 3.9125,
+   "end": 4.625
+  },
+  {
+   "text": "targets",
+   "start": 4.625,
+   "end": 5.25
+  },
+  {
+   "text": "99.93",
+   "start": 5.25,
+   "end": 6.8
+  },
+  {
+   "text": "percent",
+   "start": 6.8,
+   "end": 7.1375
+  },
+  {
+   "text": "of",
+   "start": 7.1375,
+   "end": 7.2125
+  },
+  {
+   "text": "the",
+   "start": 7.2125,
+   "end": 7.3
+  },
+  {
+   "text": "time",
+   "start": 7.3,
+   "end": 7.7
+  },
+  {
+   "text": "with",
+   "start": 7.7,
+   "end": 7.8875
+  },
+  {
+   "text": "no",
+   "start": 7.8875,
+   "end": 8.1375
+  },
+  {
+   "text": "safety",
+   "start": 8.1375,
+   "end": 8.525
+  },
+  {
+   "text": "prompt,",
+   "start": 8.525,
+   "end": 9.25
+  },
+  {
+   "text": "and",
+   "start": 9.25,
+   "end": 9.375
+  },
+  {
+   "text": "100",
+   "start": 9.375,
+   "end": 9.85
+  },
+  {
+   "text": "percent",
+   "start": 9.85,
+   "end": 10.2375
+  },
+  {
+   "text": "with",
+   "start": 10.2375,
+   "end": 10.4
+  },
+  {
+   "text": "one.",
+   "start": 10.4,
+   "end": 11.125
+  }
+ ]
+}

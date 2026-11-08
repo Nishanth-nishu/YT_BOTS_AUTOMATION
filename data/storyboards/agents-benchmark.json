@@ -40,7 +40,8 @@
       "data": {
         "strike": [
           "chatbot"
-        ]
+        ],
+        "kicker": "AI EXPLAINED / 01"
       }
     },
     {
@@ -153,7 +154,10 @@
       ],
       "cta": "Follow for AI explained in a minute",
       "transition": "current",
-      "padAfterMs": 900
+      "padAfterMs": 900,
+      "data": {
+        "kicker": "SO WHAT IS AN AGENT?"
+      }
     }
   ]
 }

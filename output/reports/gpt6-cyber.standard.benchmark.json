@@ -1,0 +1,10 @@
+{
+ "machine": "ada",
+ "job": "64886",
+ "profile": "standard",
+ "render_seconds": null,
+ "encoder": "local:libx264",
+ "peak_rss_mb": 10096.6,
+ "output": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\drafts\\gpt6-cyber.standard.mp4",
+ "output_bytes": 11661352
+}

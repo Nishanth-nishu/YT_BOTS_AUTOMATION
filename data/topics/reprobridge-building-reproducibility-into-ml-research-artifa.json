@@ -1,0 +1,31 @@
+{
+ "id": "reprobridge-building-reproducibility-into-ml-research-artifa",
+ "name": "ReproBridge: Building Reproducibility into ML Research Artifacts",
+ "category": "research",
+ "description": "Reproducing machine learning experiments requires reconstructing procedures from information scattered across papers, released code, and supporting artifacts. For coding agents, reproduction success can therefore depend on their ability to fill in missing details, rather than on the released artifacts alone. We ask whether preserving recovered procedures and decisions improves subsequent independent reproduction. We define a standardized artifact design comprising a refined codebase, environment setup, experiment launchers, and a reproduction guide, and introduce ReproBridge, an agent workflow",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08452v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.AI"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T18:45:36+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.7,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 76.1,
+  "shareability": 40.5
+ },
+ "score_total": 82.1,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.509463+00:00"
+}

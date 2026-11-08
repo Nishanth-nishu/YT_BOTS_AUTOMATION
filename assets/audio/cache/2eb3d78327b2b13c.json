@@ -1,0 +1,151 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Every",
+   "start": 0.275,
+   "end": 0.575
+  },
+  {
+   "text": "time",
+   "start": 0.575,
+   "end": 0.8875
+  },
+  {
+   "text": "an",
+   "start": 0.8875,
+   "end": 1.0125
+  },
+  {
+   "text": "AI",
+   "start": 1.0125,
+   "end": 1.4375
+  },
+  {
+   "text": "agent",
+   "start": 1.4375,
+   "end": 1.825
+  },
+  {
+   "text": "calls",
+   "start": 1.825,
+   "end": 2.0625
+  },
+  {
+   "text": "a",
+   "start": 2.0625,
+   "end": 2.1625
+  },
+  {
+   "text": "tool,",
+   "start": 2.1625,
+   "end": 2.775
+  },
+  {
+   "text": "the",
+   "start": 2.775,
+   "end": 2.875
+  },
+  {
+   "text": "result",
+   "start": 2.875,
+   "end": 3.3
+  },
+  {
+   "text": "gets",
+   "start": 3.3,
+   "end": 3.55
+  },
+  {
+   "text": "pasted",
+   "start": 3.55,
+   "end": 3.9375
+  },
+  {
+   "text": "into",
+   "start": 3.9375,
+   "end": 4.2
+  },
+  {
+   "text": "its",
+   "start": 4.2,
+   "end": 4.4
+  },
+  {
+   "text": "memory",
+   "start": 4.4,
+   "end": 4.8375
+  },
+  {
+   "text": "as",
+   "start": 4.8375,
+   "end": 5.0
+  },
+  {
+   "text": "text.",
+   "start": 5.0,
+   "end": 5.9125
+  },
+  {
+   "text": "Thousands",
+   "start": 5.9125,
+   "end": 6.4375
+  },
+  {
+   "text": "of",
+   "start": 6.4375,
+   "end": 6.525
+  },
+  {
+   "text": "tokens",
+   "start": 6.525,
+   "end": 6.9625
+  },
+  {
+   "text": "of",
+   "start": 6.9625,
+   "end": 7.05
+  },
+  {
+   "text": "noise.",
+   "start": 7.05,
+   "end": 7.8875
+  },
+  {
+   "text": "A",
+   "start": 7.8875,
+   "end": 8.0125
+  },
+  {
+   "text": "new",
+   "start": 8.0125,
+   "end": 8.2
+  },
+  {
+   "text": "paper",
+   "start": 8.2,
+   "end": 8.6
+  },
+  {
+   "text": "says:",
+   "start": 8.6,
+   "end": 9.1875
+  },
+  {
+   "text": "stop",
+   "start": 9.1875,
+   "end": 9.525
+  },
+  {
+   "text": "doing",
+   "start": 9.525,
+   "end": 9.8
+  },
+  {
+   "text": "that.",
+   "start": 9.8,
+   "end": 10.5
+  }
+ ]
+}

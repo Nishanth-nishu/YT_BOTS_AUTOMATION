@@ -1,0 +1,33 @@
+{
+ "id": "harness-s-learning-from-sibling-harnesses-for-generalizable-",
+ "name": "Harness-S: Learning from Sibling Harnesses for Generalizable Agent Training",
+ "category": "research",
+ "description": "Harness evolution from a common base exhibits Locality, Complementarity, and Nonstationarity: variants repair different failures, and their utility changes as the policy learns. Rather than seeking a universally superior harness, we introduce Harness-S to selectively rescue failures of a base execution system through sibling harnesses and transfer the resulting capabilities into a single policy that remains effective under the original harness. Directional Harness Evolution develops specialized sibling harnesses along distinct repair directions, forming a reusable Sibling Harness Pool that rem",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.04277",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 64,
+    "arxiv": "https://arxiv.org/abs/2611.04277"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.04277"
+  }
+ ],
+ "published_at": "2026-11-02T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 67.5,
+  "audience": 100.0,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 49.2,
+  "shareability": 91.2
+ },
+ "score_total": 84.4,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.515461+00:00"
+}

@@ -1,0 +1,71 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "OpenAI",
+   "start": 0.275,
+   "end": 0.9
+  },
+  {
+   "text": "just",
+   "start": 0.9,
+   "end": 1.1
+  },
+  {
+   "text": "built",
+   "start": 1.1,
+   "end": 1.3125
+  },
+  {
+   "text": "a",
+   "start": 1.3125,
+   "end": 1.375
+  },
+  {
+   "text": "model",
+   "start": 1.375,
+   "end": 1.725
+  },
+  {
+   "text": "whose",
+   "start": 1.725,
+   "end": 1.9375
+  },
+  {
+   "text": "job",
+   "start": 1.9375,
+   "end": 2.3625
+  },
+  {
+   "text": "is",
+   "start": 2.3625,
+   "end": 2.525
+  },
+  {
+   "text": "to",
+   "start": 2.525,
+   "end": 2.625
+  },
+  {
+   "text": "break",
+   "start": 2.625,
+   "end": 2.875
+  },
+  {
+   "text": "software.",
+   "start": 2.875,
+   "end": 3.825
+  },
+  {
+   "text": "On",
+   "start": 3.825,
+   "end": 4.05
+  },
+  {
+   "text": "purpose.",
+   "start": 4.05,
+   "end": 4.975
+  }
+ ]
+}

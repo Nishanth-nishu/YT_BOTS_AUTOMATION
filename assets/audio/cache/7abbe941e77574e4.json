@@ -1,0 +1,151 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "It",
+   "start": 0.225,
+   "end": 0.35
+  },
+  {
+   "text": "listens",
+   "start": 0.35,
+   "end": 0.8
+  },
+  {
+   "text": "to",
+   "start": 0.8,
+   "end": 0.9
+  },
+  {
+   "text": "your",
+   "start": 0.9,
+   "end": 1.025
+  },
+  {
+   "text": "repo.",
+   "start": 1.025,
+   "end": 1.95
+  },
+  {
+   "text": "When",
+   "start": 1.95,
+   "end": 2.1625
+  },
+  {
+   "text": "someone",
+   "start": 2.1625,
+   "end": 2.45
+  },
+  {
+   "text": "allowed",
+   "start": 2.45,
+   "end": 2.8875
+  },
+  {
+   "text": "asks",
+   "start": 2.8875,
+   "end": 3.25
+  },
+  {
+   "text": "for",
+   "start": 3.25,
+   "end": 3.375
+  },
+  {
+   "text": "work,",
+   "start": 3.375,
+   "end": 3.925
+  },
+  {
+   "text": "it",
+   "start": 3.925,
+   "end": 4.05
+  },
+  {
+   "text": "opens",
+   "start": 4.05,
+   "end": 4.3875
+  },
+  {
+   "text": "a",
+   "start": 4.3875,
+   "end": 4.475
+  },
+  {
+   "text": "work",
+   "start": 4.475,
+   "end": 4.725
+  },
+  {
+   "text": "item,",
+   "start": 4.725,
+   "end": 5.375
+  },
+  {
+   "text": "does",
+   "start": 5.375,
+   "end": 5.6
+  },
+  {
+   "text": "the",
+   "start": 5.6,
+   "end": 5.7375
+  },
+  {
+   "text": "job",
+   "start": 5.7375,
+   "end": 6.1
+  },
+  {
+   "text": "in",
+   "start": 6.1,
+   "end": 6.1875
+  },
+  {
+   "text": "its",
+   "start": 6.1875,
+   "end": 6.3
+  },
+  {
+   "text": "own",
+   "start": 6.3,
+   "end": 6.55
+  },
+  {
+   "text": "session,",
+   "start": 6.55,
+   "end": 7.225
+  },
+  {
+   "text": "and",
+   "start": 7.225,
+   "end": 7.35
+  },
+  {
+   "text": "replies",
+   "start": 7.35,
+   "end": 7.925
+  },
+  {
+   "text": "with",
+   "start": 7.925,
+   "end": 8.0625
+  },
+  {
+   "text": "a",
+   "start": 8.0625,
+   "end": 8.125
+  },
+  {
+   "text": "pull",
+   "start": 8.125,
+   "end": 8.375
+  },
+  {
+   "text": "request.",
+   "start": 8.375,
+   "end": 9.3
+  }
+ ]
+}

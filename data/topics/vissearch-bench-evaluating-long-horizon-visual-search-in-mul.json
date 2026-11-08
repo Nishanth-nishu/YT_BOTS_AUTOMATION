@@ -1,0 +1,33 @@
+{
+ "id": "vissearch-bench-evaluating-long-horizon-visual-search-in-mul",
+ "name": "VisSearch-Bench: Evaluating Long Horizon Visual Search in Multimodal Agents",
+ "category": "research",
+ "description": "Multimodal agents use web and image tools to answer questions beyond their internal knowledge. Some search tasks use images mainly to identify an initial entity, then rely on text retrieval. These tasks offer limited insight into how agents connect information across images, objects, and search steps. We therefore focus on visual context management. This involves organizing and using visual information and linking it to other findings during search. Visually intensive tasks require agents to combine object appearance, local details, or spatial relations with external information. We introduce ",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.04894",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 22,
+    "arxiv": "https://arxiv.org/abs/2611.04894"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.04894"
+  }
+ ],
+ "published_at": "2026-11-02T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 69.5,
+  "audience": 100.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 49.2,
+  "shareability": 81.0
+ },
+ "score_total": 85.4,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.515461+00:00"
+}

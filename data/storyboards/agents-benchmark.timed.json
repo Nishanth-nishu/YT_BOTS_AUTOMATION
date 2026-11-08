@@ -1077,7 +1077,8 @@
    "data": {
     "strike": [
      "chatbot"
-    ]
+    ],
+    "kicker": "AI EXPLAINED / 01"
    },
    "transition": "current",
    "cta": null,
@@ -1238,7 +1239,9 @@
     "hands",
     "memory"
    ],
-   "data": {},
+   "data": {
+    "kicker": "SO WHAT IS AN AGENT?"
+   },
    "transition": "current",
    "cta": "Follow for AI explained in a minute",
    "leadInMs": 150,

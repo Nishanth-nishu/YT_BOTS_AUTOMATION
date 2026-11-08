@@ -22,7 +22,10 @@ export const sceneKindSchema = z.enum([
   "payoff",
   "concept",
   "code",
+  "terminal",
   "chart",
+  "neuralNet",
+  "rag",
 ]);
 
 export const seamSchema = z.enum(["current", "up", "zoomIn", "zoomOut", "burst"]);

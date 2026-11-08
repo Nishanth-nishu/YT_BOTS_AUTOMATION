@@ -21,8 +21,8 @@ export const HookScene: React.FC<{ scene: TimedScene; styleId: StyleId; particle
   return (
     <AbsoluteFill>
       <ParticleField count={70} scale={particleScale} styleId={styleId} seed={3} />
-      <Orb x={800} y={1640} size={600} styleId={styleId} delay={0} />
-      <SceneTitle kicker="AI EXPLAINED / 01" title={title} highlight={scene.highlight} styleId={styleId} hero strike={strike} strikeAt={strikeAt} top={520} />
+      <Orb x={820} y={1780} size={560} styleId={styleId} delay={0} />
+      <SceneTitle kicker={scene.data.kicker ?? "AI EXPLAINED"} title={title} highlight={scene.highlight} styleId={styleId} hero strike={strike} strikeAt={strikeAt} top={520} />
     </AbsoluteFill>
   );
 };

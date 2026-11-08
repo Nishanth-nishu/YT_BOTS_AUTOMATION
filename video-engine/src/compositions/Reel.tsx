@@ -21,6 +21,11 @@ import { ToolCallScene } from "../scenes/ToolCallScene";
 import { MemoryScene } from "../scenes/MemoryScene";
 import { WorkflowScene } from "../scenes/WorkflowScene";
 import { PayoffScene } from "../scenes/PayoffScene";
+import { ConceptScene } from "../scenes/ConceptScene";
+import { TerminalScene } from "../scenes/TerminalScene";
+import { ChartScene } from "../scenes/ChartScene";
+import { NeuralNetScene } from "../scenes/NeuralNetScene";
+import { RagScene } from "../scenes/RagScene";
 
 export type ReelProps = {
   /** Path under public/ to a ReelSpec JSON, used when `spec` is null (Studio). */
@@ -64,6 +69,17 @@ const SceneByKind: React.FC<{ scene: TimedScene; styleId: ReelSpec["style"]; par
       return <WorkflowScene scene={scene} styleId={styleId} particleScale={particleScale} />;
     case "payoff":
       return <PayoffScene scene={scene} styleId={styleId} particleScale={particleScale} />;
+    case "concept":
+      return <ConceptScene scene={scene} styleId={styleId} particleScale={particleScale} />;
+    case "code":
+    case "terminal":
+      return <TerminalScene scene={scene} styleId={styleId} particleScale={particleScale} />;
+    case "chart":
+      return <ChartScene scene={scene} styleId={styleId} particleScale={particleScale} />;
+    case "neuralNet":
+      return <NeuralNetScene scene={scene} styleId={styleId} particleScale={particleScale} />;
+    case "rag":
+      return <RagScene scene={scene} styleId={styleId} particleScale={particleScale} />;
     default:
       return <HookScene scene={scene} styleId={styleId} particleScale={particleScale} />;
   }

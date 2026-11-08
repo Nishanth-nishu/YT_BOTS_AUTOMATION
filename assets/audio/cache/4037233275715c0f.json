@@ -1,0 +1,156 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "OpenAI",
+   "start": 0.275,
+   "end": 0.9875
+  },
+  {
+   "text": "rates",
+   "start": 0.9875,
+   "end": 1.2375
+  },
+  {
+   "text": "it",
+   "start": 1.2375,
+   "end": 1.325
+  },
+  {
+   "text": "Critical",
+   "start": 1.325,
+   "end": 1.775
+  },
+  {
+   "text": "for",
+   "start": 1.775,
+   "end": 1.9375
+  },
+  {
+   "text": "cyber",
+   "start": 1.9375,
+   "end": 2.325
+  },
+  {
+   "text": "risk,",
+   "start": 2.325,
+   "end": 3.0625
+  },
+  {
+   "text": "so",
+   "start": 3.0625,
+   "end": 3.2875
+  },
+  {
+   "text": "access",
+   "start": 3.2875,
+   "end": 3.825
+  },
+  {
+   "text": "runs",
+   "start": 3.825,
+   "end": 4.225
+  },
+  {
+   "text": "through",
+   "start": 4.225,
+   "end": 4.425
+  },
+  {
+   "text": "its",
+   "start": 4.425,
+   "end": 4.6375
+  },
+  {
+   "text": "Daybreak",
+   "start": 4.6375,
+   "end": 5.15
+  },
+  {
+   "text": "program",
+   "start": 5.15,
+   "end": 5.65
+  },
+  {
+   "text": "for",
+   "start": 5.65,
+   "end": 5.8125
+  },
+  {
+   "text": "verified",
+   "start": 5.8125,
+   "end": 6.375
+  },
+  {
+   "text": "defenders",
+   "start": 6.375,
+   "end": 7.025
+  },
+  {
+   "text": "and",
+   "start": 7.025,
+   "end": 7.1875
+  },
+  {
+   "text": "authorized",
+   "start": 7.1875,
+   "end": 7.775
+  },
+  {
+   "text": "testers.",
+   "start": 7.775,
+   "end": 8.8875
+  },
+  {
+   "text": "Offense",
+   "start": 8.8875,
+   "end": 9.4625
+  },
+  {
+   "text": "is",
+   "start": 9.4625,
+   "end": 9.625
+  },
+  {
+   "text": "now",
+   "start": 9.625,
+   "end": 9.925
+  },
+  {
+   "text": "a",
+   "start": 9.925,
+   "end": 10.0
+  },
+  {
+   "text": "benchmark.",
+   "start": 10.0,
+   "end": 11.0125
+  },
+  {
+   "text": "Defense",
+   "start": 11.0125,
+   "end": 11.575
+  },
+  {
+   "text": "has",
+   "start": 11.575,
+   "end": 11.775
+  },
+  {
+   "text": "to",
+   "start": 11.775,
+   "end": 11.875
+  },
+  {
+   "text": "keep",
+   "start": 11.875,
+   "end": 12.1125
+  },
+  {
+   "text": "up.",
+   "start": 12.1125,
+   "end": 12.725
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "machine": "local",
+ "composition": "Reel",
+ "profile": "draft",
+ "concurrency": 2,
+ "frames": 1759,
+ "render_seconds": 113.8,
+ "encode_seconds": 6.3,
+ "frames_per_second_rendered": 15.45,
+ "output": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\drafts\\latent-tool-compression.draft.mp4",
+ "output_bytes": 5678953,
+ "gpu": "none (Intel UHD 770, no NVENC)",
+ "peak_tree_rss_mb": 2071,
+ "peak_sys_used_mb": 16140,
+ "min_sys_avail_mb": 694,
+ "avg_cpu_percent": 18.9,
+ "peak_cpu_percent": 29.3,
+ "samples": 111
+}

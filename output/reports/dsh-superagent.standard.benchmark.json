@@ -1,0 +1,10 @@
+{
+ "machine": "ada",
+ "job": "64888",
+ "profile": "standard",
+ "render_seconds": null,
+ "encoder": "local:libx264",
+ "peak_rss_mb": 9379.72,
+ "output": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\drafts\\dsh-superagent.standard.mp4",
+ "output_bytes": 10847079
+}

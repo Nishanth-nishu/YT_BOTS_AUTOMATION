@@ -1,0 +1,31 @@
+{
+ "id": "stepback-step-level-error-localized-resampling-for-efficient",
+ "name": "StepBack: Step-Level Error-Localized Resampling for Efficient Test-Time Reasoning",
+ "category": "research",
+ "description": "Self-consistency (SC) is a widely used decoding strategy for improving chain-of-thought reasoning, but it requires sampling many complete reasoning trajectories with a preset budget. Its efficient variants reduce the cost mainly by stopping full-trajectory sampling early or distributing the number of samples across questions. In this paper, we propose StepBack, a step-level error-localized resampling method for efficient test-time reasoning. Given a small set of draft trajectories, StepBack localizes likely first error positions using lightweight signals and then resamples the detected error s",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08403v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.AI"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T18:12:49+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.6,
+  "audience": 62.5,
+  "visual": 100.0,
+  "educational": 82.5,
+  "timeliness": 75.9,
+  "shareability": 38.2
+ },
+ "score_total": 77.7,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.510460+00:00"
+}

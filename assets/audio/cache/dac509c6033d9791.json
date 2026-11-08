@@ -1,0 +1,106 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Request",
+   "start": 0.25,
+   "end": 0.625
+  },
+  {
+   "text": "in.",
+   "start": 0.625,
+   "end": 1.175
+  },
+  {
+   "text": "Work",
+   "start": 1.175,
+   "end": 1.4
+  },
+  {
+   "text": "item.",
+   "start": 1.4,
+   "end": 2.1125
+  },
+  {
+   "text": "Agent",
+   "start": 2.1125,
+   "end": 2.475
+  },
+  {
+   "text": "session.",
+   "start": 2.475,
+   "end": 3.175
+  },
+  {
+   "text": "Pull",
+   "start": 3.175,
+   "end": 3.425
+  },
+  {
+   "text": "request",
+   "start": 3.425,
+   "end": 3.825
+  },
+  {
+   "text": "out.",
+   "start": 3.825,
+   "end": 4.4875
+  },
+  {
+   "text": "A",
+   "start": 4.4875,
+   "end": 4.6125
+  },
+  {
+   "text": "panel",
+   "start": 4.6125,
+   "end": 5.0375
+  },
+  {
+   "text": "shows",
+   "start": 5.0375,
+   "end": 5.3625
+  },
+  {
+   "text": "only",
+   "start": 5.3625,
+   "end": 5.6625
+  },
+  {
+   "text": "what",
+   "start": 5.6625,
+   "end": 5.7875
+  },
+  {
+   "text": "a",
+   "start": 5.7875,
+   "end": 5.8625
+  },
+  {
+   "text": "human",
+   "start": 5.8625,
+   "end": 6.25
+  },
+  {
+   "text": "still",
+   "start": 6.25,
+   "end": 6.525
+  },
+  {
+   "text": "has",
+   "start": 6.525,
+   "end": 6.775
+  },
+  {
+   "text": "to",
+   "start": 6.775,
+   "end": 6.8625
+  },
+  {
+   "text": "decide.",
+   "start": 6.8625,
+   "end": 7.725
+  }
+ ]
+}

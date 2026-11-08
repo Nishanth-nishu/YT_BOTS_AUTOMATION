@@ -1,0 +1,40 @@
+{
+ "id": "muir-linear-attention-with-sensitivity-allocated-gating-and-",
+ "name": "Muir: Linear Attention with Sensitivity-Allocated Gating and Matched-Filter Readout",
+ "category": "research",
+ "description": "Linear attention compresses context into a fixed-size key-value state for linear-time training and constant-memory inference. Gated delta-rule models decay this state and erase its prediction for an incoming key before writing a new value; Gated DeltaNet-2 (GDN-2) generalizes this with channel-wise decay and decoupled, full-rank erase and write gates. However, we show that state updates are far less sensitive to erasure than to writes: key activation and unit normalization concentrate key energy onto a sparse subset of channels, whereas value writes scale all channels, so the erase gate can be",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.08376",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 12,
+    "arxiv": "https://arxiv.org/abs/2611.08376"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.08376"
+  },
+  {
+   "url": "https://arxiv.org/abs/2611.08376v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.LG"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T12:53:49+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 82.4,
+  "audience": 52.7,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 73.9,
+  "shareability": 53.6
+ },
+ "score_total": 77.4,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.513460+00:00"
+}

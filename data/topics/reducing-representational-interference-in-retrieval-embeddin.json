@@ -1,0 +1,33 @@
+{
+ "id": "reducing-representational-interference-in-retrieval-embeddin",
+ "name": "Reducing Representational Interference in Retrieval Embeddings with Trainable Prefix Tokens",
+ "category": "research",
+ "description": "Embedding models compress variable-length text into fixed-size vector representations, but this compression can entangle semantic content with residual token-level information, such as artifacts arising from attention sink behavior. We propose a simple method that prepends trainable [DUMP] tokens to the input during embedding model training. The method keeps the model architecture, pooling strategy, and training loss unchanged, while optimizing the added tokens through the standard contrastive retrieval objective. By introducing trainable prefix positions that interact with regular tokens duri",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.07298",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 6,
+    "arxiv": "https://arxiv.org/abs/2611.07298"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.07298"
+  }
+ ],
+ "published_at": "2026-11-04T20:30:28+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 80.7,
+  "audience": 45.8,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 67.8,
+  "shareability": 47.6
+ },
+ "score_total": 75.9,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.513460+00:00"
+}

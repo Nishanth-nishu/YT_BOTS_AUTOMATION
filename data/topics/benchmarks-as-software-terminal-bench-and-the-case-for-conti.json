@@ -1,0 +1,31 @@
+{
+ "id": "benchmarks-as-software-terminal-bench-and-the-case-for-conti",
+ "name": "Benchmarks as Software: Terminal-Bench and the Case for Continuous Benchmarks",
+ "category": "research",
+ "description": "Coding agents are among the most economically consequential deployments of LLMs to date, making reliable evaluation increasingly important. Yet even benchmarks that are carefully validated at release can become stale. As models improve, they can discover valid solutions that existing verifiers reject, while changes to evaluation infrastructure can invalidate assumptions embedded in tasks and tests. We call the resulting accumulation of defects benchmark maintenance debt: a growing gap between benchmark scores and the capabilities they are intended to measure. We introduce a continuous-validati",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08417v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.AI"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T18:18:39+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.6,
+  "audience": 97.5,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 76.0,
+  "shareability": 48.8
+ },
+ "score_total": 86.9,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.510460+00:00"
+}

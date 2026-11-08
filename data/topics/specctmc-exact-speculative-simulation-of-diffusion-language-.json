@@ -1,0 +1,31 @@
+{
+ "id": "specctmc-exact-speculative-simulation-of-diffusion-language-",
+ "name": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+ "category": "research",
+ "description": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this approximation, yet typically requires one sequential model evaluation per token. We introduce SpecCTMC, a training-free speculative sampler that reduces this sequential bottleneck without a separate draft model. SpecCTMC proposes successive token updates using previously computed model predictions, evaluates their intermediate states in parallel, and applies an exact acceptance-a",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08362v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.CL"
+   }
+  }
+ ],
+ "published_at": "2026-11-05T17:41:20+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.4,
+  "audience": 62.5,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 75.7,
+  "shareability": 38.2
+ },
+ "score_total": 78.7,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.512460+00:00"
+}

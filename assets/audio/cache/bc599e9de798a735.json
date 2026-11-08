@@ -1,0 +1,141 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "OpenAI",
+   "start": 0.25,
+   "end": 0.925
+  },
+  {
+   "text": "rates",
+   "start": 0.925,
+   "end": 1.1625
+  },
+  {
+   "text": "it",
+   "start": 1.1625,
+   "end": 1.25
+  },
+  {
+   "text": "Critical",
+   "start": 1.25,
+   "end": 1.7
+  },
+  {
+   "text": "for",
+   "start": 1.7,
+   "end": 1.8625
+  },
+  {
+   "text": "cyber",
+   "start": 1.8625,
+   "end": 2.25
+  },
+  {
+   "text": "risk,",
+   "start": 2.25,
+   "end": 2.9
+  },
+  {
+   "text": "so",
+   "start": 2.9,
+   "end": 3.0875
+  },
+  {
+   "text": "access",
+   "start": 3.0875,
+   "end": 3.6125
+  },
+  {
+   "text": "runs",
+   "start": 3.6125,
+   "end": 4.0
+  },
+  {
+   "text": "through",
+   "start": 4.0,
+   "end": 4.2
+  },
+  {
+   "text": "its",
+   "start": 4.2,
+   "end": 4.4
+  },
+  {
+   "text": "Daybreak",
+   "start": 4.4,
+   "end": 4.875
+  },
+  {
+   "text": "program",
+   "start": 4.875,
+   "end": 5.375
+  },
+  {
+   "text": "for",
+   "start": 5.375,
+   "end": 5.525
+  },
+  {
+   "text": "verified",
+   "start": 5.525,
+   "end": 6.075
+  },
+  {
+   "text": "defenders.",
+   "start": 6.075,
+   "end": 7.2125
+  },
+  {
+   "text": "Offense",
+   "start": 7.2125,
+   "end": 7.7625
+  },
+  {
+   "text": "is",
+   "start": 7.7625,
+   "end": 7.9375
+  },
+  {
+   "text": "now",
+   "start": 7.9375,
+   "end": 8.225
+  },
+  {
+   "text": "a",
+   "start": 8.225,
+   "end": 8.3
+  },
+  {
+   "text": "benchmark.",
+   "start": 8.3,
+   "end": 9.225
+  },
+  {
+   "text": "Defense",
+   "start": 9.225,
+   "end": 9.775
+  },
+  {
+   "text": "has",
+   "start": 9.775,
+   "end": 9.975
+  },
+  {
+   "text": "to",
+   "start": 9.975,
+   "end": 10.075
+  },
+  {
+   "text": "keep",
+   "start": 10.075,
+   "end": 10.3125
+  },
+  {
+   "text": "up.",
+   "start": 10.3125,
+   "end": 10.9
+  }
+ ]
+}

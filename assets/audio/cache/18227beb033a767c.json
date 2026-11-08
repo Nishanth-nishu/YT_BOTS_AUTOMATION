@@ -1,0 +1,86 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Tools",
+   "start": 0.25,
+   "end": 0.65
+  },
+  {
+   "text": "don't",
+   "start": 0.65,
+   "end": 0.8375
+  },
+  {
+   "text": "need",
+   "start": 0.8375,
+   "end": 1.0125
+  },
+  {
+   "text": "to",
+   "start": 1.0125,
+   "end": 1.1
+  },
+  {
+   "text": "speak",
+   "start": 1.1,
+   "end": 1.3375
+  },
+  {
+   "text": "in",
+   "start": 1.3375,
+   "end": 1.45
+  },
+  {
+   "text": "text.",
+   "start": 1.45,
+   "end": 2.2875
+  },
+  {
+   "text": "Paper",
+   "start": 2.2875,
+   "end": 2.725
+  },
+  {
+   "text": "and",
+   "start": 2.725,
+   "end": 2.8625
+  },
+  {
+   "text": "code",
+   "start": 2.8625,
+   "end": 3.2
+  },
+  {
+   "text": "from",
+   "start": 3.2,
+   "end": 3.3625
+  },
+  {
+   "text": "Tsinghua,",
+   "start": 3.3625,
+   "end": 4.0875
+  },
+  {
+   "text": "links",
+   "start": 4.0875,
+   "end": 4.4125
+  },
+  {
+   "text": "in",
+   "start": 4.4125,
+   "end": 4.4875
+  },
+  {
+   "text": "the",
+   "start": 4.4875,
+   "end": 4.575
+  },
+  {
+   "text": "caption.",
+   "start": 4.575,
+   "end": 5.475
+  }
+ ]
+}

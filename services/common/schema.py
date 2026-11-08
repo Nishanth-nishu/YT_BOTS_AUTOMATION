@@ -6,7 +6,7 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, Field
 
 StyleId = Literal["cinematic", "explainer", "experimental"]
-SceneKind = Literal["hook", "loop", "reasoning", "toolCall", "memory", "workflow", "payoff", "concept", "code", "chart"]
+SceneKind = Literal["hook", "loop", "reasoning", "toolCall", "memory", "workflow", "payoff", "concept", "code", "terminal", "chart", "neuralNet", "rag"]
 Seam = Literal["current", "up", "zoomIn", "zoomOut", "burst"]
 
 

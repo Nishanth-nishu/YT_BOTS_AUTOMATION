@@ -1,0 +1,156 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Here",
+   "start": 0.275,
+   "end": 0.6375
+  },
+  {
+   "text": "is",
+   "start": 0.6375,
+   "end": 0.8
+  },
+  {
+   "text": "the",
+   "start": 0.8,
+   "end": 0.9125
+  },
+  {
+   "text": "usual",
+   "start": 0.9125,
+   "end": 1.375
+  },
+  {
+   "text": "loop.",
+   "start": 1.375,
+   "end": 2.15
+  },
+  {
+   "text": "The",
+   "start": 2.15,
+   "end": 2.3125
+  },
+  {
+   "text": "agent",
+   "start": 2.3125,
+   "end": 2.725
+  },
+  {
+   "text": "calls",
+   "start": 2.725,
+   "end": 2.9875
+  },
+  {
+   "text": "a",
+   "start": 2.9875,
+   "end": 3.0875
+  },
+  {
+   "text": "tool,",
+   "start": 3.0875,
+   "end": 3.775
+  },
+  {
+   "text": "the",
+   "start": 3.775,
+   "end": 3.9125
+  },
+  {
+   "text": "raw",
+   "start": 3.9125,
+   "end": 4.2125
+  },
+  {
+   "text": "output",
+   "start": 4.2125,
+   "end": 4.7
+  },
+  {
+   "text": "goes",
+   "start": 4.7,
+   "end": 4.9625
+  },
+  {
+   "text": "straight",
+   "start": 4.9625,
+   "end": 5.325
+  },
+  {
+   "text": "into",
+   "start": 5.325,
+   "end": 5.5625
+  },
+  {
+   "text": "its",
+   "start": 5.5625,
+   "end": 5.75
+  },
+  {
+   "text": "context,",
+   "start": 5.75,
+   "end": 6.8
+  },
+  {
+   "text": "and",
+   "start": 6.8,
+   "end": 6.9125
+  },
+  {
+   "text": "the",
+   "start": 6.9125,
+   "end": 7.0
+  },
+  {
+   "text": "model",
+   "start": 7.0,
+   "end": 7.3625
+  },
+  {
+   "text": "reads",
+   "start": 7.3625,
+   "end": 7.7375
+  },
+  {
+   "text": "all",
+   "start": 7.7375,
+   "end": 7.9375
+  },
+  {
+   "text": "of",
+   "start": 7.9375,
+   "end": 8.025
+  },
+  {
+   "text": "it",
+   "start": 8.025,
+   "end": 8.175
+  },
+  {
+   "text": "before",
+   "start": 8.175,
+   "end": 8.575
+  },
+  {
+   "text": "choosing",
+   "start": 8.575,
+   "end": 8.9875
+  },
+  {
+   "text": "the",
+   "start": 8.9875,
+   "end": 9.075
+  },
+  {
+   "text": "next",
+   "start": 9.075,
+   "end": 9.375
+  },
+  {
+   "text": "action.",
+   "start": 9.375,
+   "end": 10.275
+  }
+ ]
+}

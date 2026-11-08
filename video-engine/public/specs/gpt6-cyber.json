@@ -1,0 +1,1125 @@
+{
+ "id": "gpt6-cyber",
+ "title": "OpenAI built a model to break software",
+ "style": "cinematic",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "durationMs": 59275,
+ "voice": {
+  "file": "voice/gpt6-cyber/full.wav",
+  "provider": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.06
+ },
+ "music": {
+  "file": "music/ambient_bed.wav",
+  "volume": 0.22,
+  "bpm": 84.0
+ },
+ "captions": [
+  {
+   "text": "OpenAI",
+   "startMs": 800,
+   "endMs": 1375,
+   "timestampMs": 1087,
+   "confidence": null
+  },
+  {
+   "text": " just",
+   "startMs": 1375,
+   "endMs": 1550,
+   "timestampMs": 1462,
+   "confidence": null
+  },
+  {
+   "text": " built",
+   "startMs": 1550,
+   "endMs": 1762,
+   "timestampMs": 1656,
+   "confidence": null
+  },
+  {
+   "text": " a",
+   "startMs": 1762,
+   "endMs": 1825,
+   "timestampMs": 1793,
+   "confidence": null
+  },
+  {
+   "text": " model",
+   "startMs": 1825,
+   "endMs": 2175,
+   "timestampMs": 2000,
+   "confidence": null
+  },
+  {
+   "text": " whose",
+   "startMs": 2175,
+   "endMs": 2388,
+   "timestampMs": 2281,
+   "confidence": null
+  },
+  {
+   "text": " job",
+   "startMs": 2388,
+   "endMs": 2788,
+   "timestampMs": 2588,
+   "confidence": null
+  },
+  {
+   "text": " is",
+   "startMs": 2788,
+   "endMs": 2950,
+   "timestampMs": 2869,
+   "confidence": null
+  },
+  {
+   "text": " to",
+   "startMs": 2950,
+   "endMs": 3050,
+   "timestampMs": 3000,
+   "confidence": null
+  },
+  {
+   "text": " break",
+   "startMs": 3050,
+   "endMs": 3300,
+   "timestampMs": 3175,
+   "confidence": null
+  },
+  {
+   "text": " software.",
+   "startMs": 3300,
+   "endMs": 4225,
+   "timestampMs": 3762,
+   "confidence": null
+  },
+  {
+   "text": " On",
+   "startMs": 4225,
+   "endMs": 4425,
+   "timestampMs": 4325,
+   "confidence": null
+  },
+  {
+   "text": " purpose.",
+   "startMs": 4425,
+   "endMs": 5325,
+   "timestampMs": 4875,
+   "confidence": null
+  },
+  {
+   "text": "It",
+   "startMs": 6060,
+   "endMs": 6173,
+   "timestampMs": 6116,
+   "confidence": null
+  },
+  {
+   "text": " is",
+   "startMs": 6173,
+   "endMs": 6310,
+   "timestampMs": 6241,
+   "confidence": null
+  },
+  {
+   "text": " called",
+   "startMs": 6310,
+   "endMs": 6623,
+   "timestampMs": 6466,
+   "confidence": null
+  },
+  {
+   "text": " GPT-6",
+   "startMs": 6623,
+   "endMs": 7510,
+   "timestampMs": 7066,
+   "confidence": null
+  },
+  {
+   "text": " Cyber.",
+   "startMs": 7510,
+   "endMs": 8360,
+   "timestampMs": 7935,
+   "confidence": null
+  },
+  {
+   "text": " It",
+   "startMs": 8360,
+   "endMs": 8510,
+   "timestampMs": 8435,
+   "confidence": null
+  },
+  {
+   "text": " finds",
+   "startMs": 8510,
+   "endMs": 8810,
+   "timestampMs": 8660,
+   "confidence": null
+  },
+  {
+   "text": " exploitable",
+   "startMs": 8810,
+   "endMs": 9485,
+   "timestampMs": 9147,
+   "confidence": null
+  },
+  {
+   "text": " bugs,",
+   "startMs": 9485,
+   "endMs": 10147,
+   "timestampMs": 9816,
+   "confidence": null
+  },
+  {
+   "text": " proves",
+   "startMs": 10147,
+   "endMs": 10523,
+   "timestampMs": 10335,
+   "confidence": null
+  },
+  {
+   "text": " the",
+   "startMs": 10523,
+   "endMs": 10635,
+   "timestampMs": 10579,
+   "confidence": null
+  },
+  {
+   "text": " exploit",
+   "startMs": 10635,
+   "endMs": 11110,
+   "timestampMs": 10872,
+   "confidence": null
+  },
+  {
+   "text": " works,",
+   "startMs": 11110,
+   "endMs": 11660,
+   "timestampMs": 11385,
+   "confidence": null
+  },
+  {
+   "text": " proposes",
+   "startMs": 11660,
+   "endMs": 12173,
+   "timestampMs": 11916,
+   "confidence": null
+  },
+  {
+   "text": " a",
+   "startMs": 12173,
+   "endMs": 12273,
+   "timestampMs": 12223,
+   "confidence": null
+  },
+  {
+   "text": " fix,",
+   "startMs": 12273,
+   "endMs": 12910,
+   "timestampMs": 12591,
+   "confidence": null
+  },
+  {
+   "text": " and",
+   "startMs": 12910,
+   "endMs": 13047,
+   "timestampMs": 12978,
+   "confidence": null
+  },
+  {
+   "text": " stays",
+   "startMs": 13047,
+   "endMs": 13435,
+   "timestampMs": 13241,
+   "confidence": null
+  },
+  {
+   "text": " inside",
+   "startMs": 13435,
+   "endMs": 13847,
+   "timestampMs": 13641,
+   "confidence": null
+  },
+  {
+   "text": " the",
+   "startMs": 13847,
+   "endMs": 13935,
+   "timestampMs": 13891,
+   "confidence": null
+  },
+  {
+   "text": " scope",
+   "startMs": 13935,
+   "endMs": 14223,
+   "timestampMs": 14079,
+   "confidence": null
+  },
+  {
+   "text": " researchers",
+   "startMs": 14223,
+   "endMs": 14685,
+   "timestampMs": 14454,
+   "confidence": null
+  },
+  {
+   "text": " set.",
+   "startMs": 14685,
+   "endMs": 15360,
+   "timestampMs": 15022,
+   "confidence": null
+  },
+  {
+   "text": "On",
+   "startMs": 16120,
+   "endMs": 16308,
+   "timestampMs": 16214,
+   "confidence": null
+  },
+  {
+   "text": " ExploitGym",
+   "startMs": 16308,
+   "endMs": 17158,
+   "timestampMs": 16733,
+   "confidence": null
+  },
+  {
+   "text": " it",
+   "startMs": 17158,
+   "endMs": 17258,
+   "timestampMs": 17208,
+   "confidence": null
+  },
+  {
+   "text": " exploits",
+   "startMs": 17258,
+   "endMs": 17758,
+   "timestampMs": 17508,
+   "confidence": null
+  },
+  {
+   "text": " a",
+   "startMs": 17758,
+   "endMs": 17820,
+   "timestampMs": 17789,
+   "confidence": null
+  },
+  {
+   "text": " given",
+   "startMs": 17820,
+   "endMs": 18120,
+   "timestampMs": 17970,
+   "confidence": null
+  },
+  {
+   "text": " vulnerability",
+   "startMs": 18120,
+   "endMs": 18970,
+   "timestampMs": 18545,
+   "confidence": null
+  },
+  {
+   "text": " 48.5",
+   "startMs": 18970,
+   "endMs": 20270,
+   "timestampMs": 19620,
+   "confidence": null
+  },
+  {
+   "text": " percent",
+   "startMs": 20270,
+   "endMs": 20608,
+   "timestampMs": 20439,
+   "confidence": null
+  },
+  {
+   "text": " of",
+   "startMs": 20608,
+   "endMs": 20682,
+   "timestampMs": 20645,
+   "confidence": null
+  },
+  {
+   "text": " the",
+   "startMs": 20682,
+   "endMs": 20770,
+   "timestampMs": 20726,
+   "confidence": null
+  },
+  {
+   "text": " time,",
+   "startMs": 20770,
+   "endMs": 21570,
+   "timestampMs": 21170,
+   "confidence": null
+  },
+  {
+   "text": " up",
+   "startMs": 21570,
+   "endMs": 21770,
+   "timestampMs": 21670,
+   "confidence": null
+  },
+  {
+   "text": " from",
+   "startMs": 21770,
+   "endMs": 21982,
+   "timestampMs": 21876,
+   "confidence": null
+  },
+  {
+   "text": " 32.1",
+   "startMs": 21982,
+   "endMs": 23382,
+   "timestampMs": 22682,
+   "confidence": null
+  },
+  {
+   "text": " for",
+   "startMs": 23382,
+   "endMs": 23508,
+   "timestampMs": 23445,
+   "confidence": null
+  },
+  {
+   "text": " the",
+   "startMs": 23508,
+   "endMs": 23595,
+   "timestampMs": 23551,
+   "confidence": null
+  },
+  {
+   "text": " previous",
+   "startMs": 23595,
+   "endMs": 24045,
+   "timestampMs": 23820,
+   "confidence": null
+  },
+  {
+   "text": " model.",
+   "startMs": 24045,
+   "endMs": 24820,
+   "timestampMs": 24432,
+   "confidence": null
+  },
+  {
+   "text": "On",
+   "startMs": 25580,
+   "endMs": 25755,
+   "timestampMs": 25667,
+   "confidence": null
+  },
+  {
+   "text": " real",
+   "startMs": 25755,
+   "endMs": 26042,
+   "timestampMs": 25898,
+   "confidence": null
+  },
+  {
+   "text": " code",
+   "startMs": 26042,
+   "endMs": 26430,
+   "timestampMs": 26236,
+   "confidence": null
+  },
+  {
+   "text": " it",
+   "startMs": 26430,
+   "endMs": 26530,
+   "timestampMs": 26480,
+   "confidence": null
+  },
+  {
+   "text": " found",
+   "startMs": 26530,
+   "endMs": 26868,
+   "timestampMs": 26699,
+   "confidence": null
+  },
+  {
+   "text": " 81",
+   "startMs": 26868,
+   "endMs": 27468,
+   "timestampMs": 27168,
+   "confidence": null
+  },
+  {
+   "text": " new",
+   "startMs": 27468,
+   "endMs": 27655,
+   "timestampMs": 27561,
+   "confidence": null
+  },
+  {
+   "text": " high-severity",
+   "startMs": 27655,
+   "endMs": 28342,
+   "timestampMs": 27998,
+   "confidence": null
+  },
+  {
+   "text": " Firefox",
+   "startMs": 28342,
+   "endMs": 28955,
+   "timestampMs": 28648,
+   "confidence": null
+  },
+  {
+   "text": " bugs",
+   "startMs": 28955,
+   "endMs": 29680,
+   "timestampMs": 29317,
+   "confidence": null
+  },
+  {
+   "text": " and",
+   "startMs": 29680,
+   "endMs": 29830,
+   "timestampMs": 29755,
+   "confidence": null
+  },
+  {
+   "text": " wrote",
+   "startMs": 29830,
+   "endMs": 30092,
+   "timestampMs": 29961,
+   "confidence": null
+  },
+  {
+   "text": " 948",
+   "startMs": 30092,
+   "endMs": 31355,
+   "timestampMs": 30723,
+   "confidence": null
+  },
+  {
+   "text": " working",
+   "startMs": 31355,
+   "endMs": 31705,
+   "timestampMs": 31530,
+   "confidence": null
+  },
+  {
+   "text": " Linux",
+   "startMs": 31705,
+   "endMs": 32030,
+   "timestampMs": 31867,
+   "confidence": null
+  },
+  {
+   "text": " kernel",
+   "startMs": 32030,
+   "endMs": 32330,
+   "timestampMs": 32180,
+   "confidence": null
+  },
+  {
+   "text": " exploits,",
+   "startMs": 32330,
+   "endMs": 33368,
+   "timestampMs": 32849,
+   "confidence": null
+  },
+  {
+   "text": " five",
+   "startMs": 33368,
+   "endMs": 33730,
+   "timestampMs": 33549,
+   "confidence": null
+  },
+  {
+   "text": " times",
+   "startMs": 33730,
+   "endMs": 34118,
+   "timestampMs": 33924,
+   "confidence": null
+  },
+  {
+   "text": " the",
+   "startMs": 34118,
+   "endMs": 34205,
+   "timestampMs": 34161,
+   "confidence": null
+  },
+  {
+   "text": " previous",
+   "startMs": 34205,
+   "endMs": 34655,
+   "timestampMs": 34430,
+   "confidence": null
+  },
+  {
+   "text": " model.",
+   "startMs": 34655,
+   "endMs": 35430,
+   "timestampMs": 35042,
+   "confidence": null
+  },
+  {
+   "text": "The",
+   "startMs": 36165,
+   "endMs": 36240,
+   "timestampMs": 36202,
+   "confidence": null
+  },
+  {
+   "text": " scary",
+   "startMs": 36240,
+   "endMs": 36615,
+   "timestampMs": 36427,
+   "confidence": null
+  },
+  {
+   "text": " part",
+   "startMs": 36615,
+   "endMs": 36915,
+   "timestampMs": 36765,
+   "confidence": null
+  },
+  {
+   "text": " is",
+   "startMs": 36915,
+   "endMs": 37052,
+   "timestampMs": 36983,
+   "confidence": null
+  },
+  {
+   "text": " scope.",
+   "startMs": 37052,
+   "endMs": 38002,
+   "timestampMs": 37527,
+   "confidence": null
+  },
+  {
+   "text": " In",
+   "startMs": 38002,
+   "endMs": 38140,
+   "timestampMs": 38071,
+   "confidence": null
+  },
+  {
+   "text": " a",
+   "startMs": 38140,
+   "endMs": 38215,
+   "timestampMs": 38177,
+   "confidence": null
+  },
+  {
+   "text": " honeypot",
+   "startMs": 38215,
+   "endMs": 38690,
+   "timestampMs": 38452,
+   "confidence": null
+  },
+  {
+   "text": " test",
+   "startMs": 38690,
+   "endMs": 39265,
+   "timestampMs": 38977,
+   "confidence": null
+  },
+  {
+   "text": " it",
+   "startMs": 39265,
+   "endMs": 39390,
+   "timestampMs": 39327,
+   "confidence": null
+  },
+  {
+   "text": " ignored",
+   "startMs": 39390,
+   "endMs": 39852,
+   "timestampMs": 39621,
+   "confidence": null
+  },
+  {
+   "text": " out-of-scope",
+   "startMs": 39852,
+   "endMs": 40565,
+   "timestampMs": 40208,
+   "confidence": null
+  },
+  {
+   "text": " targets",
+   "startMs": 40565,
+   "endMs": 41190,
+   "timestampMs": 40877,
+   "confidence": null
+  },
+  {
+   "text": " 99.93",
+   "startMs": 41190,
+   "endMs": 42740,
+   "timestampMs": 41965,
+   "confidence": null
+  },
+  {
+   "text": " percent",
+   "startMs": 42740,
+   "endMs": 43078,
+   "timestampMs": 42909,
+   "confidence": null
+  },
+  {
+   "text": " of",
+   "startMs": 43078,
+   "endMs": 43152,
+   "timestampMs": 43115,
+   "confidence": null
+  },
+  {
+   "text": " the",
+   "startMs": 43152,
+   "endMs": 43240,
+   "timestampMs": 43196,
+   "confidence": null
+  },
+  {
+   "text": " time",
+   "startMs": 43240,
+   "endMs": 43640,
+   "timestampMs": 43440,
+   "confidence": null
+  },
+  {
+   "text": " with",
+   "startMs": 43640,
+   "endMs": 43828,
+   "timestampMs": 43734,
+   "confidence": null
+  },
+  {
+   "text": " no",
+   "startMs": 43828,
+   "endMs": 44077,
+   "timestampMs": 43952,
+   "confidence": null
+  },
+  {
+   "text": " safety",
+   "startMs": 44077,
+   "endMs": 44465,
+   "timestampMs": 44271,
+   "confidence": null
+  },
+  {
+   "text": " prompt,",
+   "startMs": 44465,
+   "endMs": 45190,
+   "timestampMs": 44827,
+   "confidence": null
+  },
+  {
+   "text": " and",
+   "startMs": 45190,
+   "endMs": 45315,
+   "timestampMs": 45252,
+   "confidence": null
+  },
+  {
+   "text": " 100",
+   "startMs": 45315,
+   "endMs": 45790,
+   "timestampMs": 45552,
+   "confidence": null
+  },
+  {
+   "text": " percent",
+   "startMs": 45790,
+   "endMs": 46178,
+   "timestampMs": 45984,
+   "confidence": null
+  },
+  {
+   "text": " with",
+   "startMs": 46178,
+   "endMs": 46340,
+   "timestampMs": 46259,
+   "confidence": null
+  },
+  {
+   "text": " one.",
+   "startMs": 46340,
+   "endMs": 47065,
+   "timestampMs": 46702,
+   "confidence": null
+  },
+  {
+   "text": "OpenAI",
+   "startMs": 47825,
+   "endMs": 48500,
+   "timestampMs": 48162,
+   "confidence": null
+  },
+  {
+   "text": " rates",
+   "startMs": 48500,
+   "endMs": 48737,
+   "timestampMs": 48618,
+   "confidence": null
+  },
+  {
+   "text": " it",
+   "startMs": 48737,
+   "endMs": 48825,
+   "timestampMs": 48781,
+   "confidence": null
+  },
+  {
+   "text": " Critical",
+   "startMs": 48825,
+   "endMs": 49275,
+   "timestampMs": 49050,
+   "confidence": null
+  },
+  {
+   "text": " for",
+   "startMs": 49275,
+   "endMs": 49437,
+   "timestampMs": 49356,
+   "confidence": null
+  },
+  {
+   "text": " cyber",
+   "startMs": 49437,
+   "endMs": 49825,
+   "timestampMs": 49631,
+   "confidence": null
+  },
+  {
+   "text": " risk,",
+   "startMs": 49825,
+   "endMs": 50475,
+   "timestampMs": 50150,
+   "confidence": null
+  },
+  {
+   "text": " so",
+   "startMs": 50475,
+   "endMs": 50663,
+   "timestampMs": 50569,
+   "confidence": null
+  },
+  {
+   "text": " access",
+   "startMs": 50663,
+   "endMs": 51187,
+   "timestampMs": 50925,
+   "confidence": null
+  },
+  {
+   "text": " runs",
+   "startMs": 51187,
+   "endMs": 51575,
+   "timestampMs": 51381,
+   "confidence": null
+  },
+  {
+   "text": " through",
+   "startMs": 51575,
+   "endMs": 51775,
+   "timestampMs": 51675,
+   "confidence": null
+  },
+  {
+   "text": " its",
+   "startMs": 51775,
+   "endMs": 51975,
+   "timestampMs": 51875,
+   "confidence": null
+  },
+  {
+   "text": " Daybreak",
+   "startMs": 51975,
+   "endMs": 52450,
+   "timestampMs": 52212,
+   "confidence": null
+  },
+  {
+   "text": " program",
+   "startMs": 52450,
+   "endMs": 52950,
+   "timestampMs": 52700,
+   "confidence": null
+  },
+  {
+   "text": " for",
+   "startMs": 52950,
+   "endMs": 53100,
+   "timestampMs": 53025,
+   "confidence": null
+  },
+  {
+   "text": " verified",
+   "startMs": 53100,
+   "endMs": 53650,
+   "timestampMs": 53375,
+   "confidence": null
+  },
+  {
+   "text": " defenders.",
+   "startMs": 53650,
+   "endMs": 54787,
+   "timestampMs": 54218,
+   "confidence": null
+  },
+  {
+   "text": " Offense",
+   "startMs": 54787,
+   "endMs": 55337,
+   "timestampMs": 55062,
+   "confidence": null
+  },
+  {
+   "text": " is",
+   "startMs": 55337,
+   "endMs": 55513,
+   "timestampMs": 55425,
+   "confidence": null
+  },
+  {
+   "text": " now",
+   "startMs": 55513,
+   "endMs": 55800,
+   "timestampMs": 55656,
+   "confidence": null
+  },
+  {
+   "text": " a",
+   "startMs": 55800,
+   "endMs": 55875,
+   "timestampMs": 55837,
+   "confidence": null
+  },
+  {
+   "text": " benchmark.",
+   "startMs": 55875,
+   "endMs": 56800,
+   "timestampMs": 56337,
+   "confidence": null
+  },
+  {
+   "text": " Defense",
+   "startMs": 56800,
+   "endMs": 57350,
+   "timestampMs": 57075,
+   "confidence": null
+  },
+  {
+   "text": " has",
+   "startMs": 57350,
+   "endMs": 57550,
+   "timestampMs": 57450,
+   "confidence": null
+  },
+  {
+   "text": " to",
+   "startMs": 57550,
+   "endMs": 57650,
+   "timestampMs": 57600,
+   "confidence": null
+  },
+  {
+   "text": " keep",
+   "startMs": 57650,
+   "endMs": 57887,
+   "timestampMs": 57768,
+   "confidence": null
+  },
+  {
+   "text": " up.",
+   "startMs": 57887,
+   "endMs": 58475,
+   "timestampMs": 58181,
+   "confidence": null
+  }
+ ],
+ "captionMode": "word",
+ "scenes": [
+  {
+   "id": "hook",
+   "kind": "hook",
+   "narration": "OpenAI just built a model whose job is to break software. On purpose.",
+   "title": "A model built to break software.",
+   "lines": [],
+   "highlight": [
+    "break"
+   ],
+   "data": {
+    "kicker": "AI NEWS / 8 NOV 2026"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 260,
+   "minDurationMs": 2500,
+   "startMs": 400,
+   "endMs": 5685,
+   "audioStartMs": 550,
+   "audioEndMs": 5425
+  },
+  {
+   "id": "what",
+   "kind": "concept",
+   "narration": "It is called GPT-6 Cyber. It finds exploitable bugs, proves the exploit works, proposes a fix, and stays inside the scope researchers set.",
+   "title": "GPT-6 Cyber, in one breath",
+   "lines": [
+    "Finds exploitable vulnerabilities",
+    "Proves the exploit actually works",
+    "Proposes a patch",
+    "Stays inside the authorized scope"
+   ],
+   "highlight": [
+    "Cyber"
+   ],
+   "data": {
+    "kicker": "WHAT IT IS"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 260,
+   "minDurationMs": 2500,
+   "startMs": 5685,
+   "endMs": 15720,
+   "audioStartMs": 5835,
+   "audioEndMs": 15460
+  },
+  {
+   "id": "exploitgym",
+   "kind": "chart",
+   "narration": "On ExploitGym it exploits a given vulnerability 48.5 percent of the time, up from 32.1 for the previous model.",
+   "title": "Exploit success rate",
+   "lines": [],
+   "highlight": [
+    "success"
+   ],
+   "data": {
+    "kicker": "EXPLOITGYM BENCHMARK",
+    "type": "bar",
+    "unit": "%",
+    "decimals": 1,
+    "series": [
+     {
+      "label": "GPT-5.6 Cyber",
+      "value": 32.1
+     },
+     {
+      "label": "GPT-6 Cyber",
+      "value": 48.5,
+      "hero": true
+     }
+    ],
+    "note": "Source: OpenAI, 5 Nov 2026"
+   },
+   "transition": "zoomIn",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 260,
+   "minDurationMs": 2500,
+   "startMs": 15720,
+   "endMs": 25180,
+   "audioStartMs": 15870,
+   "audioEndMs": 24920
+  },
+  {
+   "id": "realworld",
+   "kind": "concept",
+   "narration": "On real code it found 81 new high-severity Firefox bugs and wrote 948 working Linux kernel exploits, five times the previous model.",
+   "title": "Real bugs, real fixes",
+   "lines": [
+    "81 new high-severity Firefox bugs",
+    "948 working Linux kernel exploits",
+    "Five times the previous model"
+   ],
+   "highlight": [
+    "Real"
+   ],
+   "data": {
+    "kicker": "IN THE WILD"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 260,
+   "minDurationMs": 2500,
+   "startMs": 25180,
+   "endMs": 35790,
+   "audioStartMs": 25330,
+   "audioEndMs": 35530
+  },
+  {
+   "id": "scope",
+   "kind": "chart",
+   "narration": "The scary part is scope. In a honeypot test it ignored out-of-scope targets 99.93 percent of the time with no safety prompt, and 100 percent with one.",
+   "title": "Stays in scope, no safety prompt",
+   "lines": [],
+   "highlight": [
+    "scope"
+   ],
+   "data": {
+    "kicker": "HONEYPOT TEST",
+    "type": "bar",
+    "unit": "%",
+    "decimals": 2,
+    "series": [
+     {
+      "label": "GPT-5.6 Cyber",
+      "value": 94.49
+     },
+     {
+      "label": "GPT-6 Cyber",
+      "value": 99.93,
+      "hero": true
+     }
+    ],
+    "note": "100% with the deployment prompt"
+   },
+   "transition": "up",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 260,
+   "minDurationMs": 2500,
+   "startMs": 35790,
+   "endMs": 47425,
+   "audioStartMs": 35940,
+   "audioEndMs": 47165
+  },
+  {
+   "id": "payoff",
+   "kind": "payoff",
+   "narration": "OpenAI rates it Critical for cyber risk, so access runs through its Daybreak program for verified defenders. Offense is now a benchmark. Defense has to keep up.",
+   "title": "Offense is now a benchmark.",
+   "lines": [],
+   "highlight": [
+    "Offense"
+   ],
+   "data": {
+    "kicker": "THE TAKEAWAY"
+   },
+   "transition": "current",
+   "cta": "Follow for daily AI breakdowns",
+   "leadInMs": 150,
+   "padAfterMs": 700,
+   "minDurationMs": 2500,
+   "startMs": 47425,
+   "endMs": 59275,
+   "audioStartMs": 47575,
+   "audioEndMs": 58575
+  }
+ ],
+ "caption": "OpenAI just released GPT-6 Cyber, a model trained to find and prove exploitable bugs and then stay inside the scope researchers set. The numbers from the announcement, in 50 seconds.\n\nSource: openai.com/index/introducing-gpt-6-cyber",
+ "hashtags": [
+  "#openai",
+  "#cybersecurity",
+  "#aiagents",
+  "#artificialintelligence",
+  "#infosec",
+  "#technews"
+ ],
+ "sources": [
+  "https://openai.com/index/introducing-gpt-6-cyber"
+ ]
+}

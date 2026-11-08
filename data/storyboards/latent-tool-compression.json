@@ -1,0 +1,184 @@
+{
+  "id": "latent-tool-compression",
+  "title": "Stop pasting tool output into the prompt",
+  "style": "explainer",
+  "voice": {
+    "provider": "kokoro",
+    "voice": "af_heart",
+    "speed": 1.06
+  },
+  "music": {
+    "file": "music/ambient_bed.wav",
+    "volume": 0.2,
+    "bpm": 84
+  },
+  "caption": "Your AI agent is drowning in its own tool output. A new Tsinghua paper compresses tool results into latent tokens instead of text: 70 to 89 percent fewer tokens, up to 56 percent faster, and more accurate.\n\nPaper: arxiv.org/abs/2611.06500\nCode: github.com/THU-Agent/Coca-cola",
+  "hashtags": [
+    "#aiagents",
+    "#llm",
+    "#machinelearning",
+    "#airesearch",
+    "#artificialintelligence",
+    "#techexplained"
+  ],
+  "sources": [
+    "https://arxiv.org/abs/2611.06500",
+    "https://github.com/THU-Agent/Coca-cola"
+  ],
+  "scenes": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "narration": "Every tool call your agent makes pastes thousands of tokens of noise into its memory. A new paper says: stop.",
+      "title": "Stop pasting tool output into the prompt.",
+      "highlight": [
+        "Stop"
+      ],
+      "transition": "current",
+      "padAfterMs": 260,
+      "data": {
+        "kicker": "PAPER OF THE DAY"
+      }
+    },
+    {
+      "id": "loop",
+      "kind": "rag",
+      "narration": "The usual loop: call a tool, dump the raw output into context, and make the model read all of it before the next action.",
+      "title": "The usual agent loop",
+      "highlight": [
+        "usual"
+      ],
+      "data": {
+        "kicker": "TODAY",
+        "stages": [
+          "Query",
+          "Tool call",
+          "Raw output",
+          "Context",
+          "LLM",
+          "Next action"
+        ]
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "problem",
+      "kind": "concept",
+      "narration": "Long, noisy observations eat the context window and dilute attention. Summaries help, but text can only be squeezed so far.",
+      "title": "Why text is the bottleneck",
+      "highlight": [
+        "bottleneck"
+      ],
+      "lines": [
+        "Raw outputs are long and noisy",
+        "They crowd out the actual task",
+        "Text summaries hit a compression floor"
+      ],
+      "data": {
+        "kicker": "THE PROBLEM"
+      },
+      "transition": "zoomIn",
+      "padAfterMs": 260
+    },
+    {
+      "id": "latent",
+      "kind": "neuralNet",
+      "narration": "The fix, called Coca-Cola, compresses each tool output into a few latent tokens: vectors in the model's embedding space instead of words.",
+      "title": "Compress to latent tokens",
+      "highlight": [
+        "latent"
+      ],
+      "data": {
+        "kicker": "THE IDEA",
+        "layers": [
+          6,
+          8,
+          3,
+          8,
+          6
+        ],
+        "labels": [
+          "tool output",
+          "encode",
+          "latent",
+          "decode",
+          "agent"
+        ]
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "training",
+      "kind": "concept",
+      "narration": "It is trained so the agent's next action stays the same with the full output or the compressed one. Action-preserving training.",
+      "title": "Train for the same next action",
+      "highlight": [
+        "same"
+      ],
+      "lines": [
+        "Same next action, full or compressed",
+        "Keeps decision-critical details",
+        "Drops everything else"
+      ],
+      "data": {
+        "kicker": "ACTION-PRESERVING TRAINING"
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "results",
+      "kind": "chart",
+      "narration": "Across four QA benchmarks, token use fell 70 to 89 percent, runtime 24 to 56 percent, and accuracy went up.",
+      "title": "Fewer tokens, faster, better",
+      "highlight": [
+        "better"
+      ],
+      "data": {
+        "kicker": "RESULTS",
+        "type": "bar",
+        "unit": "%",
+        "decimals": 1,
+        "series": [
+          {
+            "label": "Tokens saved (best)",
+            "value": 89.24,
+            "hero": true
+          },
+          {
+            "label": "Tokens saved (least)",
+            "value": 70.01
+          },
+          {
+            "label": "Runtime saved (best)",
+            "value": 55.97
+          },
+          {
+            "label": "Runtime saved (least)",
+            "value": 24.45
+          }
+        ],
+        "note": "4 QA benchmarks, 2 model families. arXiv 2611.06500"
+      },
+      "transition": "up",
+      "padAfterMs": 260
+    },
+    {
+      "id": "payoff",
+      "kind": "payoff",
+      "narration": "Tools don't need to speak in text. Paper and code from Tsinghua, links in the caption.",
+      "title": "Tools don't need to speak in text.",
+      "highlight": [
+        "text"
+      ],
+      "cta": "Follow for one AI paper a day",
+      "transition": "current",
+      "padAfterMs": 700,
+      "data": {
+        "kicker": "THE TAKEAWAY"
+      }
+    }
+  ]
+}

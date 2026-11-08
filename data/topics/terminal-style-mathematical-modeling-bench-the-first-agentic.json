@@ -1,0 +1,33 @@
+{
+ "id": "terminal-style-mathematical-modeling-bench-the-first-agentic",
+ "name": "Terminal-style Mathematical Modeling Bench: The First Agentic and Verifiable Benchmark for Mathematical Modeling",
+ "category": "research",
+ "description": "Mathematical modeling turns an open-ended real-world problem into assumptions, a model, a solution, and a defended recommendation, and its answers matter only if they are both close to a credible reference and physically feasible; existing benchmarks either score solver fragments or grade reports with an LLM judge, leaving those numbers unchecked. We introduce TB-MathModel (the Terminal-style Mathematical Modeling Bench), the first benchmark to make complete contest-style modeling problems agentic, verifiable, and terminal at once, over 18 real CUMCM and MCM problems (2023--2025). Each task sh",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.08237",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 11,
+    "arxiv": "https://arxiv.org/abs/2611.08237"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.08237"
+  }
+ ],
+ "published_at": "2026-11-05T11:18:35+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 84.0,
+  "audience": 97.5,
+  "visual": 100.0,
+  "educational": 90.0,
+  "timeliness": 73.3,
+  "shareability": 73.1
+ },
+ "score_total": 88.6,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.513460+00:00"
+}

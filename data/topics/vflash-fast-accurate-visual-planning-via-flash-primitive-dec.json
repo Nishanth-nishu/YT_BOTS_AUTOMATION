@@ -1,0 +1,33 @@
+{
+ "id": "vflash-fast-accurate-visual-planning-via-flash-primitive-dec",
+ "name": "VFlash: Fast, Accurate Visual Planning via Flash Primitive Decoding",
+ "category": "research",
+ "description": "Models for physical AI tasks, such as robotics and autonomous driving, need not reason solely in language. They can use visual plans--points, bounding boxes, and trajectories--to represent spatial goals and anticipate motion. However, autoregressive vision-language models generate these plans one coordinate token at a time, making richer predictions increasingly costly. We introduce VFlash, a method for fast, accurate visual planning through Flash Primitive Decoding. VFlash exploits the known structure of visual primitives to predict their coordinates jointly, using a lightweight drafter that ",
+ "sources": [
+  {
+   "url": "https://huggingface.co/papers/2611.08449",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 103,
+    "arxiv": "https://arxiv.org/abs/2611.08449"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.08449"
+  }
+ ],
+ "published_at": "2026-11-04T19:00:00+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 80.3,
+  "audience": 76.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 67.2,
+  "shareability": 74.0
+ },
+ "score_total": 84.4,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.515461+00:00"
+}

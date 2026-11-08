@@ -1,0 +1,121 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "It",
+   "start": 0.225,
+   "end": 0.3375
+  },
+  {
+   "text": "is",
+   "start": 0.3375,
+   "end": 0.475
+  },
+  {
+   "text": "called",
+   "start": 0.475,
+   "end": 0.7875
+  },
+  {
+   "text": "GPT-6",
+   "start": 0.7875,
+   "end": 1.675
+  },
+  {
+   "text": "Cyber.",
+   "start": 1.675,
+   "end": 2.525
+  },
+  {
+   "text": "It",
+   "start": 2.525,
+   "end": 2.675
+  },
+  {
+   "text": "finds",
+   "start": 2.675,
+   "end": 2.975
+  },
+  {
+   "text": "exploitable",
+   "start": 2.975,
+   "end": 3.65
+  },
+  {
+   "text": "bugs,",
+   "start": 3.65,
+   "end": 4.3125
+  },
+  {
+   "text": "proves",
+   "start": 4.3125,
+   "end": 4.6875
+  },
+  {
+   "text": "the",
+   "start": 4.6875,
+   "end": 4.8
+  },
+  {
+   "text": "exploit",
+   "start": 4.8,
+   "end": 5.275
+  },
+  {
+   "text": "works,",
+   "start": 5.275,
+   "end": 5.825
+  },
+  {
+   "text": "proposes",
+   "start": 5.825,
+   "end": 6.3375
+  },
+  {
+   "text": "a",
+   "start": 6.3375,
+   "end": 6.4375
+  },
+  {
+   "text": "fix,",
+   "start": 6.4375,
+   "end": 7.075
+  },
+  {
+   "text": "and",
+   "start": 7.075,
+   "end": 7.2125
+  },
+  {
+   "text": "stays",
+   "start": 7.2125,
+   "end": 7.6
+  },
+  {
+   "text": "inside",
+   "start": 7.6,
+   "end": 8.0125
+  },
+  {
+   "text": "the",
+   "start": 8.0125,
+   "end": 8.1
+  },
+  {
+   "text": "scope",
+   "start": 8.1,
+   "end": 8.3875
+  },
+  {
+   "text": "researchers",
+   "start": 8.3875,
+   "end": 8.85
+  },
+  {
+   "text": "set.",
+   "start": 8.85,
+   "end": 9.525
+  }
+ ]
+}

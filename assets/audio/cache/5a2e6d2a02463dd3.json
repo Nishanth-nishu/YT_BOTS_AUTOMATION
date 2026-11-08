@@ -1,0 +1,161 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Setup",
+   "start": 0.3,
+   "end": 0.675
+  },
+  {
+   "text": "is",
+   "start": 0.675,
+   "end": 0.825
+  },
+  {
+   "text": "done",
+   "start": 0.825,
+   "end": 1.05
+  },
+  {
+   "text": "by",
+   "start": 1.05,
+   "end": 1.225
+  },
+  {
+   "text": "another",
+   "start": 1.225,
+   "end": 1.575
+  },
+  {
+   "text": "agent.",
+   "start": 1.575,
+   "end": 2.5125
+  },
+  {
+   "text": "You",
+   "start": 2.5125,
+   "end": 2.675
+  },
+  {
+   "text": "ask",
+   "start": 2.675,
+   "end": 2.9125
+  },
+  {
+   "text": "your",
+   "start": 2.9125,
+   "end": 3.0625
+  },
+  {
+   "text": "coding",
+   "start": 3.0625,
+   "end": 3.4875
+  },
+  {
+   "text": "agent",
+   "start": 3.4875,
+   "end": 3.85
+  },
+  {
+   "text": "to",
+   "start": 3.85,
+   "end": 3.975
+  },
+  {
+   "text": "read",
+   "start": 3.975,
+   "end": 4.2625
+  },
+  {
+   "text": "SETUP",
+   "start": 4.2625,
+   "end": 4.675
+  },
+  {
+   "text": "dot",
+   "start": 4.675,
+   "end": 4.925
+  },
+  {
+   "text": "M",
+   "start": 4.925,
+   "end": 5.15
+  },
+  {
+   "text": "D,",
+   "start": 5.15,
+   "end": 5.8125
+  },
+  {
+   "text": "it",
+   "start": 5.8125,
+   "end": 5.95
+  },
+  {
+   "text": "asks",
+   "start": 5.95,
+   "end": 6.3625
+  },
+  {
+   "text": "one",
+   "start": 6.3625,
+   "end": 6.7
+  },
+  {
+   "text": "short",
+   "start": 6.7,
+   "end": 7.0
+  },
+  {
+   "text": "question",
+   "start": 7.0,
+   "end": 7.4125
+  },
+  {
+   "text": "at",
+   "start": 7.4125,
+   "end": 7.4875
+  },
+  {
+   "text": "a",
+   "start": 7.4875,
+   "end": 7.55
+  },
+  {
+   "text": "time,",
+   "start": 7.55,
+   "end": 8.3
+  },
+  {
+   "text": "shows",
+   "start": 8.3,
+   "end": 8.675
+  },
+  {
+   "text": "the",
+   "start": 8.675,
+   "end": 8.7875
+  },
+  {
+   "text": "plan,",
+   "start": 8.7875,
+   "end": 9.5
+  },
+  {
+   "text": "then",
+   "start": 9.5,
+   "end": 9.725
+  },
+  {
+   "text": "installs",
+   "start": 9.725,
+   "end": 10.3375
+  },
+  {
+   "text": "everything.",
+   "start": 10.3375,
+   "end": 11.35
+  }
+ ]
+}

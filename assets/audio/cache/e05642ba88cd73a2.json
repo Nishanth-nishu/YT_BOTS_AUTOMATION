@@ -1,0 +1,136 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "Setup",
+   "start": 0.275,
+   "end": 0.65
+  },
+  {
+   "text": "is",
+   "start": 0.65,
+   "end": 0.8
+  },
+  {
+   "text": "done",
+   "start": 0.8,
+   "end": 1.05
+  },
+  {
+   "text": "by",
+   "start": 1.05,
+   "end": 1.225
+  },
+  {
+   "text": "another",
+   "start": 1.225,
+   "end": 1.575
+  },
+  {
+   "text": "agent:",
+   "start": 1.575,
+   "end": 2.4875
+  },
+  {
+   "text": "ask",
+   "start": 2.4875,
+   "end": 2.7375
+  },
+  {
+   "text": "your",
+   "start": 2.7375,
+   "end": 2.875
+  },
+  {
+   "text": "coding",
+   "start": 2.875,
+   "end": 3.2625
+  },
+  {
+   "text": "agent",
+   "start": 3.2625,
+   "end": 3.6
+  },
+  {
+   "text": "to",
+   "start": 3.6,
+   "end": 3.725
+  },
+  {
+   "text": "read",
+   "start": 3.725,
+   "end": 4.0125
+  },
+  {
+   "text": "SETUP",
+   "start": 4.0125,
+   "end": 4.425
+  },
+  {
+   "text": "dot",
+   "start": 4.425,
+   "end": 4.6625
+  },
+  {
+   "text": "M",
+   "start": 4.6625,
+   "end": 4.85
+  },
+  {
+   "text": "D,",
+   "start": 4.85,
+   "end": 5.45
+  },
+  {
+   "text": "it",
+   "start": 5.45,
+   "end": 5.575
+  },
+  {
+   "text": "asks",
+   "start": 5.575,
+   "end": 5.9875
+  },
+  {
+   "text": "one",
+   "start": 5.9875,
+   "end": 6.225
+  },
+  {
+   "text": "question",
+   "start": 6.225,
+   "end": 6.65
+  },
+  {
+   "text": "at",
+   "start": 6.65,
+   "end": 6.7375
+  },
+  {
+   "text": "a",
+   "start": 6.7375,
+   "end": 6.8
+  },
+  {
+   "text": "time,",
+   "start": 6.8,
+   "end": 7.5
+  },
+  {
+   "text": "then",
+   "start": 7.5,
+   "end": 7.7
+  },
+  {
+   "text": "installs",
+   "start": 7.7,
+   "end": 8.3125
+  },
+  {
+   "text": "everything.",
+   "start": 8.3125,
+   "end": 9.25
+  }
+ ]
+}

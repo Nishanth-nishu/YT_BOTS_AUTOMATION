@@ -1,0 +1,126 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "On",
+   "start": 0.275,
+   "end": 0.4625
+  },
+  {
+   "text": "ExploitGym,",
+   "start": 0.4625,
+   "end": 1.5
+  },
+  {
+   "text": "a",
+   "start": 1.5,
+   "end": 1.6125
+  },
+  {
+   "text": "test",
+   "start": 1.6125,
+   "end": 1.9375
+  },
+  {
+   "text": "of",
+   "start": 1.9375,
+   "end": 2.025
+  },
+  {
+   "text": "exploiting",
+   "start": 2.025,
+   "end": 2.6
+  },
+  {
+   "text": "a",
+   "start": 2.6,
+   "end": 2.7
+  },
+  {
+   "text": "given",
+   "start": 2.7,
+   "end": 3.0
+  },
+  {
+   "text": "vulnerability,",
+   "start": 3.0,
+   "end": 4.3125
+  },
+  {
+   "text": "it",
+   "start": 4.3125,
+   "end": 4.45
+  },
+  {
+   "text": "succeeds",
+   "start": 4.45,
+   "end": 5.0
+  },
+  {
+   "text": "48.5",
+   "start": 5.0,
+   "end": 6.325
+  },
+  {
+   "text": "percent",
+   "start": 6.325,
+   "end": 6.6625
+  },
+  {
+   "text": "of",
+   "start": 6.6625,
+   "end": 6.7375
+  },
+  {
+   "text": "the",
+   "start": 6.7375,
+   "end": 6.825
+  },
+  {
+   "text": "time,",
+   "start": 6.825,
+   "end": 7.65
+  },
+  {
+   "text": "up",
+   "start": 7.65,
+   "end": 7.85
+  },
+  {
+   "text": "from",
+   "start": 7.85,
+   "end": 8.0625
+  },
+  {
+   "text": "32.1",
+   "start": 8.0625,
+   "end": 9.4375
+  },
+  {
+   "text": "for",
+   "start": 9.4375,
+   "end": 9.5625
+  },
+  {
+   "text": "the",
+   "start": 9.5625,
+   "end": 9.65
+  },
+  {
+   "text": "previous",
+   "start": 9.65,
+   "end": 10.1125
+  },
+  {
+   "text": "Cyber",
+   "start": 10.1125,
+   "end": 10.45
+  },
+  {
+   "text": "model.",
+   "start": 10.45,
+   "end": 11.25
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "id": "swarmevolve-latent-agent-swarms-for-evolutionary-discovery-a",
+ "name": "SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization",
+ "category": "research",
+ "description": "LLM-guided evolutionary search uses AI agents to improve programs for mathematical and computational problems by iteratively refining solutions and combining high-scoring methods. However, the process is often slow because the LLM generates a long textual chain of thought for each round and must repeat this generation many times to maintain population diversity. We present SwarmEvolve, a framework in which hundreds of low-cost agents per round work in swarms, reason in latent space without decoding to text, and share information by passing KV caches. Each swarm studies the problem from a diffe",
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2611.08483v1",
+   "source": "arxiv",
+   "signals": {
+    "primary_category": "cs.AI"
+   }
+  },
+  {
+   "url": "https://huggingface.co/papers/2611.08483",
+   "source": "hf_papers",
+   "signals": {
+    "upvotes": 9,
+    "arxiv": "https://arxiv.org/abs/2611.08483"
+   },
+   "arxiv": "https://arxiv.org/abs/2611.08483"
+  }
+ ],
+ "published_at": "2026-11-05T18:59:29+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 85.7,
+  "audience": 70.0,
+  "visual": 100.0,
+  "educational": 100.0,
+  "timeliness": 76.2,
+  "shareability": 40.5
+ },
+ "score_total": 82.1,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.508385+00:00"
+}

@@ -1,0 +1,19 @@
+{
+ "machine": "local",
+ "composition": "Reel",
+ "profile": "draft",
+ "concurrency": 2,
+ "frames": 1600,
+ "render_seconds": 97.2,
+ "encode_seconds": 14.0,
+ "frames_per_second_rendered": 16.46,
+ "output": "C:\\Users\\HP\\Desktop\\crazy_ideas-claude\\insta bot\\output\\drafts\\dsh-superagent.draft.mp4",
+ "output_bytes": 4669975,
+ "gpu": "none (Intel UHD 770, no NVENC)",
+ "peak_tree_rss_mb": 2107,
+ "peak_sys_used_mb": 16366,
+ "min_sys_avail_mb": 467,
+ "avg_cpu_percent": 18.4,
+ "peak_cpu_percent": 31.8,
+ "samples": 95
+}

@@ -23,8 +23,8 @@ export const PayoffScene: React.FC<{ scene: TimedScene; styleId: StyleId; partic
   return (
     <AbsoluteFill>
       <ParticleField count={90} scale={particleScale * bloom} styleId={styleId} seed={44} speed={1.4} size={[3, 11]} />
-      <Orb x={800} y={1560} size={640} styleId={styleId} delay={0} intensity={0.8} />
-      <SceneTitle kicker="SO WHAT IS AN AGENT?" title={scene.title ?? ""} highlight={scene.highlight} styleId={styleId} hero top={440} />
+      <Orb x={820} y={1780} size={560} styleId={styleId} delay={0} intensity={0.8} />
+      <SceneTitle kicker={scene.data.kicker ?? "THE TAKEAWAY"} title={scene.title ?? ""} highlight={scene.highlight} styleId={styleId} hero top={440} />
       {scene.cta ? (
         <div style={{ position: "absolute", left: 80, top: 960, width: 880, display: "flex" }}>
           <Breathe period={20} amount={0.02} floatPx={4}>

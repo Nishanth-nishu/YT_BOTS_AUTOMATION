@@ -1,0 +1,33 @@
+{
+ "id": "ista-daslab-deepseek-v4-1-flash-1017-gsq-rco-coder-gguf",
+ "name": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-Coder-GGUF",
+ "category": "products",
+ "description": "pipeline: image-text-to-text; tags: gguf, text-generation, image-text-to-text, vision, gsq, rco, quantization, pruning",
+ "sources": [
+  {
+   "url": "https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-Coder-GGUF",
+   "source": "hf_models",
+   "signals": {
+    "likes": 200,
+    "downloads": 258719,
+    "pipeline": "image-text-to-text"
+   }
+  }
+ ],
+ "published_at": "2026-11-02T13:52:10+00:00",
+ "notes": "",
+ "verified_claims": [],
+ "unverified_claims": [],
+ "scores": {
+  "novelty": 68.4,
+  "audience": 80.0,
+  "visual": 100.0,
+  "educational": 40,
+  "timeliness": 47.3,
+  "shareability": 89.5
+ },
+ "score_total": 72.8,
+ "status": "candidate",
+ "used_at": null,
+ "discovered_at": "2026-11-08T10:24:35.516890+00:00"
+}

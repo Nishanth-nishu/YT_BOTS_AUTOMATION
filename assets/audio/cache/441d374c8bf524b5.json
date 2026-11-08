@@ -1,0 +1,106 @@
+{
+ "provider": "kokoro",
+ "voice": "af_heart",
+ "words": [
+  {
+   "text": "DeepSeek",
+   "start": 0.275,
+   "end": 0.8875
+  },
+  {
+   "text": "just",
+   "start": 0.8875,
+   "end": 1.15
+  },
+  {
+   "text": "open-sourced",
+   "start": 1.15,
+   "end": 1.8125
+  },
+  {
+   "text": "an",
+   "start": 1.8125,
+   "end": 1.9375
+  },
+  {
+   "text": "agent",
+   "start": 1.9375,
+   "end": 2.5
+  },
+  {
+   "text": "that",
+   "start": 2.5,
+   "end": 2.65
+  },
+  {
+   "text": "runs",
+   "start": 2.65,
+   "end": 2.9375
+  },
+  {
+   "text": "your",
+   "start": 2.9375,
+   "end": 3.0875
+  },
+  {
+   "text": "GitHub",
+   "start": 3.0875,
+   "end": 3.5
+  },
+  {
+   "text": "repo",
+   "start": 3.5,
+   "end": 3.875
+  },
+  {
+   "text": "on",
+   "start": 3.875,
+   "end": 4.0125
+  },
+  {
+   "text": "its",
+   "start": 4.0125,
+   "end": 4.175
+  },
+  {
+   "text": "own.",
+   "start": 4.175,
+   "end": 4.9375
+  },
+  {
+   "text": "21",
+   "start": 4.9375,
+   "end": 5.475
+  },
+  {
+   "text": "thousand",
+   "start": 5.475,
+   "end": 5.9
+  },
+  {
+   "text": "stars",
+   "start": 5.9,
+   "end": 6.325
+  },
+  {
+   "text": "in",
+   "start": 6.325,
+   "end": 6.4375
+  },
+  {
+   "text": "about",
+   "start": 6.4375,
+   "end": 6.6625
+  },
+  {
+   "text": "a",
+   "start": 6.6625,
+   "end": 6.725
+  },
+  {
+   "text": "week.",
+   "start": 6.725,
+   "end": 7.4
+  }
+ ]
+}
