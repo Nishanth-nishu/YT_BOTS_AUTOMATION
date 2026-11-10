@@ -5,6 +5,9 @@
  "cover": "cover.png",
  "duration_s": 59.275,
  "qa": "PASS",
- "status": "ready_for_manual_upload",
- "post_url": null
+ "status": "published",
+ "post_url": "https://www.instagram.com/reel/Dfj2hYehoAT/",
+ "media_id": "18118765789816364",
+ "video_url": "https://raw.githubusercontent.com/Nishanth-nishu/insta-bot/media/gpt6-cyber.mp4",
+ "published_at": "2026-11-10T11:58:35Z"
 }
