@@ -1,0 +1,186 @@
+{
+ "provider": "kokoro",
+ "voice": "am_fenrir",
+ "words": [
+  {
+   "text": "It's",
+   "start": 0.175,
+   "end": 0.35
+  },
+  {
+   "text": "called",
+   "start": 0.35,
+   "end": 0.6625
+  },
+  {
+   "text": "D",
+   "start": 0.6625,
+   "end": 0.9375
+  },
+  {
+   "text": "S",
+   "start": 0.9375,
+   "end": 1.2625
+  },
+  {
+   "text": "H",
+   "start": 1.2625,
+   "end": 1.6
+  },
+  {
+   "text": "super",
+   "start": 1.6,
+   "end": 2.0
+  },
+  {
+   "text": "agent.",
+   "start": 2.0,
+   "end": 2.65
+  },
+  {
+   "text": "It",
+   "start": 2.65,
+   "end": 2.8625
+  },
+  {
+   "text": "listens",
+   "start": 2.8625,
+   "end": 3.35
+  },
+  {
+   "text": "to",
+   "start": 3.35,
+   "end": 3.475
+  },
+  {
+   "text": "your",
+   "start": 3.475,
+   "end": 3.6625
+  },
+  {
+   "text": "git",
+   "start": 3.6625,
+   "end": 3.9
+  },
+  {
+   "text": "hub",
+   "start": 3.9,
+   "end": 4.125
+  },
+  {
+   "text": "repo.",
+   "start": 4.125,
+   "end": 4.8125
+  },
+  {
+   "text": "Someone",
+   "start": 4.8125,
+   "end": 5.1875
+  },
+  {
+   "text": "asks",
+   "start": 5.1875,
+   "end": 5.575
+  },
+  {
+   "text": "for",
+   "start": 5.575,
+   "end": 5.725
+  },
+  {
+   "text": "work,",
+   "start": 5.725,
+   "end": 6.075
+  },
+  {
+   "text": "it",
+   "start": 6.075,
+   "end": 6.2
+  },
+  {
+   "text": "opens",
+   "start": 6.2,
+   "end": 6.55
+  },
+  {
+   "text": "a",
+   "start": 6.55,
+   "end": 6.6625
+  },
+  {
+   "text": "work",
+   "start": 6.6625,
+   "end": 6.95
+  },
+  {
+   "text": "item,",
+   "start": 6.95,
+   "end": 7.35
+  },
+  {
+   "text": "does",
+   "start": 7.35,
+   "end": 7.575
+  },
+  {
+   "text": "the",
+   "start": 7.575,
+   "end": 7.7125
+  },
+  {
+   "text": "job",
+   "start": 7.7125,
+   "end": 8.075
+  },
+  {
+   "text": "in",
+   "start": 8.075,
+   "end": 8.1625
+  },
+  {
+   "text": "its",
+   "start": 8.1625,
+   "end": 8.35
+  },
+  {
+   "text": "own",
+   "start": 8.35,
+   "end": 8.6625
+  },
+  {
+   "text": "session,",
+   "start": 8.6625,
+   "end": 9.15
+  },
+  {
+   "text": "and",
+   "start": 9.15,
+   "end": 9.275
+  },
+  {
+   "text": "replies",
+   "start": 9.275,
+   "end": 9.85
+  },
+  {
+   "text": "with",
+   "start": 9.85,
+   "end": 9.9875
+  },
+  {
+   "text": "a",
+   "start": 9.9875,
+   "end": 10.0875
+  },
+  {
+   "text": "pull",
+   "start": 10.0875,
+   "end": 10.35
+  },
+  {
+   "text": "request.",
+   "start": 10.35,
+   "end": 11.5
+  }
+ ]
+}

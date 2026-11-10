@@ -191,7 +191,7 @@ class KokoroProvider(TTSProvider):
             offset += len(audio) / self.sample_rate
         return (np.concatenate(chunks) if chunks else np.zeros(0, dtype=np.float32)), words
 
-    def synthesize(self, text: str, voice: str = "hm_omega", speed: float = 1.0, caption_text: str | None = None) -> TTSResult:
+    def synthesize(self, text: str, voice: str = "am_fenrir", speed: float = 1.0, caption_text: str | None = None) -> TTSResult:
         lang = self.lang_code or lang_for_voice(voice)
         pipe = self._get(lang)
         t0 = time.time()

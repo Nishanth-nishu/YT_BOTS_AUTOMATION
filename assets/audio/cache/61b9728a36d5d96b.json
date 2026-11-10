@@ -1,0 +1,136 @@
+{
+ "provider": "kokoro",
+ "voice": "am_fenrir",
+ "words": [
+  {
+   "text": "The",
+   "start": 0.175,
+   "end": 0.2875
+  },
+  {
+   "text": "rule",
+   "start": 0.2875,
+   "end": 0.6875
+  },
+  {
+   "text": "is",
+   "start": 0.6875,
+   "end": 0.875
+  },
+  {
+   "text": "attention.",
+   "start": 0.875,
+   "end": 1.65
+  },
+  {
+   "text": "It",
+   "start": 1.65,
+   "end": 1.8
+  },
+  {
+   "text": "acts",
+   "start": 1.8,
+   "end": 2.1
+  },
+  {
+   "text": "only",
+   "start": 2.1,
+   "end": 2.4
+  },
+  {
+   "text": "when",
+   "start": 2.4,
+   "end": 2.6125
+  },
+  {
+   "text": "asked,",
+   "start": 2.6125,
+   "end": 3.0625
+  },
+  {
+   "text": "and",
+   "start": 3.0625,
+   "end": 3.1875
+  },
+  {
+   "text": "speaks",
+   "start": 3.1875,
+   "end": 3.6375
+  },
+  {
+   "text": "only",
+   "start": 3.6375,
+   "end": 4.0
+  },
+  {
+   "text": "when",
+   "start": 4.0,
+   "end": 4.15
+  },
+  {
+   "text": "a",
+   "start": 4.15,
+   "end": 4.2625
+  },
+  {
+   "text": "human",
+   "start": 4.2625,
+   "end": 4.65
+  },
+  {
+   "text": "has",
+   "start": 4.65,
+   "end": 4.85
+  },
+  {
+   "text": "to",
+   "start": 4.85,
+   "end": 4.9875
+  },
+  {
+   "text": "act.",
+   "start": 4.9875,
+   "end": 5.6
+  },
+  {
+   "text": "The",
+   "start": 5.6,
+   "end": 5.725
+  },
+  {
+   "text": "rest",
+   "start": 5.725,
+   "end": 5.9875
+  },
+  {
+   "text": "of",
+   "start": 5.9875,
+   "end": 6.0625
+  },
+  {
+   "text": "the",
+   "start": 6.0625,
+   "end": 6.15
+  },
+  {
+   "text": "time",
+   "start": 6.15,
+   "end": 6.4875
+  },
+  {
+   "text": "it",
+   "start": 6.4875,
+   "end": 6.575
+  },
+  {
+   "text": "just",
+   "start": 6.575,
+   "end": 6.825
+  },
+  {
+   "text": "works.",
+   "start": 6.825,
+   "end": 7.675
+  }
+ ]
+}

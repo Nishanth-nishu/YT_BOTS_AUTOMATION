@@ -11,12 +11,12 @@ Seam = Literal["current", "up", "zoomIn", "zoomOut", "burst"]
 
 
 class VoiceConfig(BaseModel):
-    """House voice: Kokoro's male Hindi voice speaking Hinglish (Devanagari for
-    Hindi words, Latin for English terms). Voices starting with `h` use the
-    Hindi pipeline; everything else the American English one."""
+    """House voice: Kokoro's male American English voice `am_fenrir`. Voices
+    starting with `h` would use the Hindi pipeline (kept for experiments; the
+    Hindi voices were judged too weak for the house format)."""
 
     provider: Literal["kokoro", "piper"] = "kokoro"
-    voice: str = "hm_omega"
+    voice: str = "am_fenrir"
     speed: float = 1.05
 
 
@@ -39,9 +39,8 @@ class StoryboardScene(BaseModel):
     id: str
     kind: SceneKind
     narration: str
-    # Romanised Hinglish shown as captions when `narration` carries Devanagari
-    # (the display fonts have no Devanagari glyphs). Same sentence and word
-    # count as `narration`, so word timings transfer one to one.
+    # Optional caption override (same sentence and word count as `narration`);
+    # only needed when the narration carries non-Latin text the fonts lack.
     captionText: Optional[str] = None
     title: Optional[str] = None
     lines: list[str] = Field(default_factory=list)

@@ -94,11 +94,11 @@ def test_mouth_envelope_is_per_frame_in_unit_range():
     assert max(env[:28]) == 0.0 and max(env[31:44]) > 0.5
 
 
-def test_hinglish_storyboard_in_repo_passes_rules():
-    sb = Storyboard.model_validate_json((ROOT / "data/storyboards/dsh-superagent-hinglish.json").read_text(encoding="utf-8"))
+def test_host_storyboard_in_repo_passes_rules():
+    sb = Storyboard.model_validate_json((ROOT / "data/storyboards/dsh-superagent-host.json").read_text(encoding="utf-8"))
     assert check_storyboard(sb) == []
-    assert sb.voice.voice.startswith("hm_") and sb.presenter.enabled
-    timed = ROOT / "data/storyboards/dsh-superagent-hinglish.timed.json"
+    assert sb.voice.voice.startswith("am_") and sb.presenter.enabled
+    timed = ROOT / "data/storyboards/dsh-superagent-host.timed.json"
     if timed.exists():
         spec = json.loads(timed.read_text(encoding="utf-8"))
         assert spec["scenes"][0]["endMs"] <= 5600, "hook must land inside 5 s"

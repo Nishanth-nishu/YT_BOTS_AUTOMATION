@@ -1,0 +1,46 @@
+{
+ "provider": "kokoro",
+ "voice": "am_fenrir",
+ "words": [
+  {
+   "text": "Coders,",
+   "start": 0.175,
+   "end": 0.5875
+  },
+  {
+   "text": "be",
+   "start": 0.5875,
+   "end": 0.7375
+  },
+  {
+   "text": "scared.",
+   "start": 0.7375,
+   "end": 1.2625
+  },
+  {
+   "text": "DeepSeek",
+   "start": 1.2625,
+   "end": 1.775
+  },
+  {
+   "text": "just",
+   "start": 1.775,
+   "end": 2.0
+  },
+  {
+   "text": "open-sourced",
+   "start": 2.0,
+   "end": 2.6375
+  },
+  {
+   "text": "your",
+   "start": 2.6375,
+   "end": 2.7375
+  },
+  {
+   "text": "replacement.",
+   "start": 2.7375,
+   "end": 3.775
+  }
+ ]
+}

@@ -42,7 +42,7 @@ def test_link_none_when_neither(tmp_path):
 
 
 def test_format_message_substitutes_link_and_newlines():
-    assert format_message(dm_bot.DEFAULT_MESSAGE, "https://a.b") == "Yeh raha link: https://a.b\n\nReel pasand aayi toh follow kar lena. \U0001F525"
+    assert format_message(dm_bot.DEFAULT_MESSAGE, "https://a.b") == "Here is the link: https://a.b\n\nIf the reel helped, a follow keeps them coming. \U0001F525"
     assert format_message("Link: {link}\\nbye", "https://a.b") == "Link: https://a.b\nbye"
     assert "{other}" in format_message("{link} {other}", "x")
 
@@ -95,7 +95,7 @@ def test_send_then_rerun_dedupes_via_state_file(tmp_path):
                   own={"999", "me_account"}, token="", ig_user="999")
     first = run_once(**common)
     assert first["sent"] == 1 and first["failed"] == 1 and first["skipped_already"] == 0
-    assert sent == [("c1", "Yeh raha link: https://link.example/a\n\nReel pasand aayi toh follow kar lena. \U0001F525"), ("c3", sent[1][1])]
+    assert sent == [("c1", "Here is the link: https://link.example/a\n\nIf the reel helped, a follow keeps them coming. \U0001F525"), ("c3", sent[1][1])]
     assert public == ["c1"]
     assert first["failures"][0]["comment_id"] == "c3"
     assert "App Review" in first["permission_hint"]

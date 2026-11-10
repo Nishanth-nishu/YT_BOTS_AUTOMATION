@@ -6,9 +6,9 @@ Rules:
   1. No link anywhere the viewer can see or hear: caption, titles, lines, CTA,
      terminal commands, narration. The link goes out by DM after the viewer
      comments the keyword (`dmKeyword`).
-  2. On-screen text is Latin script only (the display fonts have no Devanagari);
-     a narration with Devanagari needs a romanised `captionText` with the same
-     sentence and word count so the word timings line up.
+  2. On-screen text is Latin script only (the display fonts have no Devanagari).
+     Narration is English; if it ever carries Devanagari it needs a romanised
+     `captionText` with the same sentence and word count.
   3. Scene 1 is the hook: at most 18 spoken words so it lands inside 5 seconds.
   4. The last scene's CTA and the Instagram caption both ask for the keyword.
 """

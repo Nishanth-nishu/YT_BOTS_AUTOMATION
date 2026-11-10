@@ -31,8 +31,8 @@ from services.publishing.instagram import API_VERSION, _env, graph_base
 
 STATE_FILE = paths.DATA / "database" / "dm_bot.json"
 IG_MESSAGES_HOST = f"https://graph.instagram.com/{API_VERSION}"
-DEFAULT_MESSAGE = "Yeh raha link: {link}\n\nReel pasand aayi toh follow kar lena. \U0001F525"
-DEFAULT_PUBLIC_TEXT = "Link bhej diya DM mein, check karo \U0001F4E9"
+DEFAULT_MESSAGE = "Here is the link: {link}\n\nIf the reel helped, a follow keeps them coming. \U0001F525"
+DEFAULT_PUBLIC_TEXT = "Sent, check your DMs \U0001F4E9"
 PERMISSION_HINT = ("app needs App Review for instagram_manage_messages / instagram_business_manage_messages "
                    "(Development mode only reaches users with a role on the app; also allow message access under "
                    "Instagram Settings > Messages and story replies > Connected tools)")

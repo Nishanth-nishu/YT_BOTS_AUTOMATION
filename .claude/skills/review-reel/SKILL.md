@@ -29,7 +29,7 @@ Decide pass or fail for a rendered MP4 and record why. A render is not done beca
    - captions overlapping scene content;
    - dead scenes (nothing moving for more than 90 frames);
    - fonts falling back to a system face.
-3. Presenter and format: the host is visible and his mouth moves while the voice plays (check a frame mid-sentence against one in a pause); hook audio ends by 5.5 s (`scenes[0].endMs` in the timed spec); no URL or repo link anywhere on screen; captions are romanised Latin text (no Devanagari boxes); the payoff asks for the `LETS GO` comment; the badge does not cover scene content (it sits at x 58..284, y 1178..1404).
+3. Presenter and format: the host is visible and his mouth moves while the voice plays (check a frame mid-sentence against one in a pause); hook audio ends by 5.5 s (`scenes[0].endMs` in the timed spec); no URL or repo link anywhere on screen; captions are plain English; the payoff asks for the `LETS GO` comment; the badge does not cover scene content (it sits at x 58..284, y 1178..1404).
 4. Editorial: hook lands in the first 1.5 s, each scene explains one thing, every claim in the narration traces to `sources`, no fabricated numbers, narration reads naturally (run the `ig-human` skill's de-slop checks on the script).
 5. Optional independent review: spawn a subagent with the frames and the checklist from `.claude/skills/remotion-motion-graphics/references/design-rules.md` and compare verdicts.
 

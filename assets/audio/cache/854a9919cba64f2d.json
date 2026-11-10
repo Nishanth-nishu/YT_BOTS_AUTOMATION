@@ -1,0 +1,146 @@
+{
+ "provider": "kokoro",
+ "voice": "am_fenrir",
+ "words": [
+  {
+   "text": "Even",
+   "start": 0.225,
+   "end": 0.5
+  },
+  {
+   "text": "the",
+   "start": 0.5,
+   "end": 0.65
+  },
+  {
+   "text": "setup",
+   "start": 0.65,
+   "end": 1.075
+  },
+  {
+   "text": "is",
+   "start": 1.075,
+   "end": 1.225
+  },
+  {
+   "text": "done",
+   "start": 1.225,
+   "end": 1.525
+  },
+  {
+   "text": "by",
+   "start": 1.525,
+   "end": 1.725
+  },
+  {
+   "text": "an",
+   "start": 1.725,
+   "end": 1.8625
+  },
+  {
+   "text": "agent.",
+   "start": 1.8625,
+   "end": 2.5875
+  },
+  {
+   "text": "Tell",
+   "start": 2.5875,
+   "end": 2.85
+  },
+  {
+   "text": "your",
+   "start": 2.85,
+   "end": 3.0375
+  },
+  {
+   "text": "coding",
+   "start": 3.0375,
+   "end": 3.4875
+  },
+  {
+   "text": "agent",
+   "start": 3.4875,
+   "end": 3.875
+  },
+  {
+   "text": "to",
+   "start": 3.875,
+   "end": 4.0
+  },
+  {
+   "text": "read",
+   "start": 4.0,
+   "end": 4.2875
+  },
+  {
+   "text": "SETUP",
+   "start": 4.2875,
+   "end": 4.7125
+  },
+  {
+   "text": "dot",
+   "start": 4.7125,
+   "end": 5.025
+  },
+  {
+   "text": "M",
+   "start": 5.025,
+   "end": 5.2875
+  },
+  {
+   "text": "D,",
+   "start": 5.2875,
+   "end": 5.75
+  },
+  {
+   "text": "it",
+   "start": 5.75,
+   "end": 5.8875
+  },
+  {
+   "text": "asks",
+   "start": 5.8875,
+   "end": 6.2875
+  },
+  {
+   "text": "one",
+   "start": 6.2875,
+   "end": 6.55
+  },
+  {
+   "text": "question",
+   "start": 6.55,
+   "end": 7.025
+  },
+  {
+   "text": "at",
+   "start": 7.025,
+   "end": 7.1125
+  },
+  {
+   "text": "a",
+   "start": 7.1125,
+   "end": 7.2125
+  },
+  {
+   "text": "time,",
+   "start": 7.2125,
+   "end": 7.675
+  },
+  {
+   "text": "then",
+   "start": 7.675,
+   "end": 7.9
+  },
+  {
+   "text": "installs",
+   "start": 7.9,
+   "end": 8.5125
+  },
+  {
+   "text": "everything.",
+   "start": 8.5125,
+   "end": 9.575
+  }
+ ]
+}

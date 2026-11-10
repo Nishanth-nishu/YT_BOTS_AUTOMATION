@@ -29,7 +29,7 @@ Three distinct topics, each with a passed QA report, each package complete. Fewe
 
 ## Error handling
 - Never publish; packages wait for manual approval. After the user approves and a reel is posted through `services.publishing.instagram`, run the DM bot so `LETS GO` comments get the link: `python -m services.publishing.dm_bot --send --watch` (dry run first; see docs/PUBLISHING.md "Comment-to-DM link gate").
-- Every reel uses the house format: male Hinglish host, anxious-funny 5 s hook, no link on screen or in the caption, keyword CTA. `services.common.rules` must pass before voiceover.
+- Every reel uses the house format: animated male host (long hair, black hoodie), male English voice `am_fenrir`, anxious-funny 5 s hook, no link on screen or in the caption, keyword CTA. `services.common.rules` must pass before voiceover.
 - Never reuse a topic slug used in the last 30 days.
 
 ## Dependencies

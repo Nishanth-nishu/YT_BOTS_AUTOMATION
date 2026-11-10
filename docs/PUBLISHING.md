@@ -51,7 +51,7 @@ Unofficial Instagram automation (browser bots, private API clients) is excluded 
 
 ## Comment-to-DM link gate
 
-Reels end with "comment LETS GO and I'll DM you the link". `services/publishing/dm_bot.py` reads the comments on every published reel (`output/approved/**/package.json` with `status: "published"`), finds the ones that say "let's go" in any spelling (`lets go`, `letsgo`, `LET'S GOOO 🔥`, with other words around it), sends that commenter a private reply containing the link, and can also post a public reply ("Link bhej diya DM mein, check karo 📩") so others see the gate works. Official Graph API only: `GET /{media_id}/comments`, `POST /{ig_user_id}/messages` with `recipient.comment_id` (private reply), `POST /{comment_id}/replies` (public reply).
+Reels end with "comment LETS GO and I'll DM you the link". `services/publishing/dm_bot.py` reads the comments on every published reel (`output/approved/**/package.json` with `status: "published"`), finds the ones that say "let's go" in any spelling (`lets go`, `letsgo`, `LET'S GOOO 🔥`, with other words around it), sends that commenter a private reply containing the link, and can also post a public reply so others see the gate works. Official Graph API only: `GET /{media_id}/comments`, `POST /{ig_user_id}/messages` with `recipient.comment_id` (private reply), `POST /{comment_id}/replies` (public reply).
 
 The link sent is `dm_link` in the package's `package.json` when present, otherwise the first line of `sources.txt` in the same folder. State is kept in `data/database/dm_bot.json`; a comment is never DMed twice and the account's own comments are skipped.
 
@@ -62,7 +62,7 @@ The link sent is `dm_link` in the package's `package.json` when present, otherwi
 .venv\Scripts\python -m services.publishing.dm_bot --send
 .venv\Scripts\python -m services.publishing.dm_bot --send --public-reply
 # one reel only, custom texts, or poll forever (Ctrl+C to stop)
-.venv\Scripts\python -m services.publishing.dm_bot --media 18449803003135288 --message "Yeh raha link: {link}" --public-text "DM check karo"
+.venv\Scripts\python -m services.publishing.dm_bot --media 18449803003135288 --message "Here is the link: {link}" --public-text "Sent, check your DMs"
 .venv\Scripts\python -m services.publishing.dm_bot --send --watch --interval 60
 ```
 

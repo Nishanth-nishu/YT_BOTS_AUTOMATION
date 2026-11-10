@@ -1,0 +1,166 @@
+{
+ "provider": "kokoro",
+ "voice": "am_fenrir",
+ "words": [
+  {
+   "text": "M",
+   "start": 0.25,
+   "end": 0.45
+  },
+  {
+   "text": "I",
+   "start": 0.45,
+   "end": 0.6125
+  },
+  {
+   "text": "T",
+   "start": 0.6125,
+   "end": 0.8625
+  },
+  {
+   "text": "licensed,",
+   "start": 0.8625,
+   "end": 1.5125
+  },
+  {
+   "text": "research",
+   "start": 1.5125,
+   "end": 2.0125
+  },
+  {
+   "text": "prototype,",
+   "start": 2.0125,
+   "end": 2.65
+  },
+  {
+   "text": "not",
+   "start": 2.65,
+   "end": 2.8125
+  },
+  {
+   "text": "a",
+   "start": 2.8125,
+   "end": 2.875
+  },
+  {
+   "text": "product.",
+   "start": 2.875,
+   "end": 3.6125
+  },
+  {
+   "text": "Want",
+   "start": 3.6125,
+   "end": 3.825
+  },
+  {
+   "text": "the",
+   "start": 3.825,
+   "end": 3.95
+  },
+  {
+   "text": "link?",
+   "start": 3.95,
+   "end": 4.4875
+  },
+  {
+   "text": "Comment",
+   "start": 4.4875,
+   "end": 4.9625
+  },
+  {
+   "text": "LETS",
+   "start": 4.9625,
+   "end": 5.7375
+  },
+  {
+   "text": "GO",
+   "start": 5.7375,
+   "end": 6.3
+  },
+  {
+   "text": "and",
+   "start": 6.3,
+   "end": 6.4125
+  },
+  {
+   "text": "I'll",
+   "start": 6.4125,
+   "end": 6.6125
+  },
+  {
+   "text": "send",
+   "start": 6.6125,
+   "end": 6.8875
+  },
+  {
+   "text": "it",
+   "start": 6.8875,
+   "end": 6.975
+  },
+  {
+   "text": "to",
+   "start": 6.975,
+   "end": 7.075
+  },
+  {
+   "text": "your",
+   "start": 7.075,
+   "end": 7.2625
+  },
+  {
+   "text": "D",
+   "start": 7.2625,
+   "end": 7.5125
+  },
+  {
+   "text": "Ms.",
+   "start": 7.5125,
+   "end": 7.8375
+  },
+  {
+   "text": "And",
+   "start": 7.8375,
+   "end": 7.9875
+  },
+  {
+   "text": "follow,",
+   "start": 7.9875,
+   "end": 8.425
+  },
+  {
+   "text": "so",
+   "start": 8.425,
+   "end": 8.6
+  },
+  {
+   "text": "you're",
+   "start": 8.6,
+   "end": 8.75
+  },
+  {
+   "text": "not",
+   "start": 8.75,
+   "end": 8.975
+  },
+  {
+   "text": "the",
+   "start": 8.975,
+   "end": 9.1
+  },
+  {
+   "text": "last",
+   "start": 9.1,
+   "end": 9.45
+  },
+  {
+   "text": "to",
+   "start": 9.45,
+   "end": 9.575
+  },
+  {
+   "text": "know.",
+   "start": 9.575,
+   "end": 10.475
+  }
+ ]
+}

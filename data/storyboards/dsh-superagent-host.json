@@ -1,0 +1,129 @@
+{
+  "id": "dsh-superagent-host",
+  "title": "DeepSeek just open-sourced your replacement",
+  "style": "cinematic",
+  "voice": {
+    "provider": "kokoro",
+    "voice": "am_fenrir",
+    "speed": 1.05
+  },
+  "presenter": {
+    "enabled": true,
+    "name": "host",
+    "mood": "hype"
+  },
+  "music": {
+    "file": "music/ambient_bed.wav",
+    "volume": 0.2,
+    "bpm": 84
+  },
+  "caption": "DeepSeek open-sourced an agent that runs your GitHub repo on its own: it reads the issue, works in its own session and answers with a pull request. 21k stars in about a week.\n\nWant the link? Comment LETS GO and I'll DM it to you. 📩",
+  "hashtags": [
+    "#deepseek",
+    "#opensource",
+    "#aiagents",
+    "#coding",
+    "#techreels",
+    "#artificialintelligence"
+  ],
+  "sources": [
+    "https://github.com/deepseek-ai/dsh-superagent-prototype"
+  ],
+  "dmKeyword": "LETS GO",
+  "dmLink": "https://github.com/deepseek-ai/dsh-superagent-prototype",
+  "scenes": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "narration": "Coders, be scared. DeepSeek just open-sourced your replacement.",
+      "title": "Your replacement is open source.",
+      "highlight": ["replacement"],
+      "transition": "current",
+      "padAfterMs": 200,
+      "data": {
+        "kicker": "AI JOBS / 8 NOV 2026"
+      }
+    },
+    {
+      "id": "what",
+      "kind": "concept",
+      "narration": "It's called dsh-superagent. It listens to your GitHub repo. Someone asks for work, it opens a work item, does the job in its own session, and replies with a pull request.",
+      "title": "What it actually does",
+      "highlight": ["does"],
+      "lines": [
+        "Listens to GitHub issues and comments",
+        "One work item per request",
+        "Works in its own session",
+        "Answers with a pull request"
+      ],
+      "data": {
+        "kicker": "DSH-SUPERAGENT"
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "flow",
+      "kind": "workflow",
+      "narration": "Request in. Work item. Agent session. Pull request out. And one panel shows only what a human still has to decide.",
+      "title": "Request in, PR out",
+      "highlight": ["out"],
+      "data": {
+        "stages": ["Request", "Work item", "Agent session", "Pull request"],
+        "goal": "Human decides"
+      },
+      "transition": "zoomIn",
+      "padAfterMs": 260
+    },
+    {
+      "id": "setup",
+      "kind": "terminal",
+      "narration": "Even the setup is done by an agent. Tell your coding agent to read SETUP dot MD, it asks one question at a time, then installs everything.",
+      "title": "Set up by an agent, for an agent",
+      "highlight": ["agent"],
+      "data": {
+        "kicker": "GETTING STARTED",
+        "windowTitle": "zsh",
+        "command": "git clone dsh-superagent-prototype",
+        "lines": [
+          { "text": "Cloning into 'dsh-superagent-prototype'...", "kind": "dim" },
+          { "text": "> Read SETUP.md and set up dsh-superagent with me", "kind": "out" },
+          { "text": "agent: one question at a time, then the full plan", "kind": "dim" },
+          { "text": "pnpm check   typecheck ok   tests ok   build ok", "kind": "ok" }
+        ]
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "rule",
+      "kind": "concept",
+      "narration": "The rule is attention. It acts only when asked, and speaks only when a human has to act. The rest of the time it just works.",
+      "title": "Minimum attention, maximum value",
+      "highlight": ["attention"],
+      "lines": [
+        "Acts only when asked or allowed by a rule",
+        "Speaks only when a human must act",
+        "Takes little attention, gives a lot"
+      ],
+      "data": {
+        "kicker": "THE PHILOSOPHY"
+      },
+      "transition": "up",
+      "padAfterMs": 260
+    },
+    {
+      "id": "payoff",
+      "kind": "payoff",
+      "narration": "MIT licensed, research prototype, not a product. Want the link? Comment LETS GO and I'll send it to your DMs. And follow, so you're not the last to know.",
+      "title": "Want the link? Comment: LETS GO",
+      "highlight": ["LETS", "GO"],
+      "cta": "Comment LETS GO, the link lands in your DMs",
+      "transition": "current",
+      "padAfterMs": 900,
+      "data": {
+        "kicker": "THE TAKEAWAY"
+      }
+    }
+  ]
+}

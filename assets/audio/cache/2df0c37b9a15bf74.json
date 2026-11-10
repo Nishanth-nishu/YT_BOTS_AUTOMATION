@@ -1,0 +1,111 @@
+{
+ "provider": "kokoro",
+ "voice": "am_fenrir",
+ "words": [
+  {
+   "text": "Request",
+   "start": 0.2,
+   "end": 0.625
+  },
+  {
+   "text": "in.",
+   "start": 0.625,
+   "end": 0.975
+  },
+  {
+   "text": "Work",
+   "start": 0.975,
+   "end": 1.225
+  },
+  {
+   "text": "item.",
+   "start": 1.225,
+   "end": 1.8125
+  },
+  {
+   "text": "Agent",
+   "start": 1.8125,
+   "end": 2.2375
+  },
+  {
+   "text": "session.",
+   "start": 2.2375,
+   "end": 2.825
+  },
+  {
+   "text": "Pull",
+   "start": 2.825,
+   "end": 3.075
+  },
+  {
+   "text": "request",
+   "start": 3.075,
+   "end": 3.525
+  },
+  {
+   "text": "out.",
+   "start": 3.525,
+   "end": 3.975
+  },
+  {
+   "text": "And",
+   "start": 3.975,
+   "end": 4.1375
+  },
+  {
+   "text": "one",
+   "start": 4.1375,
+   "end": 4.375
+  },
+  {
+   "text": "panel",
+   "start": 4.375,
+   "end": 4.7625
+  },
+  {
+   "text": "shows",
+   "start": 4.7625,
+   "end": 5.1125
+  },
+  {
+   "text": "only",
+   "start": 5.1125,
+   "end": 5.425
+  },
+  {
+   "text": "what",
+   "start": 5.425,
+   "end": 5.5625
+  },
+  {
+   "text": "a",
+   "start": 5.5625,
+   "end": 5.6375
+  },
+  {
+   "text": "human",
+   "start": 5.6375,
+   "end": 6.025
+  },
+  {
+   "text": "still",
+   "start": 6.025,
+   "end": 6.3
+  },
+  {
+   "text": "has",
+   "start": 6.3,
+   "end": 6.55
+  },
+  {
+   "text": "to",
+   "start": 6.55,
+   "end": 6.65
+  },
+  {
+   "text": "decide.",
+   "start": 6.65,
+   "end": 7.675
+  }
+ ]
+}

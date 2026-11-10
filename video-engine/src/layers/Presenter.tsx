@@ -1,5 +1,5 @@
 /**
- * Presenter: the animated host, a stylised male avatar drawn in SVG whose
+ * Presenter: the animated host, a stylised male avatar (long hair, black hoodie, headphones) drawn in SVG whose
  * mouth follows the voice track (spec.presenter.envelope, one value per
  * frame), with deterministic blinks, head bob, eyebrow lifts on loud
  * syllables and, in "hype" mood, a sweat drop and "!!" for the hook.
@@ -48,7 +48,10 @@ export const blinkAt = (frame: number, seed: number): number => {
 
 const SKIN = "#E9B98C";
 const SKIN_DARK = "#C9935F";
-const HAIR = "#1E1726";
+const HAIR = "#141018";
+const HAIR_SHINE = "#2A2233";
+const HOODIE = "#111115";
+const HOODIE_EDGE = "#2A2A33";
 const LIPS = "#8C4A4A";
 const MOUTH = "#3A1C27";
 
@@ -90,22 +93,33 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
     <svg width={w} height={size} viewBox="0 0 400 440" style={{ display: "block", overflow: "visible" }}>
       {/* torso: hoodie in the hero colour */}
       <g transform={`translate(${shake} 0)`}>
-        <rect x={44} y={318} width={312} height={170} rx={78} fill={p.hero} />
-        <rect x={44} y={318} width={312} height={170} rx={78} fill="rgba(0,0,0,0.28)" />
-        <path d="M 120 318 C 140 300, 170 296, 200 300 C 230 296, 260 300, 280 318 C 262 352, 232 366, 200 366 C 168 366, 138 352, 120 318 Z" fill={p.hero} opacity={0.9} />
+        {/* black hoodie with a lighter hood rim and drawstrings */}
+        <rect x={40} y={318} width={320} height={172} rx={80} fill={HOODIE} />
+        <path d="M 40 398 C 40 350, 80 318, 120 318 L 280 318 C 320 318, 360 350, 360 398 L 360 490 L 40 490 Z" fill={HOODIE} />
+        <path d="M 112 318 C 134 296, 166 288, 200 292 C 234 288, 266 296, 288 318 C 268 356, 236 374, 200 374 C 164 374, 132 356, 112 318 Z" fill={HOODIE_EDGE} />
+        <path d="M 124 322 C 146 304, 172 298, 200 300 C 228 298, 254 304, 276 322 C 258 352, 232 364, 200 364 C 168 364, 142 352, 124 322 Z" fill={HOODIE} />
+        <path d="M 184 350 L 180 420" stroke={HOODIE_EDGE} strokeWidth={5} strokeLinecap="round" />
+        <path d="M 216 350 L 220 420" stroke={HOODIE_EDGE} strokeWidth={5} strokeLinecap="round" />
         <rect x={172} y={248} width={56} height={80} rx={18} fill={SKIN_DARK} />
-        {/* headphone band */}
         <g transform={`translate(0 ${bobY}) rotate(${rot} 200 190)`}>
+          {/* long hair, back layer: falls past the jaw onto the shoulders */}
+          <path d="M 96 150 C 84 60, 316 60, 304 150 C 316 220, 318 290, 298 336 C 280 330, 262 318, 254 300 L 146 300 C 138 318, 120 330, 102 336 C 82 290, 84 220, 96 150 Z" fill={HAIR} />
+          <path d="M 118 180 C 112 230, 112 280, 118 318" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
+          <path d="M 282 180 C 288 230, 288 280, 282 318" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
+          {/* headphone band */}
           <path d="M 104 178 C 104 68, 296 68, 296 178" stroke={p.accent} strokeWidth={11} fill="none" strokeLinecap="round" />
           {/* ears and face */}
           <circle cx={112} cy={196} r={19} fill={SKIN} />
           <circle cx={288} cy={196} r={19} fill={SKIN} />
           <ellipse cx={200} cy={192} rx={92} ry={108} fill={SKIN} />
           {/* stubble */}
-          <ellipse cx={200} cy={262} rx={64} ry={38} fill={HAIR} opacity={0.13} />
-          {/* hair cap with a quiff */}
-          <path d="M 108 176 C 98 64, 302 64, 292 176 C 282 136, 252 118, 200 118 C 148 118, 118 136, 108 176 Z" fill={HAIR} />
-          <path d="M 150 92 C 168 44, 236 36, 268 78 C 248 66, 214 70, 196 96 Z" fill={HAIR} />
+          <ellipse cx={200} cy={262} rx={64} ry={38} fill={HAIR} opacity={0.14} />
+          {/* hair, front layer: swept fringe with a side part, strands past the temples */}
+          <path d="M 108 176 C 98 64, 302 64, 292 176 C 286 130, 262 112, 232 110 C 214 110, 196 122, 176 140 C 160 118, 136 122, 118 140 C 112 150, 108 162, 108 176 Z" fill={HAIR} />
+          <path d="M 150 86 C 176 42, 250 38, 276 86 C 256 70, 224 72, 210 94 C 196 78, 170 80, 150 86 Z" fill={HAIR} />
+          <path d="M 108 176 C 100 210, 100 236, 106 256 C 114 236, 118 206, 120 180 Z" fill={HAIR} />
+          <path d="M 292 176 C 300 210, 300 236, 294 256 C 286 236, 282 206, 280 180 Z" fill={HAIR} />
+          <path d="M 166 104 C 196 92, 228 92, 256 104" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.7} />
           {/* headphone cups */}
           <rect x={86} y={166} width={28} height={58} rx={12} fill={p.surface} stroke={p.accent} strokeWidth={4} />
           <rect x={286} y={166} width={28} height={58} rx={12} fill={p.surface} stroke={p.accent} strokeWidth={4} />
