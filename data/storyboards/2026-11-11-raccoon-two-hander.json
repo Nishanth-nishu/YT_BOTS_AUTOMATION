@@ -1,0 +1,319 @@
+{
+ "id": "2026-11-11-raccoon-two-hander",
+ "title": "A drunk raccoon raised $250,000",
+ "style": "cinematic",
+ "voice": {
+  "provider": "kokoro",
+  "voice": "am_fenrir",
+  "speed": 1.05
+ },
+ "presenter": {
+  "enabled": true,
+  "name": "host",
+  "mood": "hype",
+  "look": "vrm",
+  "model": "models/host.vrm",
+  "image": "images/host.png"
+ },
+ "music": {
+  "file": "music/ambient_bed.wav",
+  "volume": 0.2,
+  "bpm": 84.0
+ },
+ "caption": "A raccoon was caught drunk inside a liquor store in Hanover County, Virginia. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.\n\nSubscribe for a new weird-but-true story every day.",
+ "hashtags": [
+  "#funny",
+  "#weirdnews",
+  "#truestory",
+  "#raccoon",
+  "#shorts"
+ ],
+ "sources": [
+  "https://www.12onyourside.com/2026/11/06/trashed-panda-campaign-money-hanover-county-animal-control/"
+ ],
+ "dmKeyword": "SUBSCRIBE",
+ "dmLink": null,
+ "scenes": [
+  {
+   "id": "hook",
+   "kind": "hook",
+   "narration": "A drunk raccoon just raised a quarter of a million dollars. Yes, really.",
+   "voice": null,
+   "captionText": null,
+   "title": "A drunk raccoon raised $250,000",
+   "lines": [],
+   "highlight": [
+    "raccoon"
+   ],
+   "data": {
+    "expression": {
+     "preset": "surprised",
+     "weight": 0.65
+    },
+    "speaker": "host",
+    "kicker": "WEIRD BUT TRUE / 11 NOV 2026"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 200,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "setup1",
+   "kind": "dialogue",
+   "narration": "About a year ago, in Hanover County, Virginia, a raccoon was captured inside a liquor store. And he was drunk.",
+   "voice": null,
+   "captionText": null,
+   "title": "Caught inside a liquor store",
+   "lines": [],
+   "highlight": [
+    "liquor"
+   ],
+   "data": {
+    "expression": {
+     "preset": "happy",
+     "weight": 0.35
+    },
+    "speaker": "host",
+    "kicker": "THE SETUP",
+    "cast": [
+     {
+      "name": "host",
+      "label": "Nish",
+      "model": "models/host.vrm"
+     },
+     {
+      "name": "guest",
+      "label": "Sam",
+      "model": "models/guest.vrm"
+     }
+    ]
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 220,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "setup2",
+   "kind": "dialogue",
+   "narration": "Wait. Drunk? The raccoon was drunk? How does a raccoon even pay for that?",
+   "voice": {
+    "voice": "am_puck",
+    "speed": null
+   },
+   "captionText": null,
+   "title": "Wait, drunk?",
+   "lines": [],
+   "highlight": [
+    "drunk"
+   ],
+   "data": {
+    "expression": {
+     "preset": "surprised",
+     "weight": 0.35
+    },
+    "speaker": "guest",
+    "kicker": "THE SETUP",
+    "cast": [
+     {
+      "name": "host",
+      "label": "Nish",
+      "model": "models/host.vrm"
+     },
+     {
+      "name": "guest",
+      "label": "Sam",
+      "model": "models/guest.vrm"
+     }
+    ]
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 220,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "escalation1",
+   "kind": "dialogue",
+   "narration": "He did not pay. That is why animal control had to come and collect him.",
+   "voice": null,
+   "captionText": null,
+   "title": "He did not pay",
+   "lines": [],
+   "highlight": [
+    "pay"
+   ],
+   "data": {
+    "expression": {
+     "preset": "relaxed",
+     "weight": 0.5
+    },
+    "speaker": "host",
+    "kicker": "IT GETS WEIRDER",
+    "cast": [
+     {
+      "name": "host",
+      "label": "Nish",
+      "model": "models/host.vrm"
+     },
+     {
+      "name": "guest",
+      "label": "Sam",
+      "model": "models/guest.vrm"
+     }
+    ]
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 220,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "escalation2",
+   "kind": "dialogue",
+   "narration": "Okay. So that is the end of the story. Sad little hangover, everyone goes home.",
+   "voice": {
+    "voice": "am_puck",
+    "speed": null
+   },
+   "captionText": null,
+   "title": "So that is the end",
+   "lines": [],
+   "highlight": [
+    "end"
+   ],
+   "data": {
+    "expression": {
+     "preset": "relaxed",
+     "weight": 0.5
+    },
+    "speaker": "guest",
+    "kicker": "IT GETS WEIRDER",
+    "cast": [
+     {
+      "name": "host",
+      "label": "Nish",
+      "model": "models/host.vrm"
+     },
+     {
+      "name": "guest",
+      "label": "Sam",
+      "model": "models/guest.vrm"
+     }
+    ]
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 220,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "escalation3",
+   "kind": "dialogue",
+   "narration": "No. The internet found out. A campaign started in his name, and it has now raised two hundred and fifty thousand dollars for that same animal control team.",
+   "voice": null,
+   "captionText": null,
+   "title": "A quarter of a million dollars",
+   "lines": [],
+   "highlight": [
+    "million"
+   ],
+   "data": {
+    "expression": {
+     "preset": "surprised",
+     "weight": 0.5
+    },
+    "speaker": "host",
+    "kicker": "IT GETS WEIRDER",
+    "cast": [
+     {
+      "name": "host",
+      "label": "Nish",
+      "model": "models/host.vrm"
+     },
+     {
+      "name": "guest",
+      "label": "Sam",
+      "model": "models/guest.vrm"
+     }
+    ]
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 220,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "punchline",
+   "kind": "dialogue",
+   "narration": "So I stay sober all year and get a tax bill, and he has one wild night and funds a whole department. I picked the wrong career.",
+   "voice": {
+    "voice": "am_puck",
+    "speed": null
+   },
+   "captionText": null,
+   "title": "I picked the wrong career",
+   "lines": [],
+   "highlight": [
+    "wrong"
+   ],
+   "data": {
+    "expression": {
+     "preset": "angry",
+     "weight": 0.7
+    },
+    "speaker": "guest",
+    "kicker": "THE PUNCHLINE",
+    "cast": [
+     {
+      "name": "host",
+      "label": "Nish",
+      "model": "models/host.vrm"
+     },
+     {
+      "name": "guest",
+      "label": "Sam",
+      "model": "models/guest.vrm"
+     }
+    ]
+   },
+   "transition": "burst",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 220,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "cta",
+   "kind": "payoff",
+   "narration": "Subscribe, and we will bring you another weird but true story tomorrow.",
+   "voice": null,
+   "captionText": null,
+   "title": "New true story tomorrow",
+   "lines": [],
+   "highlight": [
+    "tomorrow"
+   ],
+   "data": {
+    "expression": {
+     "preset": "happy",
+     "weight": 0.45
+    },
+    "speaker": "host",
+    "kicker": "SEE YOU TOMORROW"
+   },
+   "transition": "current",
+   "cta": "Subscribe for tomorrow's story",
+   "leadInMs": 150,
+   "padAfterMs": 900,
+   "minDurationMs": 2500
+  }
+ ]
+}

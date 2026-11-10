@@ -17,3 +17,5 @@ soundfile>=0.12
 psutil>=5.9
 # Local TTS (CPU on this machine, CUDA on Ada). Apache-2.0 model weights.
 kokoro>=0.9.4
+# Avatar texture edits (services/host). HPND licence.
+pillow>=10

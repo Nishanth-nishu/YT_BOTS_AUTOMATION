@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -23,7 +24,7 @@ from pathlib import Path
 from services.common import paths
 from services.common.env import load_dotenv
 from services.common.rules import check_storyboard
-from services.common.schema import MusicConfig, Storyboard, StoryboardScene
+from services.common.schema import MusicConfig, SceneVoice, Storyboard, StoryboardScene
 from services.story.trending import article_summary
 from services.story.writer import CTA_WORD, Story, check_story, write_story
 
@@ -31,6 +32,13 @@ STORIES = paths.DATA / "stories"
 KICKERS = {"setup": "THE SETUP", "escalation": "IT GETS WEIRDER", "punchline": "THE PUNCHLINE", "cta": "SEE YOU TOMORROW"}
 EXPRESSION_WEIGHT = {"hook": 0.65, "setup": 0.35, "escalation": 0.5, "punchline": 0.7, "cta": 0.45}
 CTA_TEXT = "Subscribe for tomorrow's story"
+GUEST_MODEL = paths.PUBLIC / "models" / "guest.vrm"
+
+
+def cast() -> list[dict]:
+    """Left character first. Voices are Kokoro ids; STORY_GUEST_VOICE overrides the guest's."""
+    return [{"name": "host", "label": "Nish", "model": "models/host.vrm", "voice": None},
+            {"name": "guest", "label": "Sam", "model": "models/guest.vrm", "voice": os.environ.get("STORY_GUEST_VOICE") or "am_puck"}]
 CAPTION_TAIL = "Subscribe for a new weird-but-true story every day."
 
 
@@ -40,10 +48,15 @@ def to_storyboard(story: Story, day: date | None = None) -> Storyboard:
     stamp = (day or date.today()).strftime("%d %b %Y").upper().lstrip("0")
     scenes: list[StoryboardScene] = []
     counts: dict[str, int] = {}
+    people = cast()
+    voices = {m["name"]: m["voice"] for m in people}
+    # with a second speaker the middle of the story is staged as a two-character dialogue
+    two_handed = any(b.speaker.strip().lower() != "host" for b in story.beats)
     for beat in story.beats:
         counts[beat.role] = counts.get(beat.role, 0) + 1
-        data = {"expression": {"preset": beat.emotion, "weight": EXPRESSION_WEIGHT[beat.role]}, "speaker": beat.speaker}
-        common = dict(id=f"{beat.role}{counts[beat.role] if beat.role in ('setup', 'escalation') else ''}", narration=beat.narration.strip(),
+        who = beat.speaker.strip().lower()
+        data = {"expression": {"preset": beat.emotion, "weight": EXPRESSION_WEIGHT[beat.role]}, "speaker": who}
+        common = dict(voice=SceneVoice(voice=voices[who]) if voices.get(who) else None, id=f"{beat.role}{counts[beat.role] if beat.role in ('setup', 'escalation') else ''}", narration=beat.narration.strip(),
                       title=beat.title.strip(), highlight=beat.highlight[:2], lines=[l.strip() for l in beat.lines[:3]])
         if beat.role == "hook":
             data["kicker"] = f"WEIRD BUT TRUE / {stamp}"
@@ -51,6 +64,11 @@ def to_storyboard(story: Story, day: date | None = None) -> Storyboard:
         elif beat.role == "cta":
             data["kicker"] = KICKERS["cta"]
             scenes.append(StoryboardScene(kind="payoff", data=data, cta=CTA_TEXT, padAfterMs=900, **common))
+        elif two_handed:
+            data["kicker"] = KICKERS[beat.role]
+            data["cast"] = [{k: m[k] for k in ("name", "label", "model")} for m in people]
+            common["lines"] = []  # the stage is full: two characters, no bullet list
+            scenes.append(StoryboardScene(kind="dialogue", data=data, transition="burst" if beat.role == "punchline" else "current", padAfterMs=220, **common))
         else:
             data["kicker"] = KICKERS[beat.role]
             scenes.append(StoryboardScene(kind="concept", data=data, transition="burst" if beat.role == "punchline" else "current", padAfterMs=260, **common))
@@ -66,6 +84,10 @@ def save(story: Story, source_text: str = "", out_stories: Path | None = None, o
     if problems:
         raise RuntimeError("story rejected:\n- " + "\n- ".join(problems))
     sb = to_storyboard(story)
+    if any(s.kind == "dialogue" for s in sb.scenes) and not GUEST_MODEL.exists():
+        from services.host.make_guest import main as make_guest  # needs Pillow; only when a guest is on stage
+
+        make_guest([])
     house = check_storyboard(sb)
     if house:
         raise RuntimeError("storyboard breaks the house rules:\n- " + "\n- ".join(house))

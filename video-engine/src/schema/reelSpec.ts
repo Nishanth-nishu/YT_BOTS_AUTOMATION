@@ -26,6 +26,7 @@ export const sceneKindSchema = z.enum([
   "chart",
   "neuralNet",
   "rag",
+  "dialogue",
 ]);
 
 export const seamSchema = z.enum(["current", "up", "zoomIn", "zoomOut", "burst"]);
@@ -34,6 +35,8 @@ export const timedSceneSchema = z.object({
   id: z.string(),
   kind: sceneKindSchema,
   narration: z.string(),
+  /** Per-scene voice override (dialogue: one voice per character). */
+  voice: z.object({ voice: z.string().nullable().optional(), speed: z.number().nullable().optional() }).nullable().optional(),
   /** Romanised Hinglish for captions when narration carries Devanagari. */
   captionText: z.string().nullable().optional(),
   title: z.string().nullable().optional(),

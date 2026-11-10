@@ -136,3 +136,65 @@ def test_save_writes_both_files_and_refuses_a_bad_story(tmp_path):
     with pytest.raises(RuntimeError, match="story rejected"):
         generate.save(writer.story_from_json(raw, CAND), "", tmp_path / "s2", tmp_path / "b2")
     assert not (tmp_path / "b2").exists()
+
+
+# ---------------------------------------------------------------- two-character dialogue
+
+def two_hander_json():
+    raw = good_story_json()
+    raw["beats"][2] = beat("escalation", "Hold on. You are telling me strangers paid real money because a raccoon had a big night out? That cannot be right.", "Hold on a second", "surprised", speaker="guest")
+    raw["beats"][4] = beat("punchline", "So I stay sober all year and get nothing, and he gets a quarter of a million. I picked the wrong career.", "Wrong career", "angry", speaker="guest")
+    return raw
+
+
+def test_a_second_speaker_turns_the_middle_into_dialogue_scenes_with_cast_and_voices(monkeypatch):
+    monkeypatch.delenv("STORY_GUEST_VOICE", raising=False)
+    story = writer.story_from_json(two_hander_json(), CAND)
+    assert writer.check_story(story, CAND["summary"]) == []
+    sb = generate.to_storyboard(story)
+    assert check_storyboard(sb) == []
+    assert [s.kind for s in sb.scenes] == ["hook", "dialogue", "dialogue", "dialogue", "dialogue", "payoff"]
+    guest_scene, host_scene = sb.scenes[2], sb.scenes[1]
+    assert guest_scene.data["speaker"] == "guest" and guest_scene.voice.voice == "am_puck" and host_scene.voice is None
+    assert [m["name"] for m in guest_scene.data["cast"]] == ["host", "guest"] and guest_scene.data["cast"][1]["model"] == "models/guest.vrm"
+    assert guest_scene.lines == [] and sb.scenes[0].voice is None
+
+
+def test_story_rules_limit_the_cast_and_keep_hook_and_cta_for_the_host():
+    raw = two_hander_json()
+    raw["beats"][1]["speaker"] = "narrator"
+    assert any("unknown speaker" in p for p in writer.check_story(writer.story_from_json(raw, CAND)))
+    raw = two_hander_json()
+    raw["beats"][0]["speaker"] = "guest"
+    assert any("hook and the cta" in p for p in writer.check_story(writer.story_from_json(raw, CAND)))
+
+
+def test_synthesis_uses_each_scenes_own_voice(tmp_path, monkeypatch):
+    import numpy as np
+
+    from services.common import paths
+    from services.tts import synthesize as syn
+    from services.tts.provider import TTSProvider, TTSResult, WordTiming
+
+    used = []
+
+    class Fake(TTSProvider):
+        name, sample_rate = "fake", 24000
+
+        def available(self):
+            return True
+
+        def synthesize(self, text, voice, speed=1.0, caption_text=None):
+            used.append(voice)
+            ws = text.split()
+            return TTSResult(np.full(24000, 0.1, dtype=np.float32), 24000, [WordTiming(w, i / len(ws), (i + 1) / len(ws)) for i, w in enumerate(ws)], "fake", voice)
+
+    for attr, sub in (("PUBLIC", "public"), ("ASSETS", "assets"), ("AUDIO_CACHE", "cache"), ("STORYBOARDS", "boards")):
+        monkeypatch.setattr(paths, attr, tmp_path / sub)
+    monkeypatch.setattr(paths, "ensure_dirs", lambda: [(tmp_path / d).mkdir(exist_ok=True) for d in ("public", "assets", "cache", "boards")])
+    monkeypatch.setattr(syn, "get_provider", lambda name, device="auto": Fake())
+    monkeypatch.delenv("STORY_GUEST_VOICE", raising=False)
+    sb = generate.to_storyboard(writer.story_from_json(two_hander_json(), CAND))
+    spec = syn.synthesize_storyboard(sb, force=True)
+    assert used == ["am_fenrir", "am_fenrir", "am_puck", "am_fenrir", "am_puck", "am_fenrir"]
+    assert [s.kind for s in spec.scenes].count("dialogue") == 4 and spec.scenes[2].voice.voice == "am_puck"

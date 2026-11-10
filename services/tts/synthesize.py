@@ -138,11 +138,14 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
     total_synth = 0.0
 
     for scene in sb.scenes:
-        key = text_hash(scene.narration, provider.name, voice_id, sb.voice.speed, scene.captionText)
+        # a scene may carry its own voice (dialogue: one voice per character)
+        scene_voice = provider.resolve_voice(scene.voice.voice) if scene.voice and scene.voice.voice else voice_id
+        scene_speed = scene.voice.speed if scene.voice and scene.voice.speed else sb.voice.speed
+        key = text_hash(scene.narration, provider.name, scene_voice, scene_speed, scene.captionText)
         result = None if force else _cached(paths.AUDIO_CACHE, key)
         if result is None:
             log.info("synthesizing scene %s (%d chars)", scene.id, len(scene.narration))
-            result = provider.synthesize(scene.narration, voice_id, sb.voice.speed, caption_text=scene.captionText)
+            result = provider.synthesize(scene.narration, scene_voice, scene_speed, caption_text=scene.captionText)
             _store(paths.AUDIO_CACHE, key, result)
             total_synth += result.synth_seconds
         else:

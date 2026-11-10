@@ -38,6 +38,8 @@ MAX_BEATS = 9
 TITLE_WORDS = 9
 COPIED_RUN = 7  # this many consecutive words shared with the source counts as copying
 CTA_WORD = "subscribe"
+# The cast the video engine can put on screen. "host" narrates; "guest" is the sidekick in dialogue scenes.
+SPEAKERS = ("host", "guest")
 # Other people's brands and characters: never in a story, title or tag.
 TRADEMARKS = re.compile(r"\b(minecraft|mojang|roblox|fortnite|pok[eé]mon|nintendo|mario|disney|pixar|marvel|star wars|harry potter|lego|barbie|spongebob|simpsons|peppa pig|mickey mouse)\b", re.I)
 
@@ -120,6 +122,11 @@ def check_story(story: Story, source_text: str = "") -> list[str]:
     speakers = {b.speaker.strip().lower() for b in beats}
     if len(speakers) > MAX_SPEAKERS:
         problems.append(f"{len(speakers)} speakers; three at most")
+    unknown = sorted(speakers - set(SPEAKERS))
+    if unknown:
+        problems.append(f"unknown speaker {unknown}; use only {list(SPEAKERS)}")
+    if beats[0].speaker.strip().lower() != "host" or beats[-1].speaker.strip().lower() != "host":
+        problems.append("the hook and the cta are spoken by the host")
     if CTA_WORD not in beats[-1].narration.lower():
         problems.append(f"the cta must ask viewers to {CTA_WORD}")
     for i, b in enumerate(beats, 1):
@@ -163,8 +170,10 @@ Hard rules:
 - hook: at most {HOOK_MAX_WORDS} words, makes people stop scrolling.
 - Total narration {MIN_WORDS + 10} to {MAX_WORDS - 10} words. Short spoken sentences.
 - cta: one line asking viewers to subscribe for tomorrow's story.
+- Two characters: "host" tells the story; "guest" is a doubtful friend who interrupts with short reactions and questions.
+  Give the guest two or three of the middle beats. The hook and the cta belong to the host. Each beat has exactly one speaker.
 - Each beat: "narration" (what is said), "title" (on-screen, at most {TITLE_WORDS - 2} words), "emotion" (happy, angry, sad, relaxed or surprised),
-  "speaker" ("host"), optional "lines" (up to 3 on-screen bullet facts, 6 words each), "highlight" (1 or 2 words from the title).
+  "speaker" ("host" or "guest"), optional "lines" (up to 3 on-screen bullet facts, 6 words each), "highlight" (1 or 2 words from the title).
 
 Reply with one JSON object only:
 {{"title": "video title under 70 characters", "description": "two sentences for the video description, no links", "hashtags": ["#funny", "..."], "beats": [{{"role": "hook", "narration": "...", "title": "...", "emotion": "surprised", "speaker": "host", "lines": [], "highlight": ["..."]}}]}}"""

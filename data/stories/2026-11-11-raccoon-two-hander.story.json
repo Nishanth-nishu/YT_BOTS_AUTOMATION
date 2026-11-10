@@ -1,0 +1,106 @@
+{
+ "id": "2026-11-11-raccoon-two-hander",
+ "title": "A drunk raccoon raised $250,000",
+ "source_title": "'Remarkable': Drunk raccoon leads to $250,000 for Hanover Animal Control",
+ "source_url": "https://www.12onyourside.com/2026/11/06/trashed-panda-campaign-money-hanover-county-animal-control/",
+ "source_name": "nottheonion",
+ "description": "A raccoon was caught drunk inside a liquor store in Hanover County, Virginia. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.",
+ "hashtags": [
+  "#funny",
+  "#weirdnews",
+  "#truestory",
+  "#raccoon",
+  "#shorts"
+ ],
+ "beats": [
+  {
+   "role": "hook",
+   "narration": "A drunk raccoon just raised a quarter of a million dollars. Yes, really.",
+   "title": "A drunk raccoon raised $250,000",
+   "speaker": "host",
+   "emotion": "surprised",
+   "lines": [],
+   "highlight": [
+    "raccoon"
+   ]
+  },
+  {
+   "role": "setup",
+   "narration": "About a year ago, in Hanover County, Virginia, a raccoon was captured inside a liquor store. And he was drunk.",
+   "title": "Caught inside a liquor store",
+   "speaker": "host",
+   "emotion": "happy",
+   "lines": [],
+   "highlight": [
+    "liquor"
+   ]
+  },
+  {
+   "role": "setup",
+   "narration": "Wait. Drunk? The raccoon was drunk? How does a raccoon even pay for that?",
+   "title": "Wait, drunk?",
+   "speaker": "guest",
+   "emotion": "surprised",
+   "lines": [],
+   "highlight": [
+    "drunk"
+   ]
+  },
+  {
+   "role": "escalation",
+   "narration": "He did not pay. That is why animal control had to come and collect him.",
+   "title": "He did not pay",
+   "speaker": "host",
+   "emotion": "relaxed",
+   "lines": [],
+   "highlight": [
+    "pay"
+   ]
+  },
+  {
+   "role": "escalation",
+   "narration": "Okay. So that is the end of the story. Sad little hangover, everyone goes home.",
+   "title": "So that is the end",
+   "speaker": "guest",
+   "emotion": "relaxed",
+   "lines": [],
+   "highlight": [
+    "end"
+   ]
+  },
+  {
+   "role": "escalation",
+   "narration": "No. The internet found out. A campaign started in his name, and it has now raised two hundred and fifty thousand dollars for that same animal control team.",
+   "title": "A quarter of a million dollars",
+   "speaker": "host",
+   "emotion": "surprised",
+   "lines": [],
+   "highlight": [
+    "million"
+   ]
+  },
+  {
+   "role": "punchline",
+   "narration": "So I stay sober all year and get a tax bill, and he has one wild night and funds a whole department. I picked the wrong career.",
+   "title": "I picked the wrong career",
+   "speaker": "guest",
+   "emotion": "angry",
+   "lines": [],
+   "highlight": [
+    "wrong"
+   ]
+  },
+  {
+   "role": "cta",
+   "narration": "Subscribe, and we will bring you another weird but true story tomorrow.",
+   "title": "New true story tomorrow",
+   "speaker": "host",
+   "emotion": "happy",
+   "lines": [],
+   "highlight": [
+    "tomorrow"
+   ]
+  }
+ ],
+ "written_by": "claude (hand-written sample, no local LLM installed yet)"
+}

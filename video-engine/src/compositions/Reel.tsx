@@ -23,6 +23,7 @@ import { MemoryScene } from "../scenes/MemoryScene";
 import { WorkflowScene } from "../scenes/WorkflowScene";
 import { PayoffScene } from "../scenes/PayoffScene";
 import { ConceptScene } from "../scenes/ConceptScene";
+import { DialogueScene } from "../scenes/DialogueScene";
 import { TerminalScene } from "../scenes/TerminalScene";
 import { ChartScene } from "../scenes/ChartScene";
 import { NeuralNetScene } from "../scenes/NeuralNetScene";
@@ -81,6 +82,8 @@ const SceneByKind: React.FC<{ scene: TimedScene; styleId: ReelSpec["style"]; par
       return <NeuralNetScene scene={scene} styleId={styleId} particleScale={particleScale} />;
     case "rag":
       return <RagScene scene={scene} styleId={styleId} particleScale={particleScale} />;
+    case "dialogue":
+      return <DialogueScene scene={scene} styleId={styleId} particleScale={particleScale} />;
     default:
       return <HookScene scene={scene} styleId={styleId} particleScale={particleScale} />;
   }
@@ -126,11 +129,22 @@ const MusicBed: React.FC<{ spec: ReelSpec }> = ({ spec }) => {
   return <Audio src={staticFile(spec.music.file)} volume={vol} loop />;
 };
 
+/** True while a dialogue scene is on screen: both characters are already big
+ *  on stage, so the small host badge hides and captions go back to full width. */
+const useInDialogue = (spec: ReelSpec): boolean => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  return spec.scenes.some((s) => s.kind === "dialogue" && frame >= msToFrames(s.startMs, fps) && frame < msToFrames(s.endMs, fps));
+};
+
+const Pip: React.FC<{ spec: ReelSpec; hookEnd: number }> = ({ spec, hookEnd }) => (useInDialogue(spec) ? null : <PresenterPip hiddenUntilFrame={hookEnd} />);
+
 /** Captions sit full width during the hook (the host is big there) and move
  *  right of the presenter badge once it appears. */
 const CaptionBand: React.FC<{ spec: ReelSpec; narrowFromFrame: number | null }> = ({ spec, narrowFromFrame }) => {
   const frame = useCurrentFrame();
-  const narrow = narrowFromFrame !== null && frame >= narrowFromFrame - 2;
+  const inDialogue = useInDialogue(spec);
+  const narrow = narrowFromFrame !== null && frame >= narrowFromFrame - 2 && !inDialogue;
   return <Captions captions={spec.captions} scenes={spec.scenes} mode={spec.captionMode} styleId={spec.style} left={narrow ? 304 : undefined} fontSize={narrow ? 56 : 60} />;
 };
 
@@ -167,7 +181,7 @@ export const Reel: React.FC<ReelProps> = ({ spec, quality: profile }) => {
           );
         })}
       </AbsoluteFill>
-      {presenter ? <PresenterPip hiddenUntilFrame={hookEnd} /> : null}
+      {presenter ? <Pip spec={spec} hookEnd={hookEnd} /> : null}
       <CaptionBand spec={spec} narrowFromFrame={presenter ? hookEnd : null} />
     </ReelFrame>
     </AbsoluteFill>

@@ -34,6 +34,10 @@ type Props = {
   mood?: "hype" | "calm";
   seed?: number;
   motion?: number;
+  /** Turn the whole body (radians, + is towards the viewer's right). Used by the dialogue scene. */
+  yaw?: number;
+  /** false for a character who is listening: mouth stays shut whatever the envelope says. */
+  speaking?: boolean;
 };
 
 /** Prepare a freshly loaded VRM once (useLoader caches the gltf per url). */
@@ -46,6 +50,7 @@ const prepare = (gltf: GLTF): VRM => {
     vrm.scene.traverse((o) => {
       o.frustumCulled = false;
     });
+    vrm.scene.userData.__baseYaw = vrm.scene.rotation.y; // rotateVRM0 may have turned the model round
     vrm.scene.userData.__prepared = true;
   }
   return vrm;
@@ -63,10 +68,10 @@ const headY = (vrm: VRM): number => {
   return 1.4;
 };
 
-type PoseProps = { globalFrame: number; envelope: number[]; expressions: number[][]; mood: "hype" | "calm"; seed: number; motion: number; framing: VrmFraming; url: string };
+type PoseProps = { globalFrame: number; envelope: number[]; expressions: number[][]; mood: "hype" | "calm"; seed: number; motion: number; framing: VrmFraming; url: string; bodyYaw: number; speaking: boolean };
 const PRESETS = ["happy", "angry", "sad", "relaxed", "surprised"] as const;
 
-const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, mood, seed, motion, framing }) => {
+const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, mood, seed, motion, framing, bodyYaw, speaking }) => {
   const gltf = useLoader(GLTFLoader, url, (loader) => {
     loader.register((parser) => new VRMLoaderPlugin(parser));
   }) as unknown as GLTF;
@@ -76,7 +81,7 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, m
   const { camera } = useThree();
 
   useFrame(() => {
-    const open = mouthAt(envelope, globalFrame);
+    const open = speaking ? mouthAt(envelope, globalFrame) : 0;
     const blink = blinkAt(globalFrame, seed);
     const t = globalFrame / fps;
     const h = vrm.humanoid;
@@ -138,8 +143,10 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, m
     }
     h.update();
 
+    // turned characters look where their head points (at each other), not at the camera
+    vrm.scene.rotation.y = (vrm.scene.userData.__baseYaw ?? 0) + bodyYaw;
     if (vrm.lookAt) {
-      vrm.lookAt.target = camera;
+      vrm.lookAt.target = bodyYaw === 0 ? camera : null;
       vrm.lookAt.update(0);
     }
 
@@ -157,7 +164,7 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, m
   return <primitive object={vrm.scene} />;
 };
 
-export const VrmHost: React.FC<Props> = ({ modelUrl, globalFrame, envelope, expressions = [], width, height, framing = "bust", mood = "hype", seed = 7, motion = 1 }) => {
+export const VrmHost: React.FC<Props> = ({ modelUrl, globalFrame, envelope, expressions = [], width, height, framing = "bust", mood = "hype", seed = 7, motion = 1, yaw = 0, speaking = true }) => {
   const url = staticFile(modelUrl);
   const fov = framing === "face" ? 26 : 24;
   return (
@@ -176,7 +183,7 @@ export const VrmHost: React.FC<Props> = ({ modelUrl, globalFrame, envelope, expr
       <directionalLight position={[1.2, 2.4, 2.0]} intensity={1.6} />
       <directionalLight position={[-1.5, 1.0, 1.0]} intensity={0.5} color="#9fb4ff" />
       {/* no Suspense here: ThreeCanvas's own boundary delays the render until the model is loaded */}
-      <Model url={url} globalFrame={globalFrame} envelope={envelope} expressions={expressions} mood={mood} seed={seed} motion={motion} framing={framing} />
+      <Model url={url} globalFrame={globalFrame} envelope={envelope} expressions={expressions} mood={mood} seed={seed} motion={motion} framing={framing} bodyYaw={yaw} speaking={speaking} />
     </ThreeCanvas>
   );
 };

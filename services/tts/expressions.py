@@ -28,6 +28,7 @@ KIND_DEFAULT: dict[str, tuple[str, float]] = {
     "terminal": ("relaxed", 0.2),
     "code": ("relaxed", 0.2),
     "concept": ("relaxed", 0.15),
+    "dialogue": ("happy", 0.3),
     "workflow": ("relaxed", 0.15),
 }
 

@@ -6,7 +6,7 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, Field
 
 StyleId = Literal["cinematic", "explainer", "experimental"]
-SceneKind = Literal["hook", "loop", "reasoning", "toolCall", "memory", "workflow", "payoff", "concept", "code", "terminal", "chart", "neuralNet", "rag"]
+SceneKind = Literal["hook", "loop", "reasoning", "toolCall", "memory", "workflow", "payoff", "concept", "code", "terminal", "chart", "neuralNet", "rag", "dialogue"]
 Seam = Literal["current", "up", "zoomIn", "zoomOut", "burst"]
 
 
@@ -43,10 +43,19 @@ class PresenterConfig(BaseModel):
     image: Optional[str] = "images/host.png"
 
 
+class SceneVoice(BaseModel):
+    """Per-scene voice override so each character speaks in their own voice.
+    Anything left empty falls back to the storyboard's `voice`."""
+
+    voice: Optional[str] = None
+    speed: Optional[float] = None
+
+
 class StoryboardScene(BaseModel):
     id: str
     kind: SceneKind
     narration: str
+    voice: Optional[SceneVoice] = None
     # Optional caption override (same sentence and word count as `narration`);
     # only needed when the narration carries non-Latin text the fonts lack.
     captionText: Optional[str] = None
