@@ -270,8 +270,8 @@ class SarvamProvider(TTSProvider):
 
     Settings come from the environment / git-ignored .env:
         SARVAM_API_KEY    required, never logged
-        SARVAM_MODEL      bulbul:v3 (default), bulbul:v2, bulbul:v4-flash
-        SARVAM_SPEAKER    speaker id for the model (default shubh for v3, abhilash for v2)
+        SARVAM_MODEL      bulbul:v3 (default) or bulbul:v4-flash (v2 is deprecated server-side)
+        SARVAM_SPEAKER    speaker id for the model (default shubh)
         SARVAM_LANGUAGE   en-IN (default), hi-IN, ... (code-mixed text is fine)
 
     Sarvam returns no word timestamps, so each sentence is synthesized on its
@@ -293,7 +293,7 @@ class SarvamProvider(TTSProvider):
 
         self.api_key = api_key if api_key is not None else os.environ.get("SARVAM_API_KEY", "")
         self.model = model or os.environ.get("SARVAM_MODEL") or "bulbul:v3"
-        self.speaker = speaker or os.environ.get("SARVAM_SPEAKER") or ("abhilash" if self.model == "bulbul:v2" else "shubh")
+        self.speaker = speaker or os.environ.get("SARVAM_SPEAKER") or "shubh"
         self.language = language or os.environ.get("SARVAM_LANGUAGE") or "en-IN"
         self._post = post  # injectable for tests
 

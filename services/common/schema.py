@@ -34,6 +34,9 @@ class PresenterConfig(BaseModel):
     enabled: bool = True
     name: str = "host"
     mood: Literal["hype", "calm"] = "hype"
+    # curly: big curly hair, full beard, headphones round the neck (default)
+    # waves: long wavy hair swept back; fade: short curly top; shades: curly with dark glasses
+    look: Literal["curly", "waves", "fade", "shades"] = "curly"
 
 
 class StoryboardScene(BaseModel):

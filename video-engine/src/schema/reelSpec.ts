@@ -56,6 +56,7 @@ export const presenterSchema = z.object({
   enabled: z.boolean().default(true),
   name: z.string().default("host"),
   mood: z.enum(["hype", "calm"]).default("hype"),
+  look: z.enum(["curly", "waves", "fade", "shades"]).default("curly"),
   fps: z.number().default(30),
   envelope: z.array(z.number()).default([]),
 });

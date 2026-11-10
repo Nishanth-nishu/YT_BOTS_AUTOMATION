@@ -3,6 +3,7 @@ import { Composition, Folder, Still } from "remotion";
 import { SmokeTest } from "./compositions/SmokeTest";
 import { Reel, calculateReelMetadata } from "./compositions/Reel";
 import { Cover } from "./compositions/Cover";
+import { AvatarSheet } from "./layers/Presenter";
 import { SceneLibrary, SAMPLES } from "./compositions/SceneLibrary";
 import { video } from "./design/tokens";
 
@@ -61,6 +62,7 @@ export const RemotionRoot: React.FC = () => {
         ))}
       </Folder>
       <Folder name="System">
+        <Still id="AvatarSheet" component={AvatarSheet} width={2040} height={900} defaultProps={{ styleId: "cinematic" }} />
         <Composition
           id="SmokeTest"
           component={SmokeTest}

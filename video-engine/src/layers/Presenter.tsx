@@ -1,8 +1,14 @@
 /**
- * Presenter: the animated host, a stylised male avatar (long hair, black hoodie, headphones) drawn in SVG whose
- * mouth follows the voice track (spec.presenter.envelope, one value per
- * frame), with deterministic blinks, head bob, eyebrow lifts on loud
- * syllables and, in "hype" mood, a sweat drop and "!!" for the hook.
+ * Presenter: the animated host, a stylised guy drawn in SVG whose mouth
+ * follows the voice track (spec.presenter.envelope, one value per frame),
+ * with deterministic blinks, head bob, eyebrow lifts on loud syllables and,
+ * in "hype" mood, a sweat drop and "!!" for the hook.
+ *
+ * Looks (spec.presenter.look), all built from the same face rig:
+ *   curly   big curly hair, full beard, headphones round the neck, no glasses
+ *   waves   long wavy hair swept back, trimmed beard, headphones round the neck
+ *   fade    short curly top with faded sides, beard, headphones on
+ *   shades  curly hair and beard with dark tinted glasses
  *
  *   <PresenterContext.Provider value={...}>   set once in Reel
  *   <Avatar ... />                              the drawing, any size
@@ -16,6 +22,9 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { clamp, seeded, springs } from "../design/motion";
 import { fonts, palettes, type StyleId } from "../design/tokens";
 import type { PresenterSpec } from "../schema/reelSpec";
+
+export type PresenterLook = "curly" | "waves" | "fade" | "shades";
+export const LOOKS: PresenterLook[] = ["curly", "waves", "fade", "shades"];
 
 export type PresenterData = (PresenterSpec & { styleId: StyleId }) | null;
 export const PresenterContext = createContext<PresenterData>(null);
@@ -46,14 +55,30 @@ export const blinkAt = (frame: number, seed: number): number => {
   return Math.sin((d / 5) * Math.PI);
 };
 
-const SKIN = "#E9B98C";
-const SKIN_DARK = "#C9935F";
-const HAIR = "#141018";
-const HAIR_SHINE = "#2A2233";
+const SKIN = "#C98B5E";
+const SKIN_SHADE = "#A96E45";
+const HAIR = "#15110F";
+const HAIR_SHINE = "#3A2F2A";
+const BEARD = "#1C1512";
 const HOODIE = "#111115";
 const HOODIE_EDGE = "#2A2A33";
-const LIPS = "#8C4A4A";
+const LIPS = "#8E5A52";
 const MOUTH = "#3A1C27";
+const HEAD_CY = 190;
+
+/** Deterministic curl cluster: circles packed around an arc above the head. */
+const Curls: React.FC<{ seed: number; count: number; cx: number; cy: number; rx: number; ry: number; rMin: number; rMax: number; fill: string }> = ({ seed, count, cx, cy, rx, ry, rMin, rMax, fill }) => (
+  <>
+    {Array.from({ length: count }).map((_, i) => {
+      const a = Math.PI + (i / (count - 1)) * Math.PI; // left to right over the top
+      const jitter = (seeded(seed + i) - 0.5) * 0.35;
+      const x = cx + Math.cos(a + jitter) * rx;
+      const y = cy + Math.sin(a + jitter) * ry;
+      const r = rMin + seeded(seed * 7 + i) * (rMax - rMin);
+      return <circle key={i} cx={x} cy={y} r={r} fill={fill} />;
+    })}
+  </>
+);
 
 type AvatarProps = {
   /** Global frame used for the envelope (scene-local frame + scene start). */
@@ -61,6 +86,7 @@ type AvatarProps = {
   envelope: number[];
   styleId: StyleId;
   mood: "hype" | "calm";
+  look?: PresenterLook;
   size: number; // rendered height in px (viewBox is 400 x 440)
   /** Frames since this avatar appeared (for the hook's sweat drop and "!!"). */
   sinceAppear?: number;
@@ -68,20 +94,18 @@ type AvatarProps = {
   seed?: number;
 };
 
-export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, mood, size, sinceAppear = 9999, hero = false, seed = 7 }) => {
+export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, mood, look = "curly", size, sinceAppear = 9999, hero = false, seed = 7 }) => {
   const p = palettes[styleId];
   const { fps } = useVideoConfig();
   const open = mouthAt(envelope, globalFrame);
   const blink = blinkAt(globalFrame, seed);
   const talking = open > 0.08;
-  // Head bob: slow idle sway plus a nod that follows speech energy.
   const bobY = Math.sin(globalFrame / 23) * 3 + open * 4;
   const rot = Math.sin(globalFrame / 41) * 1.6 + (talking ? Math.sin(globalFrame / 5) * open * 1.2 : 0);
-  const browRaise = (mood === "hype" ? 4 : 1) + open * 7;
-  const mouthH = 5 + open * 34;
+  const browRaise = (mood === "hype" ? 3 : 0) + open * 6;
+  const mouthH = 5 + open * 30;
   const closed = interpolate(open, [0, 0.12], [1, 0], clamp);
-  const teethH = Math.max(0, Math.min(11, (mouthH - 10) * 0.45));
-  // Hook extras: a shake in the first 18 frames, "!!" pops at frame 8, sweat drop slides 14..70.
+  const teethH = Math.max(0, Math.min(10, (mouthH - 10) * 0.45));
   const shake = hero && sinceAppear < 18 ? Math.sin(sinceAppear * 2.6) * (18 - sinceAppear) * 0.5 : 0;
   const bang = hero ? spring({ frame: sinceAppear - 8, fps, config: springs.bouncy }) : 0;
   const bangFade = hero ? 1 - interpolate(sinceAppear, [70, 90], [0, 1], clamp) : 0;
@@ -89,69 +113,136 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
   const dropOp = hero ? interpolate(sinceAppear, [14, 20, 62, 72], [0, 1, 1, 0], clamp) : 0;
   const w = (size * 400) / 440;
 
+  const headphonesOnNeck = look === "curly" || look === "waves" || look === "shades";
+  const fullBeard = look !== "waves";
+  const glasses = look === "shades" ? "shades" : "none";
+
+  // Face with a defined jaw (not an ellipse): wide at the temples, squarer chin.
+  const FACE = "M 110 150 C 112 96, 288 96, 290 150 C 296 214, 276 282, 236 300 C 214 310, 186 310, 164 300 C 124 282, 104 214, 110 150 Z";
+  // Full beard following the jaw, up to the sideburns; moustache separate.
+  // Outer edge follows the jaw; inner edge runs under the cheekbones and the mouth.
+  const BEARD_PATH = "M 112 190 C 114 262, 146 298, 200 306 C 254 298, 286 262, 288 190 C 276 214, 264 228, 240 244 C 224 254, 212 258, 200 258 C 188 258, 176 254, 160 244 C 136 228, 124 214, 112 190 Z";
+  const TRIM_BEARD = "M 126 226 C 134 272, 162 296, 200 302 C 238 296, 266 272, 274 226 C 266 258, 246 276, 226 284 C 210 290, 190 290, 174 284 C 154 276, 134 258, 126 226 Z";
+
   return (
     <svg width={w} height={size} viewBox="0 0 400 440" style={{ display: "block", overflow: "visible" }}>
-      {/* torso: hoodie in the hero colour */}
       <g transform={`translate(${shake} 0)`}>
-        {/* black hoodie with a lighter hood rim and drawstrings */}
+        {/* black hoodie / sweater */}
         <rect x={40} y={318} width={320} height={172} rx={80} fill={HOODIE} />
         <path d="M 40 398 C 40 350, 80 318, 120 318 L 280 318 C 320 318, 360 350, 360 398 L 360 490 L 40 490 Z" fill={HOODIE} />
         <path d="M 112 318 C 134 296, 166 288, 200 292 C 234 288, 266 296, 288 318 C 268 356, 236 374, 200 374 C 164 374, 132 356, 112 318 Z" fill={HOODIE_EDGE} />
         <path d="M 124 322 C 146 304, 172 298, 200 300 C 228 298, 254 304, 276 322 C 258 352, 232 364, 200 364 C 168 364, 142 352, 124 322 Z" fill={HOODIE} />
-        <path d="M 184 350 L 180 420" stroke={HOODIE_EDGE} strokeWidth={5} strokeLinecap="round" />
-        <path d="M 216 350 L 220 420" stroke={HOODIE_EDGE} strokeWidth={5} strokeLinecap="round" />
-        <rect x={172} y={248} width={56} height={80} rx={18} fill={SKIN_DARK} />
-        <g transform={`translate(0 ${bobY}) rotate(${rot} 200 190)`}>
-          {/* long hair, back layer: falls past the jaw onto the shoulders */}
-          <path d="M 96 150 C 84 60, 316 60, 304 150 C 316 220, 318 290, 298 336 C 280 330, 262 318, 254 300 L 146 300 C 138 318, 120 330, 102 336 C 82 290, 84 220, 96 150 Z" fill={HAIR} />
-          <path d="M 118 180 C 112 230, 112 280, 118 318" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
-          <path d="M 282 180 C 288 230, 288 280, 282 318" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
-          {/* headphone band */}
-          <path d="M 104 178 C 104 68, 296 68, 296 178" stroke={p.accent} strokeWidth={11} fill="none" strokeLinecap="round" />
+        <rect x={170} y={252} width={60} height={80} rx={18} fill={SKIN_SHADE} />
+        {headphonesOnNeck ? (
+          <g>
+            {/* headphones resting round the neck, cups on the chest */}
+            <path d="M 128 300 C 120 350, 160 372, 200 372 C 240 372, 280 350, 272 300" stroke="#1B1B20" strokeWidth={12} fill="none" strokeLinecap="round" />
+            <ellipse cx={150} cy={356} rx={30} ry={38} fill="#0E0E12" stroke="#2C2C34" strokeWidth={4} />
+            <ellipse cx={150} cy={356} rx={16} ry={22} fill="#1A1A20" />
+            <ellipse cx={250} cy={356} rx={30} ry={38} fill="#0E0E12" stroke="#2C2C34" strokeWidth={4} />
+            <ellipse cx={250} cy={356} rx={16} ry={22} fill="#1A1A20" />
+          </g>
+        ) : null}
+        <g transform={`translate(0 ${bobY}) rotate(${rot} 200 ${HEAD_CY})`}>
+          {/* hair, back layer */}
+          {look === "curly" || look === "shades" ? (
+            <g>
+              <Curls seed={3} count={14} cx={200} cy={150} rx={118} ry={104} rMin={34} rMax={50} fill={HAIR} />
+              <Curls seed={9} count={11} cx={200} cy={132} rx={84} ry={70} rMin={36} rMax={52} fill={HAIR} />
+              <ellipse cx={200} cy={132} rx={112} ry={92} fill={HAIR} />
+              <path d="M 94 170 C 86 230, 98 270, 112 290 L 122 200 Z" fill={HAIR} />
+              <path d="M 306 170 C 314 230, 302 270, 288 290 L 278 200 Z" fill={HAIR} />
+            </g>
+          ) : null}
+          {look === "waves" ? (
+            <g>
+              <path d="M 96 150 C 84 60, 316 60, 304 150 C 318 226, 320 296, 300 340 C 282 334, 264 322, 256 302 L 144 302 C 136 322, 118 334, 100 340 C 80 296, 82 226, 96 150 Z" fill={HAIR} />
+              <path d="M 114 190 C 104 240, 108 290, 118 326" stroke={HAIR_SHINE} strokeWidth={5} fill="none" strokeLinecap="round" opacity={0.5} />
+              <path d="M 286 190 C 296 240, 292 290, 282 326" stroke={HAIR_SHINE} strokeWidth={5} fill="none" strokeLinecap="round" opacity={0.5} />
+            </g>
+          ) : null}
+          {look === "fade" ? <ellipse cx={200} cy={150} rx={94} ry={86} fill={HAIR} opacity={0.55} /> : null}
+          {!headphonesOnNeck ? <path d="M 104 178 C 104 68, 296 68, 296 178" stroke={p.accent} strokeWidth={11} fill="none" strokeLinecap="round" /> : null}
           {/* ears and face */}
-          <circle cx={112} cy={196} r={19} fill={SKIN} />
-          <circle cx={288} cy={196} r={19} fill={SKIN} />
-          <ellipse cx={200} cy={192} rx={92} ry={108} fill={SKIN} />
-          {/* stubble */}
-          <ellipse cx={200} cy={262} rx={64} ry={38} fill={HAIR} opacity={0.14} />
-          {/* hair, front layer: swept fringe with a side part, strands past the temples */}
-          <path d="M 108 176 C 98 64, 302 64, 292 176 C 286 130, 262 112, 232 110 C 214 110, 196 122, 176 140 C 160 118, 136 122, 118 140 C 112 150, 108 162, 108 176 Z" fill={HAIR} />
-          <path d="M 150 86 C 176 42, 250 38, 276 86 C 256 70, 224 72, 210 94 C 196 78, 170 80, 150 86 Z" fill={HAIR} />
-          <path d="M 108 176 C 100 210, 100 236, 106 256 C 114 236, 118 206, 120 180 Z" fill={HAIR} />
-          <path d="M 292 176 C 300 210, 300 236, 294 256 C 286 236, 282 206, 280 180 Z" fill={HAIR} />
-          <path d="M 166 104 C 196 92, 228 92, 256 104" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.7} />
-          {/* headphone cups */}
-          <rect x={86} y={166} width={28} height={58} rx={12} fill={p.surface} stroke={p.accent} strokeWidth={4} />
-          <rect x={286} y={166} width={28} height={58} rx={12} fill={p.surface} stroke={p.accent} strokeWidth={4} />
-          {/* eyebrows */}
+          <circle cx={112} cy={198} r={19} fill={SKIN} />
+          <circle cx={288} cy={198} r={19} fill={SKIN} />
+          <path d={FACE} fill={SKIN} />
+          {/* cheek and jaw shading */}
+          <path d="M 128 232 C 150 288, 250 288, 272 232 C 262 272, 236 296, 200 300 C 164 296, 138 272, 128 232 Z" fill={SKIN_SHADE} opacity={0.22} />
+          {/* beard and moustache */}
+          {fullBeard ? <path d={BEARD_PATH} fill={BEARD} opacity={0.92} /> : <path d={TRIM_BEARD} fill={BEARD} opacity={0.5} />}
+          <path d="M 168 218 C 182 208, 218 208, 232 218 C 222 224, 208 226, 200 224 C 192 226, 178 224, 168 218 Z" fill={BEARD} opacity={fullBeard ? 0.9 : 0.55} />
+          {/* hair, front layer */}
+          {look === "curly" || look === "shades" ? (
+            <g>
+              <path d="M 108 160 C 100 100, 300 100, 292 160 C 284 128, 256 116, 200 114 C 144 116, 116 128, 108 160 Z" fill={HAIR} />
+              <Curls seed={21} count={12} cx={200} cy={128} rx={96} ry={46} rMin={28} rMax={40} fill={HAIR} />
+              <Curls seed={33} count={7} cx={200} cy={106} rx={60} ry={30} rMin={22} rMax={30} fill={HAIR_SHINE} />
+              <Curls seed={34} count={7} cx={200} cy={110} rx={60} ry={30} rMin={18} rMax={26} fill={HAIR} />
+            </g>
+          ) : null}
+          {look === "waves" ? (
+            <g>
+              <path d="M 108 176 C 98 64, 302 64, 292 176 C 286 130, 262 112, 232 110 C 214 110, 196 122, 176 140 C 160 118, 136 122, 118 140 C 112 150, 108 162, 108 176 Z" fill={HAIR} />
+              <path d="M 150 86 C 176 42, 250 38, 276 86 C 256 70, 224 72, 210 94 C 196 78, 170 80, 150 86 Z" fill={HAIR} />
+              <path d="M 166 104 C 196 92, 228 92, 256 104" stroke={HAIR_SHINE} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.7} />
+            </g>
+          ) : null}
+          {look === "fade" ? (
+            <g>
+              <path d="M 114 150 C 118 92, 282 92, 286 150 C 272 128, 240 118, 200 118 C 160 118, 128 128, 114 150 Z" fill={HAIR} />
+              <Curls seed={41} count={10} cx={200} cy={128} rx={74} ry={36} rMin={22} rMax={32} fill={HAIR} />
+              <Curls seed={43} count={6} cx={200} cy={112} rx={44} ry={22} rMin={16} rMax={22} fill={HAIR_SHINE} />
+              <path d="M 114 150 C 112 170, 112 190, 116 206 L 124 160 Z" fill={HAIR} opacity={0.6} />
+              <path d="M 286 150 C 288 170, 288 190, 284 206 L 276 160 Z" fill={HAIR} opacity={0.6} />
+            </g>
+          ) : null}
+          {!headphonesOnNeck ? (
+            <g>
+              <rect x={86} y={166} width={28} height={58} rx={12} fill={p.surface} stroke={p.accent} strokeWidth={4} />
+              <rect x={286} y={166} width={28} height={58} rx={12} fill={p.surface} stroke={p.accent} strokeWidth={4} />
+            </g>
+          ) : null}
+          {/* eyebrows: thick, slightly angled in (confident) */}
           <g transform={`translate(0 ${-browRaise})`}>
-            <path d="M 138 152 Q 162 138 186 150" stroke={HAIR} strokeWidth={9} strokeLinecap="round" fill="none" />
-            <path d="M 214 150 Q 238 138 262 152" stroke={HAIR} strokeWidth={9} strokeLinecap="round" fill="none" />
+            <path d="M 134 158 Q 160 144 188 152" stroke={HAIR} strokeWidth={10} strokeLinecap="round" fill="none" />
+            <path d="M 212 152 Q 240 144 266 158" stroke={HAIR} strokeWidth={10} strokeLinecap="round" fill="none" />
           </g>
-          {/* eyes (blink by squashing) */}
-          <g transform={`translate(0 ${174 * blink * 0.9}) scale(1 ${1 - blink * 0.9})`}>
-            <ellipse cx={163} cy={174} rx={17} ry={12} fill="#FFFFFF" />
-            <ellipse cx={237} cy={174} rx={17} ry={12} fill="#FFFFFF" />
-            <circle cx={166} cy={175} r={7.5} fill={HAIR} />
-            <circle cx={240} cy={175} r={7.5} fill={HAIR} />
-            <circle cx={169} cy={172} r={2.6} fill="#FFFFFF" />
-            <circle cx={243} cy={172} r={2.6} fill="#FFFFFF" />
+          {/* eyes: half-lidded, dark iris, blink by squashing */}
+          <g transform={`translate(0 ${176 * blink * 0.9}) scale(1 ${1 - blink * 0.9})`}>
+            <ellipse cx={163} cy={176} rx={18} ry={11} fill="#FFFFFF" />
+            <ellipse cx={237} cy={176} rx={18} ry={11} fill="#FFFFFF" />
+            <circle cx={166} cy={177} r={8} fill="#3B2415" />
+            <circle cx={240} cy={177} r={8} fill="#3B2415" />
+            <circle cx={166} cy={177} r={4} fill="#120A06" />
+            <circle cx={240} cy={177} r={4} fill="#120A06" />
+            <circle cx={169} cy={174} r={2.4} fill="#FFFFFF" />
+            <circle cx={243} cy={174} r={2.4} fill="#FFFFFF" />
+            {/* upper lids: calm, half-closed */}
+            <path d="M 145 176 Q 163 158 181 176 L 181 168 Q 163 160 145 168 Z" fill={SKIN} />
+            <path d="M 219 176 Q 237 158 255 176 L 255 168 Q 237 160 219 168 Z" fill={SKIN} />
+            <path d="M 146 172 Q 163 164 180 172" stroke={HAIR} strokeWidth={3.5} fill="none" strokeLinecap="round" />
+            <path d="M 220 172 Q 237 164 254 172" stroke={HAIR} strokeWidth={3.5} fill="none" strokeLinecap="round" />
           </g>
-          {/* glasses */}
-          <rect x={140} y={158} width={48} height={34} rx={11} stroke={p.accent} strokeWidth={4} fill="rgba(255,255,255,0.06)" />
-          <rect x={212} y={158} width={48} height={34} rx={11} stroke={p.accent} strokeWidth={4} fill="rgba(255,255,255,0.06)" />
-          <path d="M 188 174 L 212 174" stroke={p.accent} strokeWidth={4} />
+          {glasses === "shades" ? (
+            <g>
+              <rect x={136} y={160} width={54} height={34} rx={12} fill="#0B0B0F" opacity={0.86} stroke="#2B2B33" strokeWidth={3} />
+              <rect x={210} y={160} width={54} height={34} rx={12} fill="#0B0B0F" opacity={0.86} stroke="#2B2B33" strokeWidth={3} />
+              <path d="M 190 174 L 210 174" stroke="#2B2B33" strokeWidth={4} />
+              <path d="M 142 166 L 160 164" stroke="#FFFFFF" strokeWidth={3} opacity={0.25} strokeLinecap="round" />
+              <path d="M 216 166 L 234 164" stroke="#FFFFFF" strokeWidth={3} opacity={0.25} strokeLinecap="round" />
+            </g>
+          ) : null}
           {/* nose */}
-          <path d="M 200 186 L 193 212 L 207 212" stroke={SKIN_DARK} strokeWidth={4.5} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-          {/* mouth: open shape plus a closed smile that fades in when quiet */}
-          <rect x={172} y={238 - mouthH / 2} width={56} height={mouthH} rx={mouthH / 2} fill={MOUTH} />
-          {teethH > 0 ? <rect x={177} y={238 - mouthH / 2 + 4} width={46} height={teethH} rx={4} fill="#FFFFFF" opacity={0.92} /> : null}
-          <path d="M 170 238 Q 200 254 230 238" stroke={LIPS} strokeWidth={5} fill="none" strokeLinecap="round" opacity={closed} />
-          {/* hype extras for the hook */}
+          <path d="M 200 184 L 192 214 C 196 218, 204 218, 208 214" stroke={SKIN_SHADE} strokeWidth={4.5} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          {/* mouth */}
+          <rect x={172} y={240 - mouthH / 2} width={56} height={mouthH} rx={mouthH / 2} fill={MOUTH} />
+          {teethH > 0 ? <rect x={177} y={240 - mouthH / 2 + 4} width={46} height={teethH} rx={4} fill="#FFFFFF" opacity={0.92} /> : null}
+          <path d="M 172 240 Q 200 252 228 240" stroke={LIPS} strokeWidth={5} fill="none" strokeLinecap="round" opacity={closed} />
           {hero ? (
             <>
               <path d="M 270 150 C 282 132, 292 152, 282 162 C 276 168, 266 160, 270 150 Z" fill={p.accent} opacity={dropOp} transform={`translate(0 ${drop * 58})`} />
-              <text x={318} y={92} fontFamily={fonts.display} fontWeight={800} fontSize={74} fill={p.hero} opacity={bang * bangFade} transform={`rotate(12 318 92) scale(${bang})`} style={{ transformOrigin: "318px 92px" }}>
+              <text x={322} y={80} fontFamily={fonts.display} fontWeight={800} fontSize={74} fill={p.hero} opacity={bang * bangFade} transform={`rotate(12 322 80) scale(${bang})`} style={{ transformOrigin: "322px 80px" }}>
                 !!
               </text>
             </>
@@ -194,8 +285,8 @@ export const PresenterPip: React.FC<{ hiddenUntilFrame: number; x?: number; y?: 
           opacity: enter,
         }}
       >
-        <div style={{ position: "absolute", left: "50%", top: 14, translate: "-50% 0" }}>
-          <Avatar globalFrame={frame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} size={size * 1.32} seed={11} />
+        <div style={{ position: "absolute", left: "50%", top: 18, translate: "-50% 0" }}>
+          <Avatar globalFrame={frame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look} size={size * 1.32} seed={11} />
         </div>
       </div>
     </AbsoluteFill>
@@ -224,13 +315,29 @@ export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; si
         scale: `${interpolate(enter, [0, 1], [0.7, 1])}`,
         opacity: enter,
         transformOrigin: "50% 100%",
-        // soft bottom edge so the bust fades into the frame instead of a hard cut
         maskImage: "linear-gradient(180deg, black 84%, transparent 100%)",
         WebkitMaskImage: "linear-gradient(180deg, black 84%, transparent 100%)",
       }}
     >
       <div style={{ position: "absolute", left: "50%", top: size * 0.42, width: size * 0.9, height: size * 0.9, translate: "-50% -50%", borderRadius: "50%", background: `radial-gradient(circle, ${p.glow}, transparent 62%)`, filter: "blur(18px)" }} />
-      <Avatar globalFrame={frame + sceneStartFrame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} size={size} sinceAppear={frame} hero seed={5} />
+      <Avatar globalFrame={frame + sceneStartFrame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look} size={size} sinceAppear={frame} hero seed={5} />
     </div>
+  );
+};
+
+/** Still: the four looks side by side for choosing one. */
+export const AvatarSheet: React.FC<{ styleId: StyleId }> = ({ styleId }) => {
+  const p = palettes[styleId];
+  const env = [0.0, 0.3, 0.7, 0.2];
+  return (
+    <AbsoluteFill style={{ background: p.bg, fontFamily: fonts.display }}>
+      {LOOKS.map((look, i) => (
+        <div key={look} style={{ position: "absolute", left: 40 + i * 500, top: 120, width: 460, height: 760, display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
+          <Avatar globalFrame={0} envelope={[env[i]]} styleId={styleId} mood="calm" look={look} size={560} seed={99} />
+          <div style={{ color: p.text, fontSize: 44, fontWeight: 700 }}>{i + 1}. {look}</div>
+        </div>
+      ))}
+      <div style={{ position: "absolute", left: 40, top: 40, color: p.textMuted, fontSize: 30, fontFamily: fonts.mono, letterSpacing: "0.1em" }}>REELFORGE HOST LOOKS</div>
+    </AbsoluteFill>
   );
 };
