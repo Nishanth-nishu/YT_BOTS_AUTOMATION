@@ -1,0 +1,5 @@
+VRoid Studio sample models (HairSample_Male.vrm, Base_Male.vrm), VRM 0.x.
+Author: VRoid Project (pixiv). Licence: CC0, as published at
+https://opengameart.org/content/vroid-studio-cc0-models (submitted by hecko, 2024-12-24),
+referencing https://vroid.pixiv.help/hc/en-us/articles/4402614652569
+Downloaded 2026-11-11. video-engine/public/models/host.vrm is a copy of HairSample_Male.vrm.

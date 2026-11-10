@@ -21,7 +21,8 @@ Produce the MP4 (and cover PNG) for a timed spec, with resource measurements.
 
 ## Workflow (local)
 ```bash
-.venv\Scripts\python -m services.rendering.local_render --spec data/storyboards/<id>.timed.json --profile draft --concurrency 2
+.venv\Scripts\python -m services.rendering.local_render --spec data/storyboards/<id>.timed.json --profile draft --concurrency 1
+# concurrency 1 on this machine: the VRM host runs WebGL in each Chrome tab (local_render passes --gl=angle on Windows, swiftshader elsewhere; REMOTION_GL overrides)
 cd video-engine && npx remotion still src/index.ts Cover ../output/covers/<id>.png --props=<cover props json>
 ```
 Check free RAM first (`Get-CimInstance Win32_OperatingSystem | Select FreePhysicalMemory`). Below about 2.5 GB free, use `--concurrency 1` or render on Ada.

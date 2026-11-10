@@ -107,6 +107,8 @@ def render(spec_path: Path, profile: str, out: Path, concurrency: int, compositi
         npx, "remotion", "render", "src/index.ts", composition, str(raw.resolve()),
         f"--props={props_path.resolve()}", "--codec", "h264", "--crf", str(prof["crf"]),
         "--concurrency", str(concurrency), "--log=warn",
+        # WebGL for the VRM host: ANGLE on Windows/macOS, SwiftShader elsewhere (override with REMOTION_GL)
+        f"--gl={os.environ.get('REMOTION_GL') or ('angle' if os.name == 'nt' else 'swiftshader')}",
     ]
     t0 = time.time()
     proc = subprocess.Popen(cmd, cwd=paths.VIDEO_ENGINE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")

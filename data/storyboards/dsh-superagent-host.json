@@ -11,7 +11,8 @@
     "enabled": true,
     "name": "host",
     "mood": "hype",
-    "look": "curly"
+    "look": "vrm",
+    "model": "models/host.vrm"
   },
   "music": {
     "file": "music/ambient_bed.wav",

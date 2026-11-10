@@ -67,3 +67,11 @@ video-engine/public/images/host*.png
 
 # derived host images (personal)
 assets/images/host_photo.png
+
+# the CC0 anime host avatar is tracked (18 MB); other VRMs under assets/models stay local
+!video-engine/public/models/
+video-engine/public/models/*
+!video-engine/public/models/host.vrm
+!assets/models/
+assets/models/*
+!assets/models/LICENSE.txt

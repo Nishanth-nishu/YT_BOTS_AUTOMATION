@@ -23,9 +23,10 @@ import { clamp, seeded, springs } from "../design/motion";
 import { fonts, palettes, type StyleId } from "../design/tokens";
 import type { PresenterSpec } from "../schema/reelSpec";
 import { ImageHost, HOST_H, HOST_W, type Rig } from "./ImageHost";
+import { VrmHost } from "./VrmHost";
 
-export type PresenterLook = "curly" | "waves" | "fade" | "shades" | "image";
-export const LOOKS: Exclude<PresenterLook, "image">[] = ["curly", "waves", "fade", "shades"];
+export type PresenterLook = "curly" | "waves" | "fade" | "shades" | "image" | "vrm";
+export const LOOKS: Exclude<PresenterLook, "image" | "vrm">[] = ["curly", "waves", "fade", "shades"];
 
 export type PresenterData = (PresenterSpec & { styleId: StyleId }) | null;
 export const PresenterContext = createContext<PresenterData>(null);
@@ -91,7 +92,7 @@ type AvatarProps = {
   envelope: number[];
   styleId: StyleId;
   mood: "hype" | "calm";
-  look?: Exclude<PresenterLook, "image">;
+  look?: Exclude<PresenterLook, "image" | "vrm">;
   size: number; // rendered height in px (viewBox is 400 x 440)
   /** Frames since this avatar appeared (for the hook's sweat drop and "!!"). */
   sinceAppear?: number;
@@ -134,10 +135,12 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
   const TRIM_BEARD = "M 126 226 C 134 272, 162 296, 200 302 C 238 296, 266 272, 274 226 C 266 258, 246 276, 226 284 C 210 290, 190 290, 174 284 C 154 276, 134 258, 126 226 Z";
 
   return (
-    // The viewBox carries 80 units of headroom for the big hair; the negative
-    // margin keeps the face where a 400 x 440 drawing would put it.
-    <svg width={w} height={size + (80 * size) / 440} viewBox="0 -80 400 520" style={{ display: "block", overflow: "visible", marginTop: -(80 * size) / 440 }}>
-      <g transform={`translate(${shake} 0)`}>
+    // The drawing is shifted down 80 units inside a taller viewBox so the big
+    // hair never sits above y=0 (Chrome clipped it there inside transformed
+    // parents); the negative margin keeps the face where a 400 x 440 drawing
+    // would put it.
+    <svg width={w} height={size + (80 * size) / 440} viewBox="0 0 400 520" style={{ display: "block", overflow: "visible", marginTop: -(80 * size) / 440 }}>
+      <g transform={`translate(${shake} 80)`}>
         {/* black hoodie / sweater */}
         <rect x={40} y={318} width={320} height={B - 318} rx={80} fill={HOODIE} />
         <path d={`M 40 398 C 40 350, 80 318, 120 318 L 280 318 C 320 318, 360 350, 360 398 L 360 ${B} L 40 ${B} Z`} fill={HOODIE} />
@@ -288,9 +291,11 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
           {hero ? (
             <>
               <path d="M 270 150 C 282 132, 292 152, 282 162 C 276 168, 266 160, 270 150 Z" fill={p.accent} opacity={dropOp} transform={`translate(0 ${drop * 58})`} />
-              <text x={352} y={60} fontFamily={fonts.display} fontWeight={800} fontSize={74} fill={p.hero} opacity={bang * bangFade} transform={`rotate(12 352 60) scale(${bang})`} style={{ transformOrigin: "352px 60px" }}>
-                !!
-              </text>
+              <g transform={`translate(352 60) rotate(12) scale(${bang})`} opacity={bang * bangFade}>
+                <text x={0} y={0} fontFamily={fonts.display} fontWeight={800} fontSize={74} fill={p.hero}>
+                  !!
+                </text>
+              </g>
             </>
           ) : null}
         </g>
@@ -331,7 +336,9 @@ export const PresenterPip: React.FC<{ hiddenUntilFrame: number; x?: number; y?: 
           opacity: enter,
         }}
       >
-        {data.look === "image" && data.rig ? (
+        {data.look === "vrm" ? (
+          <VrmHost modelUrl={data.model ?? "models/host.vrm"} globalFrame={frame} envelope={data.envelope} width={size} height={size} framing="face" mood={data.mood} seed={11} motion={0.7} />
+        ) : data.look === "image" && data.rig ? (
           (() => {
             const rig = data.rig as Rig;
             const h = (size * 1.08) / (rig.head[9][1] - rig.cropTop); // head fills the circle
@@ -344,7 +351,7 @@ export const PresenterPip: React.FC<{ hiddenUntilFrame: number; x?: number; y?: 
           })()
         ) : (
           <div style={{ position: "absolute", left: "50%", top: data.look === "curly" ? 30 : 18, translate: "-50% 0" }}>
-            <Avatar globalFrame={frame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look as Exclude<PresenterLook, "image">} size={size * 1.32} seed={11} />
+            <Avatar globalFrame={frame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look as Exclude<PresenterLook, "image" | "vrm">} size={size * 1.32} seed={11} />
           </div>
         )}
       </div>
@@ -381,7 +388,12 @@ export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; si
       }}
     >
       <div style={{ position: "absolute", left: "50%", top: HERO_HEADROOM + size * 0.42, width: size * 0.9, height: size * 0.9, translate: "-50% -50%", borderRadius: "50%", background: `radial-gradient(circle, ${p.glow}, transparent 62%)`, filter: "blur(18px)" }} />
-      {data.look === "image" && data.rig ? (
+      {data.look === "vrm" ? (
+        <div style={{ position: "absolute", left: w / 2 - 360, top: HERO_HEADROOM - 20, width: 720, height: size + 40 }}>
+          <VrmHost modelUrl={data.model ?? "models/host.vrm"} globalFrame={frame + sceneStartFrame} envelope={data.envelope} width={720} height={size + 40} framing="bust" mood={data.mood} seed={5} motion={1} />
+          <HookExtras sinceAppear={frame} x={720 * 0.6} y={(size + 40) * 0.3} bangX={720 * 0.74} bangY={(size + 40) * 0.12} styleId={data.styleId} scale={size / 760} />
+        </div>
+      ) : data.look === "image" && data.rig ? (
         (() => {
           const rig = data.rig as Rig;
           // Fill the stage: 6% taller than the box, anchored by the crop top, so the
@@ -396,7 +408,7 @@ export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; si
           );
         })()
       ) : (
-        <Avatar globalFrame={frame + sceneStartFrame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look as Exclude<PresenterLook, "image">} size={size} sinceAppear={frame} hero seed={5} />
+        <Avatar globalFrame={frame + sceneStartFrame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look as Exclude<PresenterLook, "image" | "vrm">} size={size} sinceAppear={frame} hero seed={5} />
       )}
     </div>
   );

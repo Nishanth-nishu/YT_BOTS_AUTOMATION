@@ -37,7 +37,9 @@ class PresenterConfig(BaseModel):
     # curly: big curly hair, full beard, headphones round the neck (default)
     # waves: long wavy hair swept back; fade: short curly top; shades: curly with dark glasses
     # image: the host illustration in assets/images/host.png animated in layers (default)
-    look: Literal["curly", "waves", "fade", "shades", "image"] = "curly"
+    # vrm: a prebuilt anime avatar (VRM file) with its own expressions and bones (default)
+    look: Literal["curly", "waves", "fade", "shades", "image", "vrm"] = "vrm"
+    model: Optional[str] = "models/host.vrm"
     image: Optional[str] = "images/host.png"
 
 
