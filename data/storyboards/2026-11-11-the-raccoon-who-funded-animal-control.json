@@ -20,7 +20,7 @@
   "volume": 0.2,
   "bpm": 84.0
  },
- "caption": "A raccoon was caught drunk inside a liquor store in Hanover County, Virginia. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.\n\nSubscribe for a new weird-but-true story every day.",
+ "caption": "A raccoon was caught drunk inside a liquor store in Hanover County. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.\n\nSubscribe for a new weird-but-true story every day.",
  "hashtags": [
   "#funny",
   "#weirdnews",
@@ -38,6 +38,7 @@
    "id": "hook",
    "kind": "hook",
    "narration": "A drunk raccoon just raised a quarter of a million dollars. Yes, really.",
+   "voice": null,
    "captionText": null,
    "title": "A drunk raccoon raised $250,000",
    "lines": [],
@@ -61,11 +62,12 @@
   {
    "id": "setup1",
    "kind": "concept",
-   "narration": "About a year ago, in Hanover County, Virginia, a raccoon was captured inside a liquor store. And he was not there to browse. He was drunk.",
+   "narration": "About a year ago, in Hanover County, a raccoon was captured inside a liquor store. And he was not there to browse. He was drunk.",
+   "voice": null,
    "captionText": null,
    "title": "Caught inside a liquor store",
    "lines": [
-    "Hanover County, Virginia",
+    "Hanover County",
     "One raccoon",
     "Not sober"
    ],
@@ -89,7 +91,8 @@
   {
    "id": "setup2",
    "kind": "concept",
-   "narration": "Animal control had to come and collect him. Imagine that call. Hello, yes, we have a customer who refuses to leave, and he has a tail.",
+   "narration": "He was captured right there in the store. Imagine that call. Hello, yes, we have a customer who refuses to leave, and he has a tail.",
+   "voice": null,
    "captionText": null,
    "title": "Imagine that phone call",
    "lines": [],
@@ -114,6 +117,7 @@
    "id": "escalation1",
    "kind": "concept",
    "narration": "Then the internet found out. And a whole campaign started in his name.",
+   "voice": null,
    "captionText": null,
    "title": "Then the internet found out",
    "lines": [],
@@ -137,7 +141,8 @@
   {
    "id": "escalation2",
    "kind": "concept",
-   "narration": "Nearly a year later, that campaign has raised two hundred and fifty thousand dollars for Hanover County Animal Control. The same team that had to deal with him.",
+   "narration": "Nearly a year later, that campaign has raised two hundred and fifty thousand dollars for Hanover County Animal Control. Not bad for one raccoon.",
+   "voice": null,
    "captionText": null,
    "title": "A quarter of a million dollars",
    "lines": [
@@ -166,6 +171,7 @@
    "id": "punchline",
    "kind": "concept",
    "narration": "So let me get this straight. I work all year, completely sober, and I get a tax bill. He has one wild night and funds a whole department.",
+   "voice": null,
    "captionText": null,
    "title": "One wild night, one funded department",
    "lines": [],
@@ -190,6 +196,7 @@
    "id": "cta",
    "kind": "payoff",
    "narration": "Subscribe, and I will bring you another weird but true story tomorrow.",
+   "voice": null,
    "captionText": null,
    "title": "New true story tomorrow",
    "lines": [],

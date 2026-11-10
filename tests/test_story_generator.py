@@ -58,7 +58,7 @@ def test_discover_survives_a_failing_feed():
     def fetch(name, url, n):
         if name == "offbeat":
             raise RuntimeError("429")
-        return [Candidate(source=f"rss:{name}", title=f"Goat elected mascot of {name}", url="https://example.org/g", published=datetime.now(timezone.utc))]
+        return [Candidate(source=f"rss:{name}", title=f"Goat named mascot of {name}", url="https://example.org/g", published=datetime.now(timezone.utc))]
     result = trending.discover(fetch=fetch, pause=0)
     assert "offbeat" in result["errors"] and len(result["candidates"]) >= 1
 
@@ -87,12 +87,17 @@ def test_story_rules_catch_each_problem(mutate, expected):
     assert any(expected in p for p in problems), problems
 
 
-def llm(replies):
-    """A fake OpenAI-compatible local server that returns each reply in turn and records the prompts."""
+def llm(replies, checker=None):
+    """A fake OpenAI-compatible local server. Writer requests get each reply in turn and are
+    recorded; fact-checker requests get `checker(story_text)` (default: nothing unsupported)."""
     seen = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        seen.append(json.loads(request.content))
+        body = json.loads(request.content)
+        if body["messages"][0]["content"].startswith("You are a strict fact checker"):
+            answer = checker(body["messages"][1]["content"]) if checker else '{"unsupported": []}'
+            return httpx.Response(200, json={"choices": [{"message": {"content": answer}}]})
+        seen.append(body)
         return httpx.Response(200, json={"choices": [{"message": {"content": replies[len(seen) - 1]}}]})
     return httpx.Client(transport=httpx.MockTransport(handler)), seen
 
@@ -219,3 +224,63 @@ def test_invented_quotes_and_claims_are_rejected():
 def test_retry_shows_the_model_its_previous_attempt():
     messages = writer.build_messages(CAND, ["hook is 25 words"], previous='{"title": "old"}')
     assert [m["role"] for m in messages] == ["system", "user", "assistant", "user"] and messages[2]["content"] == '{"title": "old"}'
+
+
+# ---------------------------------------------------------------- fact check
+
+from services.story import factcheck  # noqa: E402
+
+SOURCE = CAND["title"] + " " + CAND["summary"]
+
+
+def test_numbers_are_read_from_digits_and_words():
+    text = "two hundred and fifty thousand dollars, a quarter of a million, $250,000, 250K, 21 words, one night, a hundred, 2.5 million, ninety nine"
+    assert factcheck.numbers_in(text) == {250000.0, 21.0, 1.0, 100.0, 2500000.0, 99.0}
+
+
+def test_numbers_and_names_must_come_from_the_source():
+    assert factcheck.ungrounded_numbers("It raised two hundred and fifty thousand dollars after one wild night.", SOURCE) == []
+    assert any("400" in p for p in factcheck.ungrounded_numbers("It raised four hundred dollars.", SOURCE))
+    assert any("millions" in p for p in factcheck.ungrounded_numbers("It got millions of views.", SOURCE))
+    assert factcheck.ungrounded_numbers("I like to imagine millions of fans.", SOURCE) == []
+    assert factcheck.ungrounded_names("Then the raccoon moved to Virginia with Kevin.", SOURCE) == ["the name 'Virginia' is not in the source", "the name 'Kevin' is not in the source"]
+    assert factcheck.ungrounded_names("The raccoon went viral. Strangers sent money. I was amazed.", SOURCE) == []
+
+
+def test_llm_findings_must_quote_the_story_and_skip_jokes_questions_and_imagination():
+    lines = ["The raccoon opened a bank account that night.", "I work all year and get a tax bill.", "Did he pay for it?", "I like to imagine he tipped the staff."]
+
+    def checker(prompt):
+        story = prompt.split("STORY:")[1]
+        found = [{"quote": "The raccoon opened a bank account that night", "why": "no bank"}] if "bank account" in story else [{"quote": "words that are not in the story at all", "why": "made up"}]
+        return json.dumps({"unsupported": found})
+    client, _ = llm([], checker)
+    problems, checked = factcheck.fact_check(lines, SOURCE, "http://x/v1", "m", client)
+    assert checked and problems == ['not in the source: "The raccoon opened a bank account that night." (no bank)']
+    # only the first line is a plain statement about the event, so only it was sent to the checker
+    assert [factcheck.reportable(l) for l in lines] == [True, False, False, False]
+
+
+def test_writer_rewrites_a_story_that_adds_facts_and_marks_the_clean_one_checked():
+    embellished = good_story_json()
+    embellished["beats"][2]["narration"] += " The video got millions of views."
+    client, seen = llm([json.dumps(embellished), json.dumps(good_story_json())])
+    story, problems = writer.write_story(CAND, client=client)
+    assert problems == [] and story.fact_checked is True and len(seen) == 2
+    assert "'millions' is a quantity the source does not give" in seen[1]["messages"][-1]["content"]
+
+
+def test_a_story_is_never_accepted_when_the_checker_cannot_answer():
+    client, seen = llm([json.dumps(good_story_json())] * 2, checker=lambda prompt: "sorry, no json")
+    story, problems = writer.write_story(CAND, attempts=2, client=client)
+    assert story.fact_checked is False and any("fact checker did not answer" in p for p in problems) and len(seen) == 2
+
+
+def test_an_explanation_the_source_does_not_give_is_flagged():
+    flagged = factcheck.ungrounded_reasons("He is allowed to wear it because the city wants to support local talent.", SOURCE)
+    assert len(flagged) == 1 and "'because'" in flagged[0]
+    assert factcheck.ungrounded_reasons("I laughed because I am a simple person. Why? Because raccoons?", SOURCE) == []
+
+
+def test_elected_officials_are_screened_out_of_the_news():
+    assert "politics or religion" in trending.risk_reason("Masked wrestler elected to Japan city council gets OK to wear mask in chamber")

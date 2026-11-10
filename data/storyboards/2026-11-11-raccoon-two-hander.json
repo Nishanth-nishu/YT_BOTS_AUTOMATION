@@ -20,7 +20,7 @@
   "volume": 0.2,
   "bpm": 84.0
  },
- "caption": "A raccoon was caught drunk inside a liquor store in Hanover County, Virginia. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.\n\nSubscribe for a new weird-but-true story every day.",
+ "caption": "A raccoon was caught drunk inside a liquor store in Hanover County. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.\n\nSubscribe for a new weird-but-true story every day.",
  "hashtags": [
   "#funny",
   "#weirdnews",
@@ -62,7 +62,7 @@
   {
    "id": "setup1",
    "kind": "dialogue",
-   "narration": "About a year ago, in Hanover County, Virginia, a raccoon was captured inside a liquor store. And he was drunk.",
+   "narration": "About a year ago, in Hanover County, a raccoon was captured inside a liquor store. And he was drunk.",
    "voice": null,
    "captionText": null,
    "title": "Caught inside a liquor store",
@@ -139,7 +139,7 @@
   {
    "id": "escalation1",
    "kind": "dialogue",
-   "narration": "He did not pay. That is why animal control had to come and collect him.",
+   "narration": "I like to imagine he did not pay. He was captured right there in the store.",
    "voice": null,
    "captionText": null,
    "title": "He did not pay",

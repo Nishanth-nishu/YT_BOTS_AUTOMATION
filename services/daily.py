@@ -51,7 +51,7 @@ class Options:
     synthetic: bool = False
     story_file: Path | None = None
     candidates: int = 5      # how many news items to try before giving up
-    attempts: int = 3        # LLM attempts per news item
+    attempts: int = 4        # LLM attempts per news item (each failed check is fed back)
     region: str = "IN"
     force: bool = False
     db_path: Path | None = None
@@ -113,6 +113,8 @@ def stage_story(opts: Options, run: Run) -> Path:
 
     if opts.story_file:
         story = writer.Story.model_validate_json(opts.story_file.read_text(encoding="utf-8"))
+        if not story.fact_checked:
+            run.notes.append({"warning": "this story file was not fact-checked against its source; review it before publishing"})
         result = generate.save(story, story.source_title)
     else:
         found = trending.discover(limit=max(opts.candidates * 3, 15), region=opts.region)
@@ -145,7 +147,8 @@ def stage_story(opts: Options, run: Run) -> Path:
             raise RuntimeError(f"none of {len(fresh)} news items produced an acceptable story")
         writer.release_model()  # give the model's memory back before the render
     run.story_id, run.title, run.source_url = result["id"], result["title"], result["source"]
-    run.notes.append({"written_by": json.loads(Path(result["story"]).read_text(encoding="utf-8")).get("written_by")})
+    saved = json.loads(Path(result["story"]).read_text(encoding="utf-8"))
+    run.notes.append({"written_by": saved.get("written_by"), "fact_checked": saved.get("fact_checked", False)})
     return Path(result["storyboard"])
 
 
@@ -258,7 +261,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--concurrency", type=int, default=int(os.environ.get("RENDER_LOCAL_CONCURRENCY") or 1))
     ap.add_argument("--story-file", help="use this finished story instead of fetching news and calling the LLM")
     ap.add_argument("--candidates", type=int, default=5)
-    ap.add_argument("--attempts", type=int, default=3)
+    ap.add_argument("--attempts", type=int, default=4)
     ap.add_argument("--region", default="IN")
     ap.add_argument("--force", action="store_true", help="run even if today's video is already uploaded")
     args = ap.parse_args(argv)

@@ -64,6 +64,8 @@ class Story(BaseModel):
     hashtags: list[str] = Field(default_factory=list)
     beats: list[Beat]
     written_by: Optional[str] = None
+    # True only when every check in services/story/factcheck.py ran, the LLM one included, and found nothing.
+    fact_checked: bool = False
 
     @property
     def narration(self) -> str:
@@ -311,6 +313,16 @@ def write_story(candidate: dict, attempts: int = 3, client: httpx.Client | None 
                 continue
             problems = check_story(story, source_text)
             if not problems:
+                # the rules are met; now make sure it did not add anything the source does not say
+                from services.story.factcheck import fact_check
+
+                problems, checked = fact_check([b.narration for b in story.beats], source_text, url, model, client)
+                if not checked:
+                    problems.append("the fact checker did not answer, so this story cannot be trusted")
+                elif problems:
+                    problems.append("remove those details or say them as your own imagination (\"I like to imagine ...\"); keep every other rule")
+            if not problems:
+                story.fact_checked = True
                 return story, []
     finally:
         if own:

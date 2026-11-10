@@ -4,7 +4,7 @@
  "source_title": "'Remarkable': Drunk raccoon leads to $250,000 for Hanover Animal Control",
  "source_url": "https://www.12onyourside.com/2026/11/06/trashed-panda-campaign-money-hanover-county-animal-control/",
  "source_name": "nottheonion",
- "description": "A raccoon was caught drunk inside a liquor store in Hanover County, Virginia. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.",
+ "description": "A raccoon was caught drunk inside a liquor store in Hanover County. A year later a campaign in his name has raised a quarter of a million dollars for the animal control team.",
  "hashtags": [
   "#funny",
   "#weirdnews",
@@ -26,12 +26,12 @@
   },
   {
    "role": "setup",
-   "narration": "About a year ago, in Hanover County, Virginia, a raccoon was captured inside a liquor store. And he was not there to browse. He was drunk.",
+   "narration": "About a year ago, in Hanover County, a raccoon was captured inside a liquor store. And he was not there to browse. He was drunk.",
    "title": "Caught inside a liquor store",
    "speaker": "host",
    "emotion": "relaxed",
    "lines": [
-    "Hanover County, Virginia",
+    "Hanover County",
     "One raccoon",
     "Not sober"
    ],
@@ -41,7 +41,7 @@
   },
   {
    "role": "setup",
-   "narration": "Animal control had to come and collect him. Imagine that call. Hello, yes, we have a customer who refuses to leave, and he has a tail.",
+   "narration": "He was captured right there in the store. Imagine that call. Hello, yes, we have a customer who refuses to leave, and he has a tail.",
    "title": "Imagine that phone call",
    "speaker": "host",
    "emotion": "happy",
@@ -63,7 +63,7 @@
   },
   {
    "role": "escalation",
-   "narration": "Nearly a year later, that campaign has raised two hundred and fifty thousand dollars for Hanover County Animal Control. The same team that had to deal with him.",
+   "narration": "Nearly a year later, that campaign has raised two hundred and fifty thousand dollars for Hanover County Animal Control. Not bad for one raccoon.",
    "title": "A quarter of a million dollars",
    "speaker": "host",
    "emotion": "surprised",
@@ -99,5 +99,6 @@
    ]
   }
  ],
- "written_by": "claude (hand-written sample, no local LLM installed yet)"
+ "written_by": "claude (hand-written sample, no local LLM installed yet)",
+ "fact_checked": false
 }
