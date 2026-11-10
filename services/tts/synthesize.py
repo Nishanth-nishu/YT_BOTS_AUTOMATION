@@ -27,7 +27,8 @@ from services.captions.build import sentence_captions, validate_monotonic, word_
 from services.common import paths
 from services.common.rules import check_storyboard
 from services.common.schema import Caption, PresenterSpec, ReelSpec, Storyboard, TimedScene
-from services.tts.provider import TTSResult, WordTiming, get_provider, realign_words, text_hash
+from services.common.env import load_dotenv
+from services.tts.provider import TTSResult, WordTiming, get_provider, pick_provider_name, realign_words, text_hash
 
 log = logging.getLogger("reelforge.tts.synthesize")
 OUT_SR = 48000
@@ -86,9 +87,14 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         if not allow_rule_violations:
             raise RuntimeError(msg + chr(10) + "(use --allow-rule-violations to override)")
         log.warning(msg)
-    provider = get_provider(provider_name or sb.voice.provider, device=device)
+    load_dotenv()
+    name = pick_provider_name(provider_name, sb.voice.provider)
+    provider = get_provider(name, device=device)
     if not provider.available():
-        raise RuntimeError(f"TTS provider {provider.name} is not available in this environment")
+        hint = " (SARVAM_API_KEY is empty in .env; paste the key or set VOICE_PROVIDER=kokoro)" if name == "sarvam" else ""
+        raise RuntimeError(f"TTS provider {provider.name} is not available in this environment{hint}")
+    voice_id = provider.resolve_voice(sb.voice.voice)
+    log.info("voice provider %s, voice %s", provider.name, voice_id)
 
     voice_dir = paths.PUBLIC / "voice" / sb.id
     voice_dir.mkdir(parents=True, exist_ok=True)
@@ -103,11 +109,11 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
     total_synth = 0.0
 
     for scene in sb.scenes:
-        key = text_hash(scene.narration, provider.name, sb.voice.voice, sb.voice.speed, scene.captionText)
+        key = text_hash(scene.narration, provider.name, voice_id, sb.voice.speed, scene.captionText)
         result = None if force else _cached(paths.AUDIO_CACHE, key)
         if result is None:
             log.info("synthesizing scene %s (%d chars)", scene.id, len(scene.narration))
-            result = provider.synthesize(scene.narration, sb.voice.voice, sb.voice.speed, caption_text=scene.captionText)
+            result = provider.synthesize(scene.narration, voice_id, sb.voice.speed, caption_text=scene.captionText)
             _store(paths.AUDIO_CACHE, key, result)
             total_synth += result.synth_seconds
         else:
@@ -150,7 +156,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         title=sb.title,
         style=sb.style,
         durationMs=cursor_ms,
-        voice={"file": f"voice/{sb.id}/full.wav", "provider": provider.name, "voice": sb.voice.voice, "speed": sb.voice.speed},
+        voice={"file": f"voice/{sb.id}/full.wav", "provider": provider.name, "voice": voice_id, "speed": sb.voice.speed},
         presenter=PresenterSpec(**sb.presenter.model_dump(), fps=30, envelope=mouth_envelope(full, OUT_SR, 30)),
         music=sb.music,
         captions=captions,

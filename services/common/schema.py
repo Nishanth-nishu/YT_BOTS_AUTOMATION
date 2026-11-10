@@ -11,11 +11,12 @@ Seam = Literal["current", "up", "zoomIn", "zoomOut", "burst"]
 
 
 class VoiceConfig(BaseModel):
-    """House voice: Kokoro's male American English voice `am_fenrir`. Voices
-    starting with `h` would use the Hindi pipeline (kept for experiments; the
-    Hindi voices were judged too weak for the house format)."""
+    """Voice settings. `provider` here is the storyboard's preference; the
+    VOICE_PROVIDER value in .env overrides it (sarvam | kokoro | piper) and
+    `--provider` on the command line overrides both. With Sarvam, `voice` is
+    ignored when it is a Kokoro id and SARVAM_SPEAKER is used instead."""
 
-    provider: Literal["kokoro", "piper"] = "kokoro"
+    provider: Literal["kokoro", "piper", "sarvam"] = "kokoro"
     voice: str = "am_fenrir"
     speed: float = 1.05
 

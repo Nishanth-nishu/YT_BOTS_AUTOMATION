@@ -68,6 +68,10 @@ class TTSProvider:
     name = "base"
     sample_rate = 24000
 
+    def resolve_voice(self, voice: str) -> str:
+        """The voice id actually used (providers may map or override it)."""
+        return voice
+
     def synthesize(self, text: str, voice: str, speed: float = 1.0, caption_text: str | None = None) -> TTSResult:  # pragma: no cover - interface
         raise NotImplementedError
 
@@ -258,6 +262,116 @@ class PiperProvider(TTSProvider):
         return TTSResult(audio, self.sample_rate, [], self.name, voice or Path(str(self.model_path)).stem, time.time() - t0)
 
 
+KOKORO_VOICE_RE = re.compile(r"^[a-z]{2}_[a-z]+$")
+
+
+class SarvamProvider(TTSProvider):
+    """Sarvam AI Bulbul text-to-speech over plain HTTPS (no SDK).
+
+    Settings come from the environment / git-ignored .env:
+        SARVAM_API_KEY    required, never logged
+        SARVAM_MODEL      bulbul:v3 (default), bulbul:v2, bulbul:v4-flash
+        SARVAM_SPEAKER    speaker id for the model (default shubh for v3, abhilash for v2)
+        SARVAM_LANGUAGE   en-IN (default), hi-IN, ... (code-mixed text is fine)
+
+    Sarvam returns no word timestamps, so each sentence is synthesized on its
+    own, trimmed of silence, and its voiced span is spread over the words
+    (same approach as the Kokoro Hindi path). Storyboard voices that look like
+    Kokoro ids (am_fenrir) are ignored in favour of SARVAM_SPEAKER.
+    """
+
+    name = "sarvam"
+    sample_rate = 24000
+    URL = "https://api.sarvam.ai/text-to-speech"
+    SENTENCE_GAP_S = 0.12
+    LEAD_KEEP_S = 0.05
+    TAIL_KEEP_S = 0.10
+    MAX_CHARS = {"bulbul:v2": 1500}
+
+    def __init__(self, api_key: str | None = None, model: str | None = None, speaker: str | None = None, language: str | None = None, post=None) -> None:
+        import os
+
+        self.api_key = api_key if api_key is not None else os.environ.get("SARVAM_API_KEY", "")
+        self.model = model or os.environ.get("SARVAM_MODEL") or "bulbul:v3"
+        self.speaker = speaker or os.environ.get("SARVAM_SPEAKER") or ("abhilash" if self.model == "bulbul:v2" else "shubh")
+        self.language = language or os.environ.get("SARVAM_LANGUAGE") or "en-IN"
+        self._post = post  # injectable for tests
+
+    def available(self) -> bool:
+        return bool(self.api_key)
+
+    def resolve_voice(self, voice: str) -> str:
+        return self.speaker if (not voice or KOKORO_VOICE_RE.match(voice)) else voice
+
+    def _request(self, text: str, speaker: str, speed: float) -> np.ndarray:
+        import base64
+        import io
+
+        import httpx
+        import soundfile as sf
+
+        limit = self.MAX_CHARS.get(self.model, 2500)
+        if len(text) > limit:
+            raise RuntimeError(f"Sarvam {self.model} accepts at most {limit} characters per request; split the narration")
+        body = {
+            "text": text,
+            "language_code": self.language,
+            "model": self.model,
+            "speaker": speaker,
+            "pace": max(0.5, min(2.0, speed)),
+            "speech_sample_rate": self.sample_rate,
+            "output_audio_codec": "wav",
+        }
+        headers = {"api-subscription-key": self.api_key, "Content-Type": "application/json"}
+        post = self._post or (lambda **kw: httpx.post(**kw))
+        last_err = ""
+        for attempt in range(3):
+            resp = post(url=self.URL, json=body, headers=headers, timeout=60)
+            if resp.status_code == 200:
+                data = resp.json()
+                raw = b"".join(base64.b64decode(a) for a in data.get("audios", []))
+                audio, sr = sf.read(io.BytesIO(raw), dtype="float32")
+                if audio.ndim > 1:
+                    audio = audio.mean(axis=1)
+                self.sample_rate = int(sr)
+                return audio.astype(np.float32)
+            last_err = f"HTTP {resp.status_code}: {resp.text[:200]}"
+            if resp.status_code in (429, 500, 502, 503) and attempt < 2:
+                time.sleep(1.5 * (attempt + 1))
+                continue
+            break
+        raise RuntimeError(f"Sarvam TTS failed ({last_err})")
+
+    def synthesize(self, text: str, voice: str = "", speed: float = 1.0, caption_text: str | None = None) -> TTSResult:
+        if not self.api_key:
+            raise RuntimeError("SARVAM_API_KEY is empty; put it in .env or set VOICE_PROVIDER=kokoro")
+        speaker = self.resolve_voice(voice)
+        t0 = time.time()
+        spoken_sents = split_sentences(text)
+        shown_sents = split_sentences(caption_text) if caption_text else spoken_sents
+        aligned = len(shown_sents) == len(spoken_sents)
+        chunks: list[np.ndarray] = []
+        words: list[WordTiming] = []
+        offset = 0.0
+        for i, sent in enumerate(spoken_sents):
+            audio = self._request(apply_pronunciation(sent), speaker, speed)
+            sr = self.sample_rate
+            vs, ve = voiced_span(audio, sr)
+            audio = audio[int(max(0.0, vs - self.LEAD_KEEP_S) * sr) : int(min(len(audio) / sr, ve + self.TAIL_KEEP_S) * sr)]
+            if aligned:
+                words.extend(estimate_word_timings(audio, sr, re.findall(r"\S+", shown_sents[i]), offset))
+            chunks.append(audio)
+            offset += len(audio) / sr
+            if i < len(spoken_sents) - 1:
+                gap = np.zeros(int(sr * self.SENTENCE_GAP_S), dtype=np.float32)
+                chunks.append(gap)
+                offset += len(gap) / sr
+        audio_all = np.concatenate(chunks) if chunks else np.zeros(0, dtype=np.float32)
+        if not aligned:
+            words = estimate_word_timings(audio_all, self.sample_rate, re.findall(r"\S+", caption_text or text))
+        return TTSResult(audio_all, self.sample_rate, words, self.name, speaker, time.time() - t0, estimated=True)
+
+
 _PUNCT_ONLY = re.compile(r"^[^\w]+$")
 
 
@@ -298,7 +412,17 @@ def text_hash(text: str, provider: str, voice: str, speed: float, caption_text: 
     return hashlib.sha1(json.dumps(payload, ensure_ascii=False).encode("utf-8")).hexdigest()[:16]
 
 
+def pick_provider_name(cli: str | None, storyboard: str) -> str:
+    """Provider precedence: --provider flag, then VOICE_PROVIDER in the
+    environment / .env, then the storyboard's voice.provider."""
+    import os
+
+    return (cli or os.environ.get("VOICE_PROVIDER") or storyboard or "kokoro").strip().lower()
+
+
 def get_provider(name: str = "kokoro", device: str = "auto", piper_model: Optional[Path] = None) -> TTSProvider:
     if name == "piper":
         return PiperProvider(piper_model)
+    if name == "sarvam":
+        return SarvamProvider()
     return KokoroProvider(device=device)

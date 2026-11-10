@@ -57,7 +57,7 @@ No paid AI, video, image, TTS or stock APIs. No cloud GPU rentals. No paid hosti
 
 ## House format (since 2026-11-10)
 
-Every reel has an animated host (`video-engine/src/layers/Presenter.tsx`, a long-haired guy in a black hoodie whose mouth follows the voice), a male English voice (Kokoro `am_fenrir`), an anxious-funny hook inside the first 5 seconds (`.claude/skills/generate-script/hooks.md`), and no link anywhere: the last scene asks viewers to comment `LETS GO` and `services/publishing/dm_bot.py` sends the link by DM. `python -m services.common.rules data/storyboards/<id>.json` enforces all of it before the voiceover.
+Every reel has an animated host (`video-engine/src/layers/Presenter.tsx`, a long-haired guy in a black hoodie whose mouth follows the voice), a male English voice (Sarvam Bulbul when `VOICE_PROVIDER=sarvam` in `.env`, else Kokoro `am_fenrir`; see `.env.example`), an anxious-funny hook inside the first 5 seconds (`.claude/skills/generate-script/hooks.md`), and no link anywhere: the last scene asks viewers to comment `LETS GO` and `services/publishing/dm_bot.py` sends the link by DM. `python -m services.common.rules data/storyboards/<id>.json` enforces all of it before the voiceover.
 
 ## Publishing
 
