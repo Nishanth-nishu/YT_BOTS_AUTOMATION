@@ -1,2 +1,2 @@
 # YT_BOTS_AUTOMATION
-For personal use, yt bot for shorts generation for a drafted stories by local LLM models
+For personal use: an AI-powered YouTube Shorts automation bot that transforms drafted stories into engaging short-form videos using local LLM models.
