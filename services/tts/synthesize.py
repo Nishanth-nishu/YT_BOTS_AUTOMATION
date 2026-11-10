@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -68,6 +69,33 @@ def mouth_envelope(track: np.ndarray, sr: int, fps: int = 30) -> list[float]:
     env = np.convolve(env, [0.25, 0.5, 0.25], mode="same")
     env[env < 0.06] = 0.0
     return [round(float(v), 3) for v in env]
+
+
+def load_rig(sb: Storyboard) -> dict | None:
+    """For the image host: the rig JSON next to the illustration, and a copy of
+    the illustration under video-engine/public/ so Remotion can serve it."""
+    if sb.presenter.look != "image" or not sb.presenter.image:
+        return None
+    img = paths.ASSETS / sb.presenter.image
+    rig_file = img.with_suffix(".json")
+    if not img.exists() or not rig_file.exists():
+        raise RuntimeError(f"presenter.look is 'image' but {img} or {rig_file} is missing (drop the illustration in assets/images/host.png)")
+    public_img = paths.PUBLIC / sb.presenter.image
+    public_img.parent.mkdir(parents=True, exist_ok=True)
+    if not public_img.exists() or public_img.stat().st_mtime < img.stat().st_mtime:
+        try:
+            from PIL import Image
+
+            im = Image.open(img).convert("RGBA")
+            if im.width > 1000:  # the hero shows the figure at ~520 px wide; keep decode cheap
+                im = im.resize((1000, round(im.height * 1000 / im.width)), Image.LANCZOS)
+            im.save(public_img, optimize=True)
+        except ImportError:
+            shutil.copy(img, public_img)
+    rig = json.loads(rig_file.read_text(encoding="utf-8"))
+    rig.pop("_comment", None)
+    rig["image"] = sb.presenter.image
+    return rig
 
 
 def _store(cache_dir: Path, key: str, r: TTSResult) -> None:
@@ -157,7 +185,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         style=sb.style,
         durationMs=cursor_ms,
         voice={"file": f"voice/{sb.id}/full.wav", "provider": provider.name, "voice": voice_id, "speed": sb.voice.speed},
-        presenter=PresenterSpec(**sb.presenter.model_dump(), fps=30, envelope=mouth_envelope(full, OUT_SR, 30)),
+        presenter=PresenterSpec(**sb.presenter.model_dump(), fps=30, envelope=mouth_envelope(full, OUT_SR, 30), rig=load_rig(sb)),
         music=sb.music,
         captions=captions,
         captionMode=caption_mode,  # type: ignore[arg-type]

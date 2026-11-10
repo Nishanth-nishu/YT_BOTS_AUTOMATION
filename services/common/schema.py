@@ -36,7 +36,9 @@ class PresenterConfig(BaseModel):
     mood: Literal["hype", "calm"] = "hype"
     # curly: big curly hair, full beard, headphones round the neck (default)
     # waves: long wavy hair swept back; fade: short curly top; shades: curly with dark glasses
-    look: Literal["curly", "waves", "fade", "shades"] = "curly"
+    # image: the host illustration in assets/images/host.png animated in layers (default)
+    look: Literal["curly", "waves", "fade", "shades", "image"] = "image"
+    image: Optional[str] = "images/host.png"
 
 
 class StoryboardScene(BaseModel):
@@ -97,6 +99,8 @@ class PresenterSpec(PresenterConfig):
     # Per-frame mouth openness 0..1 at `fps`, measured from the voice track.
     fps: int = 30
     envelope: list[float] = Field(default_factory=list)
+    # Rig for look "image" (assets/images/host.json), copied in at synthesis time.
+    rig: Optional[dict[str, Any]] = None
 
 
 class ReelSpec(BaseModel):

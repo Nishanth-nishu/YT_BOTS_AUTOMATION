@@ -20,7 +20,7 @@ A script JSON exists in `data/scripts/<id>.json` with status approved, or the us
 
 ## House format fields (every reel since 2026-11-10)
 - `voice`: `{"provider": "kokoro", "voice": "am_fenrir", "speed": 1.05}` (male English host).
-- `presenter`: `{"enabled": true, "mood": "hype"}`; the host is big in the hook scene and a badge at the left of the caption band elsewhere.
+- `presenter`: `{"enabled": true, "mood": "hype", "look": "image", "image": "images/host.png"}`; the host is big in the hook scene and a badge at the left of the caption band elsewhere. `look: image` animates the illustration in `assets/images/host.png` with the rig in `assets/images/host.json` (layers: breathing body, swaying head, lagging hair, lifting brows, sliding eyelids, dropping jaw for lip-sync); the pixels are never redrawn. The other looks (`curly`, `waves`, `fade`, `shades`) are vector avatars.
 - Every scene: `narration` in plain English (captions are built from it with exact word timings; `captionText` exists only for non-Latin experiments).
 - `dmKeyword` (`LETS GO`) and `dmLink` (the one link the DM bot sends; defaults to `sources[0]`). No link in `caption`, titles, lines, `cta`, or `data` (terminal `command` must not be a URL: write `git clone dsh-superagent-prototype`, not the GitHub URL).
 - Last scene is `payoff` with `cta` "Comment LETS GO, the link lands in your DMs".

@@ -10,7 +10,9 @@
   "presenter": {
     "enabled": true,
     "name": "host",
-    "mood": "hype"
+    "mood": "hype",
+    "look": "image",
+    "image": "images/host.png"
   },
   "music": {
     "file": "music/ambient_bed.wav",

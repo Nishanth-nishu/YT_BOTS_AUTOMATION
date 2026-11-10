@@ -22,9 +22,10 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { clamp, seeded, springs } from "../design/motion";
 import { fonts, palettes, type StyleId } from "../design/tokens";
 import type { PresenterSpec } from "../schema/reelSpec";
+import { ImageHost, HOST_H, HOST_W, type Rig } from "./ImageHost";
 
-export type PresenterLook = "curly" | "waves" | "fade" | "shades";
-export const LOOKS: PresenterLook[] = ["curly", "waves", "fade", "shades"];
+export type PresenterLook = "curly" | "waves" | "fade" | "shades" | "image";
+export const LOOKS: Exclude<PresenterLook, "image">[] = ["curly", "waves", "fade", "shades"];
 
 export type PresenterData = (PresenterSpec & { styleId: StyleId }) | null;
 export const PresenterContext = createContext<PresenterData>(null);
@@ -62,6 +63,10 @@ const HAIR_SHINE = "#3A2F2A";
 const BEARD = "#1C1512";
 const HOODIE = "#111115";
 const HOODIE_EDGE = "#2A2A33";
+const JACKET = "#1A1A20";
+const JACKET_EDGE = "#30303A";
+const WATCH = "#6F7278";
+const WATCH_FACE = "#2A2D33";
 const LIPS = "#8E5A52";
 const MOUTH = "#3A1C27";
 const HEAD_CY = 190;
@@ -86,7 +91,7 @@ type AvatarProps = {
   envelope: number[];
   styleId: StyleId;
   mood: "hype" | "calm";
-  look?: PresenterLook;
+  look?: Exclude<PresenterLook, "image">;
   size: number; // rendered height in px (viewBox is 400 x 440)
   /** Frames since this avatar appeared (for the hook's sweat drop and "!!"). */
   sinceAppear?: number;
@@ -112,9 +117,13 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
   const drop = hero ? interpolate(sinceAppear, [14, 70], [0, 1], clamp) : 0;
   const dropOp = hero ? interpolate(sinceAppear, [14, 20, 62, 72], [0, 1, 1, 0], clamp) : 0;
   const w = (size * 400) / 440;
+  const B = look === "curly" ? 462 : 490; // bottom edge of the bust
 
   const headphonesOnNeck = look === "curly" || look === "waves" || look === "shades";
   const fullBeard = look !== "waves";
+  const shortBeard = look === "curly"; // closer crop, reads as a few days' growth
+  const beardOpacity = shortBeard ? 0.62 : 0.92;
+  const smile = look === "curly" ? 1 : 0; // resting smile and slightly more open eyes
   const glasses = look === "shades" ? "shades" : "none";
 
   // Face with a defined jaw (not an ellipse): wide at the temples, squarer chin.
@@ -125,11 +134,13 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
   const TRIM_BEARD = "M 126 226 C 134 272, 162 296, 200 302 C 238 296, 266 272, 274 226 C 266 258, 246 276, 226 284 C 210 290, 190 290, 174 284 C 154 276, 134 258, 126 226 Z";
 
   return (
-    <svg width={w} height={size} viewBox="0 0 400 440" style={{ display: "block", overflow: "visible" }}>
+    // The viewBox carries 80 units of headroom for the big hair; the negative
+    // margin keeps the face where a 400 x 440 drawing would put it.
+    <svg width={w} height={size + (80 * size) / 440} viewBox="0 -80 400 520" style={{ display: "block", overflow: "visible", marginTop: -(80 * size) / 440 }}>
       <g transform={`translate(${shake} 0)`}>
         {/* black hoodie / sweater */}
-        <rect x={40} y={318} width={320} height={172} rx={80} fill={HOODIE} />
-        <path d="M 40 398 C 40 350, 80 318, 120 318 L 280 318 C 320 318, 360 350, 360 398 L 360 490 L 40 490 Z" fill={HOODIE} />
+        <rect x={40} y={318} width={320} height={B - 318} rx={80} fill={HOODIE} />
+        <path d={`M 40 398 C 40 350, 80 318, 120 318 L 280 318 C 320 318, 360 350, 360 398 L 360 ${B} L 40 ${B} Z`} fill={HOODIE} />
         <path d="M 112 318 C 134 296, 166 288, 200 292 C 234 288, 266 296, 288 318 C 268 356, 236 374, 200 374 C 164 374, 132 356, 112 318 Z" fill={HOODIE_EDGE} />
         <path d="M 124 322 C 146 304, 172 298, 200 300 C 228 298, 254 304, 276 322 C 258 352, 232 364, 200 364 C 168 364, 142 352, 124 322 Z" fill={HOODIE} />
         <rect x={170} y={252} width={60} height={80} rx={18} fill={SKIN_SHADE} />
@@ -143,9 +154,41 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
             <ellipse cx={250} cy={356} rx={16} ry={22} fill="#1A1A20" />
           </g>
         ) : null}
+        {look === "curly" ? (
+          <g>
+            {/* open zip jacket: two panels leaving a V of sweater, collar, zip teeth */}
+            <path d={`M 40 400 C 40 352, 78 322, 118 318 C 150 318, 168 340, 178 372 L 168 ${B} L 40 ${B} Z`} fill={JACKET} />
+            <path d={`M 360 400 C 360 352, 322 322, 282 318 C 250 318, 232 340, 222 372 L 232 ${B} L 360 ${B} Z`} fill={JACKET} />
+            <path d="M 118 318 C 150 318, 168 340, 178 372" stroke={JACKET_EDGE} strokeWidth={5} fill="none" />
+            <path d="M 282 318 C 250 318, 232 340, 222 372" stroke={JACKET_EDGE} strokeWidth={5} fill="none" />
+            <path d={`M 178 372 L 170 ${B}`} stroke={JACKET_EDGE} strokeWidth={3} strokeDasharray="4 4" />
+            <path d={`M 222 372 L 230 ${B}`} stroke={JACKET_EDGE} strokeWidth={3} strokeDasharray="4 4" />
+            {/* folded arms resting on the counter, watch on the near wrist */}
+            {/* near forearm in the sweater sleeve, crossing the chest left to right */}
+            <path d="M 40 440 C 56 400, 120 386, 210 392 C 270 396, 300 398, 318 404 L 318 452 C 300 456, 260 458, 210 454 C 120 450, 60 456, 40 440 Z" fill={HOODIE} stroke={JACKET_EDGE} strokeWidth={3} />
+            <path d="M 58 428 C 100 410, 160 404, 212 408" stroke={JACKET_EDGE} strokeWidth={3} fill="none" strokeLinecap="round" opacity={0.6} />
+            {/* grey watch on the wrist */}
+            <rect x={292} y={398} width={24} height={60} rx={6} fill={WATCH} />
+            <circle cx={304} cy={428} r={16} fill={WATCH_FACE} stroke={WATCH} strokeWidth={4} />
+            <path d="M 304 428 L 304 419 M 304 428 L 310 431" stroke="#C9CCD2" strokeWidth={2.5} strokeLinecap="round" />
+            {/* hand gripping the far upper arm */}
+            <path d="M 316 406 C 334 400, 356 404, 362 418 C 366 432, 360 448, 344 452 C 330 456, 318 450, 316 440 Z" fill={SKIN} />
+            <path d="M 328 416 L 352 414 M 330 428 L 356 428 M 332 440 L 352 442" stroke={SKIN_SHADE} strokeWidth={2.5} strokeLinecap="round" />
+          </g>
+        ) : null}
         <g transform={`translate(0 ${bobY}) rotate(${rot} 200 ${HEAD_CY})`}>
           {/* hair, back layer */}
-          {look === "curly" || look === "shades" ? (
+          {look === "curly" ? (
+            <g>
+              <Curls seed={3} count={18} cx={200} cy={146} rx={140} ry={128} rMin={38} rMax={54} fill={HAIR} />
+              <Curls seed={5} count={16} cx={200} cy={140} rx={118} ry={104} rMin={36} rMax={52} fill={HAIR} />
+              <Curls seed={9} count={11} cx={200} cy={124} rx={84} ry={70} rMin={36} rMax={52} fill={HAIR} />
+              <ellipse cx={200} cy={128} rx={130} ry={110} fill={HAIR} />
+              <path d="M 86 170 C 76 236, 92 276, 110 296 L 122 200 Z" fill={HAIR} />
+              <path d="M 314 170 C 324 236, 308 276, 290 296 L 278 200 Z" fill={HAIR} />
+            </g>
+          ) : null}
+          {look === "shades" ? (
             <g>
               <Curls seed={3} count={14} cx={200} cy={150} rx={118} ry={104} rMin={34} rMax={50} fill={HAIR} />
               <Curls seed={9} count={11} cx={200} cy={132} rx={84} ry={70} rMin={36} rMax={52} fill={HAIR} />
@@ -170,15 +213,15 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
           {/* cheek and jaw shading */}
           <path d="M 128 232 C 150 288, 250 288, 272 232 C 262 272, 236 296, 200 300 C 164 296, 138 272, 128 232 Z" fill={SKIN_SHADE} opacity={0.22} />
           {/* beard and moustache */}
-          {fullBeard ? <path d={BEARD_PATH} fill={BEARD} opacity={0.92} /> : <path d={TRIM_BEARD} fill={BEARD} opacity={0.5} />}
-          <path d="M 168 218 C 182 208, 218 208, 232 218 C 222 224, 208 226, 200 224 C 192 226, 178 224, 168 218 Z" fill={BEARD} opacity={fullBeard ? 0.9 : 0.55} />
+          {fullBeard ? <path d={BEARD_PATH} fill={BEARD} opacity={beardOpacity} /> : <path d={TRIM_BEARD} fill={BEARD} opacity={0.5} />}
+          <path d="M 168 218 C 182 208, 218 208, 232 218 C 222 224, 208 226, 200 224 C 192 226, 178 224, 168 218 Z" fill={BEARD} opacity={fullBeard ? beardOpacity : 0.55} />
           {/* hair, front layer */}
           {look === "curly" || look === "shades" ? (
             <g>
               <path d="M 108 160 C 100 100, 300 100, 292 160 C 284 128, 256 116, 200 114 C 144 116, 116 128, 108 160 Z" fill={HAIR} />
-              <Curls seed={21} count={12} cx={200} cy={128} rx={96} ry={46} rMin={28} rMax={40} fill={HAIR} />
-              <Curls seed={33} count={7} cx={200} cy={106} rx={60} ry={30} rMin={22} rMax={30} fill={HAIR_SHINE} />
-              <Curls seed={34} count={7} cx={200} cy={110} rx={60} ry={30} rMin={18} rMax={26} fill={HAIR} />
+              <Curls seed={21} count={12} cx={200} cy={look === "curly" ? 116 : 128} rx={96} ry={46} rMin={28} rMax={40} fill={HAIR} />
+              <Curls seed={33} count={7} cx={200} cy={look === "curly" ? 92 : 106} rx={60} ry={30} rMin={22} rMax={30} fill={HAIR_SHINE} />
+              <Curls seed={34} count={7} cx={200} cy={look === "curly" ? 96 : 110} rx={60} ry={30} rMin={18} rMax={26} fill={HAIR} />
             </g>
           ) : null}
           {look === "waves" ? (
@@ -219,10 +262,12 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
             <circle cx={169} cy={174} r={2.4} fill="#FFFFFF" />
             <circle cx={243} cy={174} r={2.4} fill="#FFFFFF" />
             {/* upper lids: calm, half-closed */}
-            <path d="M 145 176 Q 163 158 181 176 L 181 168 Q 163 160 145 168 Z" fill={SKIN} />
-            <path d="M 219 176 Q 237 158 255 176 L 255 168 Q 237 160 219 168 Z" fill={SKIN} />
-            <path d="M 146 172 Q 163 164 180 172" stroke={HAIR} strokeWidth={3.5} fill="none" strokeLinecap="round" />
-            <path d="M 220 172 Q 237 164 254 172" stroke={HAIR} strokeWidth={3.5} fill="none" strokeLinecap="round" />
+            <g transform={`translate(0 ${-3 * smile})`}>
+              <path d="M 145 176 Q 163 158 181 176 L 181 168 Q 163 160 145 168 Z" fill={SKIN} />
+              <path d="M 219 176 Q 237 158 255 176 L 255 168 Q 237 160 219 168 Z" fill={SKIN} />
+              <path d="M 146 172 Q 163 164 180 172" stroke={HAIR} strokeWidth={3.5} fill="none" strokeLinecap="round" />
+              <path d="M 220 172 Q 237 164 254 172" stroke={HAIR} strokeWidth={3.5} fill="none" strokeLinecap="round" />
+            </g>
           </g>
           {glasses === "shades" ? (
             <g>
@@ -238,11 +283,12 @@ export const Avatar: React.FC<AvatarProps> = ({ globalFrame, envelope, styleId, 
           {/* mouth */}
           <rect x={172} y={240 - mouthH / 2} width={56} height={mouthH} rx={mouthH / 2} fill={MOUTH} />
           {teethH > 0 ? <rect x={177} y={240 - mouthH / 2 + 4} width={46} height={teethH} rx={4} fill="#FFFFFF" opacity={0.92} /> : null}
-          <path d="M 172 240 Q 200 252 228 240" stroke={LIPS} strokeWidth={5} fill="none" strokeLinecap="round" opacity={closed} />
+          <path d={smile ? "M 170 236 Q 200 258 230 236" : "M 172 240 Q 200 252 228 240"} stroke={LIPS} strokeWidth={5} fill="none" strokeLinecap="round" opacity={closed} />
+          {smile ? <path d="M 166 232 Q 170 238 174 240 M 234 232 Q 230 238 226 240" stroke={SKIN_SHADE} strokeWidth={3} fill="none" strokeLinecap="round" opacity={closed * 0.7} /> : null}
           {hero ? (
             <>
               <path d="M 270 150 C 282 132, 292 152, 282 162 C 276 168, 266 160, 270 150 Z" fill={p.accent} opacity={dropOp} transform={`translate(0 ${drop * 58})`} />
-              <text x={322} y={80} fontFamily={fonts.display} fontWeight={800} fontSize={74} fill={p.hero} opacity={bang * bangFade} transform={`rotate(12 322 80) scale(${bang})`} style={{ transformOrigin: "322px 80px" }}>
+              <text x={352} y={60} fontFamily={fonts.display} fontWeight={800} fontSize={74} fill={p.hero} opacity={bang * bangFade} transform={`rotate(12 352 60) scale(${bang})`} style={{ transformOrigin: "352px 60px" }}>
                 !!
               </text>
             </>
@@ -285,15 +331,30 @@ export const PresenterPip: React.FC<{ hiddenUntilFrame: number; x?: number; y?: 
           opacity: enter,
         }}
       >
-        <div style={{ position: "absolute", left: "50%", top: 18, translate: "-50% 0" }}>
-          <Avatar globalFrame={frame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look} size={size * 1.32} seed={11} />
-        </div>
+        {data.look === "image" && data.rig ? (
+          (() => {
+            const rig = data.rig as Rig;
+            const h = (size * 1.08) / (rig.head[9][1] - rig.cropTop); // head fills the circle
+            const w = (HOST_W / HOST_H) * h;
+            return (
+              <div style={{ position: "absolute", left: size / 2 - rig.faceCenter[0] * w, top: size / 2 - rig.faceCenter[1] * h - size * 0.06 }}>
+                <ImageHost rig={rig} globalFrame={frame} envelope={data.envelope} height={h} mood={data.mood} seed={11} motion={0.6} />
+              </div>
+            );
+          })()
+        ) : (
+          <div style={{ position: "absolute", left: "50%", top: data.look === "curly" ? 30 : 18, translate: "-50% 0" }}>
+            <Avatar globalFrame={frame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look as Exclude<PresenterLook, "image">} size={size * 1.32} seed={11} />
+          </div>
+        )}
       </div>
     </AbsoluteFill>
   );
 };
 
 /** The big host for the hook scene, in the stage region under the title. */
+const HERO_HEADROOM = 120;
+
 export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; size?: number }> = ({ sceneStartFrame, top = 596, size = 590 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -309,19 +370,53 @@ export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; si
       style={{
         position: "absolute",
         left: 540 - w / 2,
-        top,
+        top: top - HERO_HEADROOM,
         width: w,
-        height: size,
+        height: size + HERO_HEADROOM,
+        paddingTop: HERO_HEADROOM,
+        boxSizing: "border-box",
         scale: `${interpolate(enter, [0, 1], [0.7, 1])}`,
         opacity: enter,
         transformOrigin: "50% 100%",
-        maskImage: "linear-gradient(180deg, black 84%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(180deg, black 84%, transparent 100%)",
       }}
     >
-      <div style={{ position: "absolute", left: "50%", top: size * 0.42, width: size * 0.9, height: size * 0.9, translate: "-50% -50%", borderRadius: "50%", background: `radial-gradient(circle, ${p.glow}, transparent 62%)`, filter: "blur(18px)" }} />
-      <Avatar globalFrame={frame + sceneStartFrame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look} size={size} sinceAppear={frame} hero seed={5} />
+      <div style={{ position: "absolute", left: "50%", top: HERO_HEADROOM + size * 0.42, width: size * 0.9, height: size * 0.9, translate: "-50% -50%", borderRadius: "50%", background: `radial-gradient(circle, ${p.glow}, transparent 62%)`, filter: "blur(18px)" }} />
+      {data.look === "image" && data.rig ? (
+        (() => {
+          const rig = data.rig as Rig;
+          const h = size / (rig.cropBottom - rig.cropTop);
+          const iw = (HOST_W / HOST_H) * h;
+          return (
+            <div style={{ position: "absolute", left: w / 2 - 0.47 * iw, top: HERO_HEADROOM - rig.cropTop * h }}>
+              <ImageHost rig={rig} globalFrame={frame + sceneStartFrame} envelope={data.envelope} height={h} mood={data.mood} seed={5} motion={1} />
+              <HookExtras sinceAppear={frame} x={rig.temple[0] * iw} y={rig.temple[1] * h} bangX={0.8 * iw} bangY={0.1 * h} styleId={data.styleId} scale={h / 760} />
+            </div>
+          );
+        })()
+      ) : (
+        <Avatar globalFrame={frame + sceneStartFrame} envelope={data.envelope} styleId={data.styleId} mood={data.mood} look={data.look as Exclude<PresenterLook, "image">} size={size} sinceAppear={frame} hero seed={5} />
+      )}
     </div>
+  );
+};
+
+/** Sweat drop sliding down the temple and a "!!" pop for the hook, over any host. */
+const HookExtras: React.FC<{ sinceAppear: number; x: number; y: number; bangX: number; bangY: number; styleId: StyleId; scale: number }> = ({ sinceAppear, x, y, bangX, bangY, styleId, scale }) => {
+  const { fps } = useVideoConfig();
+  const p = palettes[styleId];
+  const bang = spring({ frame: sinceAppear - 8, fps, config: springs.bouncy });
+  const bangFade = 1 - interpolate(sinceAppear, [70, 90], [0, 1], clamp);
+  const drop = interpolate(sinceAppear, [14, 70], [0, 1], clamp);
+  const dropOp = interpolate(sinceAppear, [14, 20, 62, 72], [0, 1, 1, 0], clamp);
+  return (
+    <svg style={{ position: "absolute", left: 0, top: 0, overflow: "visible", pointerEvents: "none" }} width={1} height={1}>
+      <g transform={`translate(${x} ${y + drop * 70 * scale}) scale(${scale})`} opacity={dropOp}>
+        <path d="M 0 0 C 12 -18, 22 2, 12 12 C 6 18, -4 10, 0 0 Z" fill={p.accent} />
+      </g>
+      <text x={bangX} y={bangY} fontFamily={fonts.display} fontWeight={800} fontSize={74 * scale} fill={p.hero} opacity={bang * bangFade} transform={`rotate(12 ${bangX} ${bangY}) scale(${bang})`} style={{ transformOrigin: `${bangX}px ${bangY}px` }}>
+        !!
+      </text>
+    </svg>
   );
 };
 

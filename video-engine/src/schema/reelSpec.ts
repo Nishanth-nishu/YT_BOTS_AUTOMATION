@@ -56,7 +56,10 @@ export const presenterSchema = z.object({
   enabled: z.boolean().default(true),
   name: z.string().default("host"),
   mood: z.enum(["hype", "calm"]).default("hype"),
-  look: z.enum(["curly", "waves", "fade", "shades"]).default("curly"),
+  look: z.enum(["curly", "waves", "fade", "shades", "image"]).default("image"),
+  /** For look "image": path under public/ and the rig (fractions of the image size). */
+  image: z.string().nullable().optional(),
+  rig: z.record(z.string(), z.any()).nullable().optional(),
   fps: z.number().default(30),
   envelope: z.array(z.number()).default([]),
 });
