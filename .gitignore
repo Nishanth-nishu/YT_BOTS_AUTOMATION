@@ -64,3 +64,6 @@ video-engine/public/music/
 # host illustration (personal image, kept local; drop your own in assets/images/host.png)
 assets/images/host*.png
 video-engine/public/images/host*.png
+
+# derived host images (personal)
+assets/images/host_photo.png
