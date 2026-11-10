@@ -55,6 +55,10 @@ tests/           pytest suites
 
 No paid AI, video, image, TTS or stock APIs. No cloud GPU rentals. No paid hosting or databases. Free open-source software, local hardware and the authorised Ada cluster only. Generated videos, model weights and secrets are never committed.
 
+## House format (since 2026-11-10)
+
+Every reel has an animated host (`video-engine/src/layers/Presenter.tsx`, a male avatar whose mouth follows the voice), a male Hinglish voice (Kokoro `hm_omega`; Hindi in Devanagari, English terms in Latin, romanised `captionText` on screen), an anxious-funny hook inside the first 5 seconds (`.claude/skills/generate-script/hooks-hinglish.md`), and no link anywhere: the last scene asks viewers to comment `LETS GO` and `services/publishing/dm_bot.py` sends the link by DM. `python -m services.common.rules data/storyboards/<id>.json` enforces all of it before the voiceover.
+
 ## Publishing
 
-REELFORGE prepares a publication package (MP4, cover, caption, hashtags, checklist) for manual upload. It never posts to Instagram on its own.
+REELFORGE prepares a publication package (MP4, cover, caption, hashtags, checklist) for manual upload. It never posts to Instagram on its own. After you approve a post, `services/publishing/instagram.py` publishes it through the official Graph API and `dm_bot.py` answers the keyword comments.

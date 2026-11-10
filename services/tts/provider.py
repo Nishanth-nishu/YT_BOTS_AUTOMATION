@@ -6,8 +6,12 @@
 
 Each provider returns 24 kHz (Kokoro) or 22.05 kHz (Piper) mono float32 audio
 plus a list of word timings in seconds relative to the start of that audio.
-Word timings may be empty, in which case the caption builder falls back to
-evenly distributed sentence-level captions.
+
+Kokoro's English pipeline gives exact per-word timestamps. Its Hindi pipeline
+(voices `hf_*` / `hm_*`, used for Hinglish) gives none, so the provider
+synthesizes sentence by sentence and spreads each sentence's voiced span over
+its words by character count. Captions then follow the speech to within a
+word, which is enough for four-word caption pages.
 """
 from __future__ import annotations
 
@@ -23,6 +27,19 @@ from typing import Optional
 import numpy as np
 
 log = logging.getLogger("reelforge.tts")
+
+DEVANAGARI_RE = re.compile(r"[ऀ-ॿ]")
+SENTENCE_RE = re.compile(r"(?<=[.!?।])\s+")
+# Kokoro voice prefix -> pipeline language code.
+LANG_BY_PREFIX = {"a": "a", "b": "b", "e": "e", "f": "f", "h": "h", "i": "i", "j": "j", "p": "p", "z": "z"}
+
+
+def lang_for_voice(voice: str) -> str:
+    return LANG_BY_PREFIX.get(voice[:1].lower(), "a")
+
+
+def split_sentences(text: str) -> list[str]:
+    return [s.strip() for s in SENTENCE_RE.split(text.strip()) if s.strip()]
 
 
 @dataclass
@@ -40,6 +57,7 @@ class TTSResult:
     provider: str = ""
     voice: str = ""
     synth_seconds: float = 0.0
+    estimated: bool = False  # word timings estimated rather than measured
 
     @property
     def duration(self) -> float:
@@ -50,15 +68,15 @@ class TTSProvider:
     name = "base"
     sample_rate = 24000
 
-    def synthesize(self, text: str, voice: str, speed: float = 1.0) -> TTSResult:  # pragma: no cover - interface
+    def synthesize(self, text: str, voice: str, speed: float = 1.0, caption_text: str | None = None) -> TTSResult:  # pragma: no cover - interface
         raise NotImplementedError
 
     def available(self) -> bool:  # pragma: no cover - interface
         return False
 
 
-# Pronunciation overrides for terms Kokoro's G2P tends to mangle. Applied to
-# the text sent to the engine only; captions keep the original spelling.
+# Pronunciation overrides for terms the G2P tends to mangle. Applied to the
+# text sent to the engine only; captions keep the original spelling.
 PRONUNCIATION: dict[str, str] = {
     r"\bLLMs\b": "L L Ms",
     r"\bLLM\b": "L L M",
@@ -73,6 +91,14 @@ PRONUNCIATION: dict[str, str] = {
     r"\bnpm\b": "N P M",
     r"\bCUDA\b": "koo-da",
     r"\bPyTorch\b": "pie-torch",
+    r"\bDM\b": "D M",
+    r"\bDMs\b": "D Ms",
+    r"\bMIT\b": "M I T",
+    r"\bPR\b": "P R",
+    r"\bPRs\b": "P Rs",
+    r"\bMD\b": "M D",
+    r"\bdsh-superagent\b": "D S H super agent",
+    r"\bGitHub\b": "git hub",
 }
 
 
@@ -83,14 +109,49 @@ def apply_pronunciation(text: str) -> str:
     return out
 
 
+def voiced_span(audio: np.ndarray, sr: int, rel_db: float = -32.0, hop_s: float = 0.01) -> tuple[float, float]:
+    """Start and end (seconds) of the part of `audio` louder than `rel_db`
+    relative to its own peak RMS, so leading and trailing silence is skipped."""
+    hop = max(1, int(sr * hop_s))
+    n = len(audio) // hop
+    if n == 0:
+        return 0.0, len(audio) / sr
+    rms = np.sqrt(np.mean(audio[: n * hop].reshape(n, hop) ** 2, axis=1))
+    peak = float(rms.max()) or 1.0
+    idx = np.where(rms > peak * 10 ** (rel_db / 20))[0]
+    if len(idx) == 0:
+        return 0.0, len(audio) / sr
+    return idx[0] * hop / sr, min(len(audio) / sr, (idx[-1] + 1) * hop / sr)
+
+
+def estimate_word_timings(audio: np.ndarray, sr: int, words: list[str], offset: float = 0.0) -> list[WordTiming]:
+    """Spread the voiced span of `audio` across `words`, weighted by letter
+    count plus a constant per word for the gap between words."""
+    if not words:
+        return []
+    start, end = voiced_span(audio, sr)
+    weights = [len(re.sub(r"[^\w]", "", w)) + 1.2 for w in words]
+    total = sum(weights) or 1.0
+    cursor = start
+    out: list[WordTiming] = []
+    for w, wt in zip(words, weights):
+        d = (end - start) * wt / total
+        out.append(WordTiming(w, offset + cursor, offset + cursor + d))
+        cursor += d
+    return out
+
+
 class KokoroProvider(TTSProvider):
     name = "kokoro"
     sample_rate = 24000
+    SENTENCE_GAP_S = 0.12
+    LEAD_KEEP_S = 0.05
+    TAIL_KEEP_S = 0.10
 
-    def __init__(self, device: str = "auto", lang_code: str = "a") -> None:
+    def __init__(self, device: str = "auto", lang_code: str | None = None) -> None:
         self.device = device
-        self.lang_code = lang_code
-        self._pipeline = None
+        self.lang_code = lang_code  # None = pick from the voice prefix
+        self._pipelines: dict[str, object] = {}
 
     def available(self) -> bool:
         try:
@@ -100,8 +161,8 @@ class KokoroProvider(TTSProvider):
         except Exception:  # pragma: no cover
             return False
 
-    def _get(self):
-        if self._pipeline is None:
+    def _get(self, lang: str):
+        if lang not in self._pipelines:
             import torch
             from kokoro import KPipeline
 
@@ -111,18 +172,15 @@ class KokoroProvider(TTSProvider):
             elif self.device == "cpu":
                 device = "cpu"
             t0 = time.time()
-            self._pipeline = KPipeline(lang_code=self.lang_code, repo_id="hexgrad/Kokoro-82M", device=device)
-            log.info("Kokoro pipeline ready on %s in %.1fs", device or "auto", time.time() - t0)
-        return self._pipeline
+            self._pipelines[lang] = KPipeline(lang_code=lang, repo_id="hexgrad/Kokoro-82M", device=device)
+            log.info("Kokoro pipeline %s ready on %s in %.1fs", lang, device or "auto", time.time() - t0)
+        return self._pipelines[lang]
 
-    def synthesize(self, text: str, voice: str = "af_heart", speed: float = 1.0) -> TTSResult:
-        pipe = self._get()
-        spoken = apply_pronunciation(text)
-        t0 = time.time()
+    def _run(self, pipe, text: str, voice: str, speed: float) -> tuple[np.ndarray, list[WordTiming]]:
         chunks: list[np.ndarray] = []
         words: list[WordTiming] = []
         offset = 0.0
-        for result in pipe(spoken, voice=voice, speed=speed):
+        for result in pipe(text, voice=voice, speed=speed):
             audio = result.audio.numpy() if hasattr(result.audio, "numpy") else np.asarray(result.audio)
             audio = audio.astype(np.float32)
             for tok in result.tokens or []:
@@ -131,8 +189,43 @@ class KokoroProvider(TTSProvider):
                 words.append(WordTiming(tok.text, offset + float(tok.start_ts), offset + float(tok.end_ts)))
             chunks.append(audio)
             offset += len(audio) / self.sample_rate
+        return (np.concatenate(chunks) if chunks else np.zeros(0, dtype=np.float32)), words
+
+    def synthesize(self, text: str, voice: str = "hm_omega", speed: float = 1.0, caption_text: str | None = None) -> TTSResult:
+        lang = self.lang_code or lang_for_voice(voice)
+        pipe = self._get(lang)
+        t0 = time.time()
+        if lang != "h" and not DEVANAGARI_RE.search(text):
+            audio_all, words = self._run(pipe, apply_pronunciation(text), voice, speed)
+            return TTSResult(audio_all, self.sample_rate, _realign_words(words, caption_text or text), self.name, voice, time.time() - t0)
+
+        # Hinglish path: sentence by sentence, estimated word timings.
+        spoken_sents = split_sentences(text)
+        shown_sents = split_sentences(caption_text) if caption_text else spoken_sents
+        aligned = len(shown_sents) == len(spoken_sents)
+        if not aligned:
+            log.warning("captionText has %d sentences but narration %d; timing the whole scene as one span", len(shown_sents), len(spoken_sents))
+        chunks: list[np.ndarray] = []
+        words: list[WordTiming] = []
+        offset = 0.0
+        gap = np.zeros(int(self.sample_rate * self.SENTENCE_GAP_S), dtype=np.float32)
+        for i, sent in enumerate(spoken_sents):
+            audio, _ = self._run(pipe, apply_pronunciation(sent), voice, speed)
+            # The Hindi pipeline pads each sentence with ~1 s of silence; keep
+            # 50 ms before the first syllable and 100 ms after the last.
+            vs, ve = voiced_span(audio, self.sample_rate)
+            audio = audio[int(max(0.0, vs - self.LEAD_KEEP_S) * self.sample_rate) : int(min(len(audio) / self.sample_rate, ve + self.TAIL_KEEP_S) * self.sample_rate)]
+            if aligned:
+                words.extend(estimate_word_timings(audio, self.sample_rate, re.findall(r"\S+", shown_sents[i]), offset))
+            chunks.append(audio)
+            offset += len(audio) / self.sample_rate
+            if i < len(spoken_sents) - 1:
+                chunks.append(gap)
+                offset += len(gap) / self.sample_rate
         audio_all = np.concatenate(chunks) if chunks else np.zeros(0, dtype=np.float32)
-        return TTSResult(audio_all, self.sample_rate, _realign_words(words, text), self.name, voice, time.time() - t0)
+        if not aligned:
+            words = estimate_word_timings(audio_all, self.sample_rate, re.findall(r"\S+", caption_text or text))
+        return TTSResult(audio_all, self.sample_rate, words, self.name, voice, time.time() - t0, estimated=True)
 
 
 class PiperProvider(TTSProvider):
@@ -152,7 +245,7 @@ class PiperProvider(TTSProvider):
         except Exception:
             return False
 
-    def synthesize(self, text: str, voice: str = "", speed: float = 1.0) -> TTSResult:
+    def synthesize(self, text: str, voice: str = "", speed: float = 1.0, caption_text: str | None = None) -> TTSResult:
         from piper import PiperVoice  # type: ignore
 
         t0 = time.time()
@@ -176,7 +269,7 @@ def merge_punctuation(words: list[WordTiming]) -> list[WordTiming]:
     pending_prefix = ""
     for w in words:
         if _PUNCT_ONLY.match(w.text):
-            if out and w.text not in ("(", "[", "\u201c", "\""):
+            if out and w.text not in ("(", "[", "“", "\""):
                 out[-1] = WordTiming(out[-1].text + w.text, out[-1].start, max(out[-1].end, w.end))
             else:
                 pending_prefix += w.text
@@ -200,8 +293,9 @@ def realign_words(words: list[WordTiming], original: str) -> list[WordTiming]:
 _realign_words = realign_words
 
 
-def text_hash(text: str, provider: str, voice: str, speed: float) -> str:
-    return hashlib.sha1(json.dumps([text, provider, voice, speed]).encode("utf-8")).hexdigest()[:16]
+def text_hash(text: str, provider: str, voice: str, speed: float, caption_text: str | None = None) -> str:
+    payload = [text, provider, voice, speed] + ([caption_text] if caption_text else [])
+    return hashlib.sha1(json.dumps(payload, ensure_ascii=False).encode("utf-8")).hexdigest()[:16]
 
 
 def get_provider(name: str = "kokoro", device: str = "auto", piper_model: Optional[Path] = None) -> TTSProvider:

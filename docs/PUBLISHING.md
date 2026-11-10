@@ -48,3 +48,24 @@ Safeguards: the publisher refuses any package whose technical QA did not pass, d
 ## What is not supported
 
 Unofficial Instagram automation (browser bots, private API clients) is excluded by design: it violates Instagram's terms and risks the account.
+
+## Comment-to-DM link gate
+
+Reels end with "comment LETS GO and I'll DM you the link". `services/publishing/dm_bot.py` reads the comments on every published reel (`output/approved/**/package.json` with `status: "published"`), finds the ones that say "let's go" in any spelling (`lets go`, `letsgo`, `LET'S GOOO 🔥`, with other words around it), sends that commenter a private reply containing the link, and can also post a public reply ("Link bhej diya DM mein, check karo 📩") so others see the gate works. Official Graph API only: `GET /{media_id}/comments`, `POST /{ig_user_id}/messages` with `recipient.comment_id` (private reply), `POST /{comment_id}/replies` (public reply).
+
+The link sent is `dm_link` in the package's `package.json` when present, otherwise the first line of `sources.txt` in the same folder. State is kept in `data/database/dm_bot.json`; a comment is never DMed twice and the account's own comments are skipped.
+
+```bash
+# dry run (default): lists the comments that would get a DM, posts nothing
+.venv\Scripts\python -m services.publishing.dm_bot
+# send the private replies; add --public-reply to also answer publicly
+.venv\Scripts\python -m services.publishing.dm_bot --send
+.venv\Scripts\python -m services.publishing.dm_bot --send --public-reply
+# one reel only, custom texts, or poll forever (Ctrl+C to stop)
+.venv\Scripts\python -m services.publishing.dm_bot --media 18449803003135288 --message "Yeh raha link: {link}" --public-text "DM check karo"
+.venv\Scripts\python -m services.publishing.dm_bot --send --watch --interval 60
+```
+
+The run ends with a JSON summary (scanned, matched, sent, skipped_already, failed, per-failure errors). The token is never printed.
+
+Development-mode caveat: while the Meta app is in Development mode, Instagram only lets it message users who hold a role on the app (admin, developer, tester). Reaching real followers needs App Review / Advanced Access for the messaging permission (`instagram_manage_messages`, or `instagram_business_manage_messages` for Instagram-login apps); until then the API answers with error code 10 / subcode 2534022 and the summary shows a `permission_hint`. The Instagram account must also allow message access for the app: Settings → Messages and story replies → Connected tools.

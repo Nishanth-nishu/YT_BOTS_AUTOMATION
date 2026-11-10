@@ -28,7 +28,8 @@ A user request, or the Windows Task Scheduler entry (Phase 8) firing `services/s
 Three distinct topics, each with a passed QA report, each package complete. Fewer than three is acceptable when quality would otherwise drop; say so in the report.
 
 ## Error handling
-- Never publish; packages wait for manual approval and upload.
+- Never publish; packages wait for manual approval. After the user approves and a reel is posted through `services.publishing.instagram`, run the DM bot so `LETS GO` comments get the link: `python -m services.publishing.dm_bot --send --watch` (dry run first; see docs/PUBLISHING.md "Comment-to-DM link gate").
+- Every reel uses the house format: male Hinglish host, anxious-funny 5 s hook, no link on screen or in the caption, keyword CTA. `services.common.rules` must pass before voiceover.
 - Never reuse a topic slug used in the last 30 days.
 
 ## Dependencies

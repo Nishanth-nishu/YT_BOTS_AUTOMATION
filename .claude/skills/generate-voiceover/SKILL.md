@@ -1,6 +1,6 @@
 ---
 name: generate-voiceover
-description: Turn a REELFORGE storyboard JSON into a timed ReelSpec with a Kokoro voiceover (local CPU or Ada CUDA), per-scene WAVs and word-level captions. Use when a storyboard is ready for audio, when narration changed, or when the user says "generate the voiceover", "make the VO", "re-time the scenes".
+description: Turn a REELFORGE storyboard JSON into a timed ReelSpec with a Kokoro voiceover (male Hinglish host voice hm_omega by default, local CPU or Ada CUDA), per-scene WAVs, word-level captions and the presenter mouth envelope. Use when a storyboard is ready for audio, when narration changed, or when the user says "generate the voiceover", "make the VO", "re-time the scenes".
 ---
 
 # generate-voiceover
@@ -27,6 +27,9 @@ A storyboard exists at `data/storyboards/<id>.json` and has no `.timed.json`, or
 ```
 - `--device cuda` on Ada. `--force` ignores the cache. `--provider piper` for the fallback.
 - Pronunciation overrides live in `services/tts/provider.py::PRONUNCIATION` (engine text only; captions keep the original spelling).
+- **Hinglish path** (voices `hm_*` / `hf_*`, or any Devanagari in the narration): Kokoro's Hindi pipeline gives no word timestamps, so the provider synthesizes sentence by sentence (split on `।`, `.`, `!`, `?`), trims each sentence's silence to 50 ms lead / 100 ms tail, inserts a 120 ms gap, and spreads each sentence's voiced span over the words of `captionText` by letter count. Captions show `captionText` (romanised). The storyboard must pass `services.common.rules` first (the command refuses otherwise; `--allow-rule-violations` overrides).
+- **Presenter envelope**: the spec gets `presenter.envelope`, mouth openness 0..1 per frame (RMS per frame of the full voice track, 92nd percentile = fully open). The Remotion `Presenter` reads it; nothing else to do.
+- Pace: the Hindi voice runs about 2.4 words/s after trimming; a 55 s reel is about 125 words. Speed above 1.2 starts to slur.
 - Timing: each scene = leadInMs + audio + padAfterMs, at least minDurationMs. Scenes are back to back; `durationMs` is the sum plus 400 ms lead.
 
 ## Validation

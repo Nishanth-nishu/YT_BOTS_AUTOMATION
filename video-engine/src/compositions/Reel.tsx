@@ -9,6 +9,7 @@ import { Audio } from "@remotion/media";
 import { AbsoluteFill, Sequence, staticFile, useCurrentFrame, useVideoConfig, interpolate, type CalculateMetadataFunction } from "remotion";
 import "../design/fonts";
 import { ReelFrame } from "../layers/Stack";
+import { PresenterContext, PresenterPip } from "../layers/Presenter";
 import { Captions } from "../captions/Captions";
 import { quality, type QualityProfile } from "../design/tokens";
 import { clamp } from "../design/motion";
@@ -125,6 +126,14 @@ const MusicBed: React.FC<{ spec: ReelSpec }> = ({ spec }) => {
   return <Audio src={staticFile(spec.music.file)} volume={vol} loop />;
 };
 
+/** Captions sit full width during the hook (the host is big there) and move
+ *  right of the presenter badge once it appears. */
+const CaptionBand: React.FC<{ spec: ReelSpec; narrowFromFrame: number | null }> = ({ spec, narrowFromFrame }) => {
+  const frame = useCurrentFrame();
+  const narrow = narrowFromFrame !== null && frame >= narrowFromFrame - 2;
+  return <Captions captions={spec.captions} scenes={spec.scenes} mode={spec.captionMode} styleId={spec.style} left={narrow ? 304 : undefined} fontSize={narrow ? 56 : 60} />;
+};
+
 export const Reel: React.FC<ReelProps> = ({ spec, quality: profile }) => {
   const { fps, width } = useVideoConfig();
   const q = quality[profile] ?? quality.standard;
@@ -133,7 +142,11 @@ export const Reel: React.FC<ReelProps> = ({ spec, quality: profile }) => {
   }
   // Scenes are authored at 1080x1920; the canvas may be smaller (draft).
   const layoutScale = width / 1080;
+  const presenter = spec.presenter && spec.presenter.enabled ? { ...spec.presenter, styleId: spec.style } : null;
+  // The badge stays hidden while the hook shows the big host, then pops in.
+  const hookEnd = spec.scenes.length && spec.scenes[0].kind === "hook" ? msToFrames(spec.scenes[0].endMs, fps) : 0;
   return (
+    <PresenterContext.Provider value={presenter}>
     <AbsoluteFill style={{ width: 1080, height: 1920, scale: `${layoutScale}`, transformOrigin: "0 0" }}>
     <ReelFrame style={spec.style} grid={spec.style === "explainer"}>
       <Audio src={staticFile(spec.voice.file)} volume={1} />
@@ -154,8 +167,10 @@ export const Reel: React.FC<ReelProps> = ({ spec, quality: profile }) => {
           );
         })}
       </AbsoluteFill>
-      <Captions captions={spec.captions} scenes={spec.scenes} mode={spec.captionMode} styleId={spec.style} />
+      {presenter ? <PresenterPip hiddenUntilFrame={hookEnd} /> : null}
+      <CaptionBand spec={spec} narrowFromFrame={presenter ? hookEnd : null} />
     </ReelFrame>
     </AbsoluteFill>
+    </PresenterContext.Provider>
   );
 };

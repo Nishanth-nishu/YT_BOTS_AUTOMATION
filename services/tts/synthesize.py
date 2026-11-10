@@ -25,7 +25,8 @@ import soundfile as sf
 
 from services.captions.build import sentence_captions, validate_monotonic, word_captions
 from services.common import paths
-from services.common.schema import Caption, ReelSpec, Storyboard, TimedScene
+from services.common.rules import check_storyboard
+from services.common.schema import Caption, PresenterSpec, ReelSpec, Storyboard, TimedScene
 from services.tts.provider import TTSResult, WordTiming, get_provider, realign_words, text_hash
 
 log = logging.getLogger("reelforge.tts.synthesize")
@@ -52,6 +53,22 @@ def _cached(cache_dir: Path, key: str) -> TTSResult | None:
     return None
 
 
+def mouth_envelope(track: np.ndarray, sr: int, fps: int = 30) -> list[float]:
+    """Per-frame mouth openness 0..1 for the presenter: RMS per video frame,
+    scaled so loud syllables hit 1, lightly smoothed, rounded to 3 decimals."""
+    hop = max(1, sr // fps)
+    n = len(track) // hop
+    if n == 0:
+        return []
+    rms = np.sqrt(np.mean(track[: n * hop].reshape(n, hop) ** 2, axis=1))
+    voiced = rms[rms > 1e-4]
+    ref = float(np.percentile(voiced, 92)) if len(voiced) else 1.0
+    env = np.clip(rms / (ref or 1.0), 0, 1)
+    env = np.convolve(env, [0.25, 0.5, 0.25], mode="same")
+    env[env < 0.06] = 0.0
+    return [round(float(v), 3) for v in env]
+
+
 def _store(cache_dir: Path, key: str, r: TTSResult) -> None:
     cache_dir.mkdir(parents=True, exist_ok=True)
     sf.write(cache_dir / f"{key}.wav", r.audio, r.sample_rate)
@@ -61,8 +78,14 @@ def _store(cache_dir: Path, key: str, r: TTSResult) -> None:
     )
 
 
-def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = False, provider_name: str | None = None) -> ReelSpec:
+def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = False, provider_name: str | None = None, allow_rule_violations: bool = False) -> ReelSpec:
     paths.ensure_dirs()
+    problems = check_storyboard(sb)
+    if problems:
+        msg = "storyboard breaks the house rules:" + "".join(chr(10) + "  - " + x for x in problems)
+        if not allow_rule_violations:
+            raise RuntimeError(msg + chr(10) + "(use --allow-rule-violations to override)")
+        log.warning(msg)
     provider = get_provider(provider_name or sb.voice.provider, device=device)
     if not provider.available():
         raise RuntimeError(f"TTS provider {provider.name} is not available in this environment")
@@ -80,17 +103,17 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
     total_synth = 0.0
 
     for scene in sb.scenes:
-        key = text_hash(scene.narration, provider.name, sb.voice.voice, sb.voice.speed)
+        key = text_hash(scene.narration, provider.name, sb.voice.voice, sb.voice.speed, scene.captionText)
         result = None if force else _cached(paths.AUDIO_CACHE, key)
         if result is None:
             log.info("synthesizing scene %s (%d chars)", scene.id, len(scene.narration))
-            result = provider.synthesize(scene.narration, sb.voice.voice, sb.voice.speed)
+            result = provider.synthesize(scene.narration, sb.voice.voice, sb.voice.speed, caption_text=scene.captionText)
             _store(paths.AUDIO_CACHE, key, result)
             total_synth += result.synth_seconds
         else:
             log.info("cache hit for scene %s", scene.id)
 
-        result.words = realign_words(result.words, scene.narration)
+        result.words = realign_words(result.words, scene.captionText or scene.narration)
         audio48 = _resample(result.audio, result.sample_rate, OUT_SR)
         audio_ms = int(round(len(audio48) / OUT_SR * 1000))
         start_ms = cursor_ms
@@ -107,7 +130,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
             captions.extend(word_captions(result.words, audio_start))
         else:
             caption_mode = "sentence"
-            captions.extend(sentence_captions(scene.narration, audio_start, audio_ms))
+            captions.extend(sentence_captions(scene.captionText or scene.narration, audio_start, audio_ms))
 
         timed.append(TimedScene(**scene.model_dump(), startMs=start_ms, endMs=end_ms, audioStartMs=audio_start, audioEndMs=audio_end))
         cursor_ms = end_ms
@@ -128,6 +151,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         style=sb.style,
         durationMs=cursor_ms,
         voice={"file": f"voice/{sb.id}/full.wav", "provider": provider.name, "voice": sb.voice.voice, "speed": sb.voice.speed},
+        presenter=PresenterSpec(**sb.presenter.model_dump(), fps=30, envelope=mouth_envelope(full, OUT_SR, 30)),
         music=sb.music,
         captions=captions,
         captionMode=caption_mode,  # type: ignore[arg-type]
@@ -135,6 +159,8 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         caption=sb.caption,
         hashtags=sb.hashtags,
         sources=sb.sources,
+        dmKeyword=sb.dmKeyword,
+        dmLink=sb.dmLink or (sb.sources[0] if sb.sources else None),
     )
     out = paths.STORYBOARDS / f"{sb.id}.timed.json"
     out.write_text(spec.model_dump_json(indent=1), encoding="utf-8")
@@ -153,11 +179,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--device", default="auto")
     ap.add_argument("--provider", default=None)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--allow-rule-violations", action="store_true", help="synthesize even if services.common.rules reports problems")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
     sb = Storyboard.model_validate_json(Path(args.storyboard).read_text(encoding="utf-8"))
     t0 = time.time()
-    spec = synthesize_storyboard(sb, device=args.device, force=args.force, provider_name=args.provider)
+    spec = synthesize_storyboard(sb, device=args.device, force=args.force, provider_name=args.provider, allow_rule_violations=args.allow_rule_violations)
     print(json.dumps({"id": spec.id, "durationMs": spec.durationMs, "captions": len(spec.captions), "captionMode": spec.captionMode, "scenes": [(s.id, s.startMs, s.endMs) for s in spec.scenes], "seconds": round(time.time() - t0, 1)}, indent=1))
     return 0
 

@@ -11,9 +11,13 @@ Seam = Literal["current", "up", "zoomIn", "zoomOut", "burst"]
 
 
 class VoiceConfig(BaseModel):
+    """House voice: Kokoro's male Hindi voice speaking Hinglish (Devanagari for
+    Hindi words, Latin for English terms). Voices starting with `h` use the
+    Hindi pipeline; everything else the American English one."""
+
     provider: Literal["kokoro", "piper"] = "kokoro"
-    voice: str = "af_heart"
-    speed: float = 1.0
+    voice: str = "hm_omega"
+    speed: float = 1.05
 
 
 class MusicConfig(BaseModel):
@@ -22,10 +26,23 @@ class MusicConfig(BaseModel):
     bpm: Optional[float] = None
 
 
+class PresenterConfig(BaseModel):
+    """The animated host: a male avatar whose mouth follows the voice track.
+    Big in the hook scene, a small picture-in-picture badge everywhere else."""
+
+    enabled: bool = True
+    name: str = "host"
+    mood: Literal["hype", "calm"] = "hype"
+
+
 class StoryboardScene(BaseModel):
     id: str
     kind: SceneKind
     narration: str
+    # Romanised Hinglish shown as captions when `narration` carries Devanagari
+    # (the display fonts have no Devanagari glyphs). Same sentence and word
+    # count as `narration`, so word timings transfer one to one.
+    captionText: Optional[str] = None
     title: Optional[str] = None
     lines: list[str] = Field(default_factory=list)
     highlight: list[str] = Field(default_factory=list)
@@ -44,10 +61,15 @@ class Storyboard(BaseModel):
     title: str
     style: StyleId = "cinematic"
     voice: VoiceConfig = Field(default_factory=VoiceConfig)
+    presenter: PresenterConfig = Field(default_factory=PresenterConfig)
     music: Optional[MusicConfig] = None
     caption: str = ""
     hashtags: list[str] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
+    # Comment-to-DM gate: the reel never shows the link; viewers comment the
+    # keyword and the DM bot sends `dmLink` (defaults to sources[0]).
+    dmKeyword: str = "LETS GO"
+    dmLink: Optional[str] = None
     scenes: list[StoryboardScene]
 
 
@@ -68,6 +90,12 @@ class TimedScene(StoryboardScene):
     audioEndMs: int
 
 
+class PresenterSpec(PresenterConfig):
+    # Per-frame mouth openness 0..1 at `fps`, measured from the voice track.
+    fps: int = 30
+    envelope: list[float] = Field(default_factory=list)
+
+
 class ReelSpec(BaseModel):
     """Render-time spec: everything Remotion needs as input props."""
 
@@ -79,6 +107,7 @@ class ReelSpec(BaseModel):
     height: int = 1920
     durationMs: int
     voice: dict[str, Any]
+    presenter: Optional[PresenterSpec] = None
     music: Optional[MusicConfig] = None
     captions: list[Caption]
     captionMode: Literal["word", "sentence"] = "word"
@@ -86,3 +115,5 @@ class ReelSpec(BaseModel):
     caption: str = ""
     hashtags: list[str] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
+    dmKeyword: str = "LETS GO"
+    dmLink: Optional[str] = None

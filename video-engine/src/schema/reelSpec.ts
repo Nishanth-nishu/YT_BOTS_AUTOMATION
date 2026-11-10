@@ -34,6 +34,8 @@ export const timedSceneSchema = z.object({
   id: z.string(),
   kind: sceneKindSchema,
   narration: z.string(),
+  /** Romanised Hinglish for captions when narration carries Devanagari. */
+  captionText: z.string().nullable().optional(),
   title: z.string().nullable().optional(),
   lines: z.array(z.string()).default([]),
   highlight: z.array(z.string()).default([]),
@@ -49,6 +51,15 @@ export const timedSceneSchema = z.object({
   audioEndMs: z.number(),
 });
 
+/** The animated host. `envelope` is mouth openness 0..1 per video frame. */
+export const presenterSchema = z.object({
+  enabled: z.boolean().default(true),
+  name: z.string().default("host"),
+  mood: z.enum(["hype", "calm"]).default("hype"),
+  fps: z.number().default(30),
+  envelope: z.array(z.number()).default([]),
+});
+
 export const reelSpecSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -58,6 +69,7 @@ export const reelSpecSchema = z.object({
   height: z.number().default(1920),
   durationMs: z.number(),
   voice: z.object({ file: z.string() }).passthrough(),
+  presenter: presenterSchema.nullable().optional(),
   music: z
     .object({ file: z.string(), volume: z.number().default(0.2), bpm: z.number().nullable().optional() })
     .nullable()
@@ -68,11 +80,14 @@ export const reelSpecSchema = z.object({
   caption: z.string().default(""),
   hashtags: z.array(z.string()).default([]),
   sources: z.array(z.string()).default([]),
+  dmKeyword: z.string().default("LETS GO"),
+  dmLink: z.string().nullable().optional(),
 });
 
 export type ReelSpec = z.infer<typeof reelSpecSchema>;
 export type TimedScene = z.infer<typeof timedSceneSchema>;
 export type CaptionItem = z.infer<typeof captionSchema>;
 export type SceneKind = z.infer<typeof sceneKindSchema>;
+export type PresenterSpec = z.infer<typeof presenterSchema>;
 
 export const msToFrames = (ms: number, fps: number) => Math.round((ms / 1000) * fps);

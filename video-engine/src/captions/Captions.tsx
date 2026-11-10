@@ -58,9 +58,12 @@ type Props = {
   styleId: StyleId;
   y?: number;
   fontSize?: number;
+  /** Horizontal band; narrowed when the presenter badge sits on the left. */
+  left?: number;
+  right?: number;
 };
 
-export const Captions: React.FC<Props> = ({ captions, scenes, mode, styleId, y = 1230, fontSize = 60 }) => {
+export const Captions: React.FC<Props> = ({ captions, scenes, mode, styleId, y = 1230, fontSize = 60, left = safeZone.left, right = safeZone.right }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const p = palettes[styleId];
@@ -79,8 +82,8 @@ export const Captions: React.FC<Props> = ({ captions, scenes, mode, styleId, y =
         style={{
           position: "absolute",
           top: y,
-          left: safeZone.left,
-          width: safeZone.right - safeZone.left,
+          left,
+          width: right - left,
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",

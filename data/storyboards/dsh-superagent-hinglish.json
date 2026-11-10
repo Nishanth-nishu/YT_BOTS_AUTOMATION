@@ -1,0 +1,135 @@
+{
+  "id": "dsh-superagent-hinglish",
+  "title": "DeepSeek ne tumhara replacement open-source kar diya",
+  "style": "cinematic",
+  "voice": {
+    "provider": "kokoro",
+    "voice": "hm_omega",
+    "speed": 1.15
+  },
+  "presenter": {
+    "enabled": true,
+    "name": "host",
+    "mood": "hype"
+  },
+  "music": {
+    "file": "music/ambient_bed.wav",
+    "volume": 0.2,
+    "bpm": 84
+  },
+  "caption": "DeepSeek ne ek agent open-source kiya jo tumhare GitHub repo ko khud chalata hai: issue padhta hai, apne session mein kaam karta hai, pull request bhejta hai. 21k stars ek hafte mein.\n\nLink chahiye? Comment karo LETS GO, main DM mein bhej dunga. 📩",
+  "hashtags": [
+    "#deepseek",
+    "#opensource",
+    "#aiagents",
+    "#coding",
+    "#techreels",
+    "#artificialintelligence"
+  ],
+  "sources": [
+    "https://github.com/deepseek-ai/dsh-superagent-prototype"
+  ],
+  "dmKeyword": "LETS GO",
+  "dmLink": "https://github.com/deepseek-ai/dsh-superagent-prototype",
+  "scenes": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "narration": "Coders, डर जाओ। DeepSeek ने तुम्हारा replacement open-source कर दिया।",
+      "captionText": "Coders, dar jao. DeepSeek ne tumhara replacement open-source kar diya.",
+      "title": "Tumhara replacement, open source.",
+      "highlight": ["replacement"],
+      "transition": "current",
+      "padAfterMs": 200,
+      "data": {
+        "kicker": "AI JOBS / 8 NOV 2026"
+      }
+    },
+    {
+      "id": "what",
+      "kind": "concept",
+      "narration": "नाम है dsh-superagent। ये तुम्हारे GitHub repo को सुनता है। कोई काम बोले, ये work item खोलता है, अपने session में काम करता है, और pull request भेज देता है।",
+      "captionText": "Naam hai dsh-superagent. Ye tumhare GitHub repo ko sunta hai. Koi kaam bole, ye work item kholta hai, apne session mein kaam karta hai, aur pull request bhej deta hai.",
+      "title": "Ye karta kya hai?",
+      "highlight": ["kya"],
+      "lines": [
+        "GitHub issues aur comments sunta hai",
+        "Har request ka ek work item",
+        "Apne session mein kaam karta hai",
+        "Jawab: ek pull request"
+      ],
+      "data": {
+        "kicker": "DSH-SUPERAGENT"
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "flow",
+      "kind": "workflow",
+      "narration": "Request अंदर। Work item। Agent session। Pull request बाहर। और एक panel सिर्फ वो दिखाता है जो इंसान को decide करना है।",
+      "captionText": "Request andar. Work item. Agent session. Pull request bahar. Aur ek panel sirf wo dikhata hai jo insaan ko decide karna hai.",
+      "title": "Request andar, PR bahar",
+      "highlight": ["bahar"],
+      "data": {
+        "stages": ["Request", "Work item", "Agent session", "Pull request"],
+        "goal": "Insaan decide kare"
+      },
+      "transition": "zoomIn",
+      "padAfterMs": 260
+    },
+    {
+      "id": "setup",
+      "kind": "terminal",
+      "narration": "Setup भी agent करता है। अपने coding agent को बोलो SETUP dot MD पढ़ो, वो एक-एक सवाल पूछेगा और सब install कर देगा।",
+      "captionText": "Setup bhi agent karta hai. Apne coding agent ko bolo SETUP dot MD padho, wo ek-ek sawaal poochega aur sab install kar dega.",
+      "title": "Agent se setup, agent ke liye",
+      "highlight": ["agent"],
+      "data": {
+        "kicker": "GETTING STARTED",
+        "windowTitle": "zsh",
+        "command": "git clone dsh-superagent-prototype",
+        "lines": [
+          { "text": "Cloning into 'dsh-superagent-prototype'...", "kind": "dim" },
+          { "text": "> Read SETUP.md and set up dsh-superagent with me", "kind": "out" },
+          { "text": "agent: ek sawaal at a time, phir full plan", "kind": "dim" },
+          { "text": "pnpm check   typecheck ok   tests ok   build ok", "kind": "ok" }
+        ]
+      },
+      "transition": "current",
+      "padAfterMs": 260
+    },
+    {
+      "id": "rule",
+      "kind": "concept",
+      "narration": "Rule simple है: attention। ये तभी बोलता है जब इंसान को कुछ करना हो। बाकी time चुपचाप काम।",
+      "captionText": "Rule simple hai: attention. Ye tabhi bolta hai jab insaan ko kuch karna ho. Baaki time chupchaap kaam.",
+      "title": "Kam attention, zyada value",
+      "highlight": ["attention"],
+      "lines": [
+        "Sirf tab act kare jab bola jaaye",
+        "Sirf tab bole jab insaan ko act karna ho",
+        "Kam attention lo, zyada value do"
+      ],
+      "data": {
+        "kicker": "THE PHILOSOPHY"
+      },
+      "transition": "up",
+      "padAfterMs": 260
+    },
+    {
+      "id": "payoff",
+      "kind": "payoff",
+      "narration": "MIT license, research prototype, product नहीं। Link चाहिए? Comment में लिखो LETS GO, मैं DM में भेज दूँगा। Follow करना मत भूलना।",
+      "captionText": "MIT license, research prototype, product nahi. Link chahiye? Comment mein likho LETS GO, main DM mein bhej dunga. Follow karna mat bhoolna.",
+      "title": "Link chahiye? Comment: LETS GO",
+      "highlight": ["LETS", "GO"],
+      "cta": "Comment LETS GO, link DM mein aayega",
+      "transition": "current",
+      "padAfterMs": 900,
+      "data": {
+        "kicker": "THE TAKEAWAY"
+      }
+    }
+  ]
+}
