@@ -63,6 +63,56 @@ const headY = (vrm: VRM): number => {
   return 1.4;
 };
 
+/** Headphones resting round the neck: a tilted band behind the neck and two
+ *  cups on the upper chest, attached to the chest bone once per model. */
+const addHeadphones = (vrm: VRM) => {
+  const h = vrm.humanoid;
+  const anchor = h.getRawBoneNode("upperChest") ?? h.getRawBoneNode("chest") ?? h.getRawBoneNode("spine");
+  const neck = h.getRawBoneNode("neck");
+  if (!anchor || !neck || anchor.userData.__headphones) {
+    return;
+  }
+  const g = new THREE.Group();
+  const bandMat = new THREE.MeshToonMaterial({ color: 0x16161b });
+  const cupMat = new THREE.MeshToonMaterial({ color: 0x2b2b33 });
+  const rimMat = new THREE.MeshToonMaterial({ color: 0x4a4a55 });
+  const padMat = new THREE.MeshToonMaterial({ color: 0x0a0a0d });
+  const band = new THREE.Mesh(new THREE.TorusGeometry(0.105, 0.013, 12, 48), bandMat);
+  band.rotation.x = Math.PI / 2 - 0.55; // around the neck, front dipping onto the chest
+  band.position.set(0, -0.02, 0.03);
+  g.add(band);
+  for (const sx of [-1, 1]) {
+    // yoke from the band down to the cup, then the cup with a lighter rim and a dark pad
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.05, 10), bandMat);
+    stem.position.set(sx * 0.082, -0.055, 0.085);
+    stem.rotation.set(0.5, 0, sx * 0.4);
+    g.add(stem);
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.044, 0.028, 32), cupMat);
+    cup.rotation.set(Math.PI / 2 - 0.35, 0, sx * 0.35);
+    cup.position.set(sx * 0.068, -0.095, 0.12);
+    g.add(cup);
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.006, 8, 32), rimMat);
+    rim.rotation.set(-0.35, 0, sx * 0.35);
+    rim.position.set(sx * 0.068, -0.095, 0.134);
+    g.add(rim);
+    const pad = new THREE.Mesh(new THREE.TorusGeometry(0.027, 0.012, 10, 32), padMat);
+    pad.rotation.set(-0.35, 0, sx * 0.35);
+    pad.position.set(sx * 0.068, -0.095, 0.138);
+    g.add(pad);
+  }
+  vrm.scene.updateMatrixWorld(true);
+  const p = new THREE.Vector3();
+  neck.getWorldPosition(p);
+  p.y -= 0.015;
+  anchor.worldToLocal(p);
+  g.position.copy(p);
+  const q = new THREE.Quaternion();
+  anchor.getWorldQuaternion(q);
+  g.quaternion.copy(q.invert());
+  anchor.add(g);
+  anchor.userData.__headphones = true;
+};
+
 type PoseProps = { globalFrame: number; envelope: number[]; expressions: number[][]; mood: "hype" | "calm"; seed: number; motion: number; framing: VrmFraming; url: string };
 const PRESETS = ["happy", "angry", "sad", "relaxed", "surprised"] as const;
 
@@ -74,6 +124,7 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, m
   const hy = useMemo(() => headY(vrm), [vrm]);
   const { fps } = useVideoConfig();
   const { camera } = useThree();
+  useMemo(() => addHeadphones(vrm), [vrm]);
 
   useFrame(() => {
     const open = mouthAt(envelope, globalFrame);
@@ -103,9 +154,9 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, m
     const neck = h.getNormalizedBoneNode("neck");
     const spine = h.getNormalizedBoneNode("spine");
     const chest = h.getNormalizedBoneNode("chest") ?? h.getNormalizedBoneNode("upperChest");
-    const yaw = (Math.sin(t / 3.1) * 0.08 + Math.sin(t / 7.3) * 0.04) * motion;
-    const pitch = (Math.sin(t / 3.9) * 0.03 + open * 0.05 + (mood === "hype" ? -0.03 : 0)) * motion;
-    const roll = (Math.sin(t / 5.7) * 0.04 + (open > 0.1 ? Math.sin(globalFrame / 4) * open * 0.02 : 0)) * motion;
+    const yaw = (Math.sin(t / 3.1) * 0.11 + Math.sin(t / 7.3) * 0.05) * motion;
+    const pitch = (Math.sin(t / 3.9) * 0.04 + open * 0.09 + (mood === "hype" ? -0.03 : 0)) * motion;
+    const roll = (Math.sin(t / 5.7) * 0.06 + (open > 0.1 ? Math.sin(globalFrame / 4) * open * 0.03 : 0)) * motion;
     if (head) {
       head.rotation.set(pitch, yaw, roll);
     }

@@ -18,7 +18,7 @@ from PIL import Image, ImageDraw, ImageFilter
 
 from services.host.vrm_textures import extract, image_name, read_glb, repack, write_glb
 
-SKIN_MUL = (0.64, 0.49, 0.40)  # medium brown from the model's pale base, less orange
+SKIN_MUL = (0.76, 0.60, 0.50)  # light-medium brown from the model's pale base
 BEARD = (34, 22, 16)
 
 

@@ -22,9 +22,9 @@ PRESETS = ["happy", "angry", "sad", "relaxed", "surprised"]
 IDX = {p: i for i, p in enumerate(PRESETS)}
 
 KIND_DEFAULT: dict[str, tuple[str, float]] = {
-    "hook": ("surprised", 0.45),
-    "payoff": ("happy", 0.35),
-    "chart": ("surprised", 0.25),
+    "hook": ("surprised", 0.6),
+    "payoff": ("happy", 0.4),
+    "chart": ("surprised", 0.35),
     "terminal": ("relaxed", 0.2),
     "code": ("relaxed", 0.2),
     "concept": ("relaxed", 0.15),
@@ -32,10 +32,10 @@ KIND_DEFAULT: dict[str, tuple[str, float]] = {
 }
 
 LEXICON: dict[str, tuple[str, float]] = {
-    r"\b(scared|scary|danger|risk|break|broke|replace|replacement|lose|lost|fail|warning|threat)\b": ("angry", 0.3),
-    r"\b(free|open|love|great|easy|win|best|simple|follow|link)\b": ("happy", 0.25),
-    r"\b(sad|sorry|gone|dead|dying)\b": ("sad", 0.3),
-    r"\b(wow|insane|crazy|huge|massive|everything|nobody|everyone)\b": ("surprised", 0.3),
+    r"\b(scared|scary|danger|risk|break|broke|replace|replacement|lose|lost|fail|warning|threat)\b": ("angry", 0.45),
+    r"\b(free|open|love|great|easy|win|best|simple|follow|link)\b": ("happy", 0.35),
+    r"\b(sad|sorry|gone|dead|dying)\b": ("sad", 0.45),
+    r"\b(wow|insane|crazy|huge|massive|everything|nobody|everyone)\b": ("surprised", 0.45),
 }
 
 _SENT_END = re.compile(r"[.!?]$")
@@ -81,10 +81,10 @@ def expression_track(scenes: list[TimedScene], captions: list[Caption], envelope
         low = text.lower()
         if text.endswith("?"):
             ramp = np.clip((t_ms - s_start) / max(1.0, (s_end - s_start)), 0, 1)
-            track[:, IDX["surprised"]] = np.maximum(track[:, IDX["surprised"]], np.where(mask, 0.15 + 0.35 * ramp, 0))
+            track[:, IDX["surprised"]] = np.maximum(track[:, IDX["surprised"]], np.where(mask, 0.2 + 0.5 * ramp, 0))
         if text.endswith("!"):
-            track[mask, IDX["angry"]] = np.maximum(track[mask, IDX["angry"]], 0.15)
-            track[mask, IDX["happy"]] = np.maximum(track[mask, IDX["happy"]], 0.15)
+            track[mask, IDX["angry"]] = np.maximum(track[mask, IDX["angry"]], 0.25)
+            track[mask, IDX["happy"]] = np.maximum(track[mask, IDX["happy"]], 0.2)
         for pattern, (preset, w) in LEXICON.items():
             if re.search(pattern, low):
                 track[mask, IDX[preset]] = np.maximum(track[mask, IDX[preset]], w)
@@ -99,7 +99,7 @@ def expression_track(scenes: list[TimedScene], captions: list[Caption], envelope
                 continue
             if c.text.strip().lower().strip(".,!?\"'") in hl:
                 mask = (t_ms >= c.startMs - 80) & (t_ms < c.endMs + 320)
-                track[mask, IDX["surprised"]] = np.maximum(track[mask, IDX["surprised"]], 0.4)
+                track[mask, IDX["surprised"]] = np.maximum(track[mask, IDX["surprised"]], 0.6)
 
     # 4. voice energy -> intensity
     env = np.asarray(envelope, dtype=np.float32)
@@ -107,13 +107,13 @@ def expression_track(scenes: list[TimedScene], captions: list[Caption], envelope
         e = np.zeros(n, dtype=np.float32)
         m = min(n, len(env))
         e[:m] = env[:m]
-        track[:, IDX["angry"]] = np.maximum(track[:, IDX["angry"]], np.clip((e - 0.65) * 0.5, 0, 0.18))
+        track[:, IDX["angry"]] = np.maximum(track[:, IDX["angry"]], np.clip((e - 0.6) * 0.7, 0, 0.28))
 
     # smooth (attack/decay ~5 frames) and keep the total expression modest
     k = np.array([0.1, 0.2, 0.4, 0.2, 0.1], dtype=np.float32)
     for j in range(track.shape[1]):
         track[:, j] = np.convolve(track[:, j], k, mode="same")
     total = track.sum(axis=1, keepdims=True)
-    scale = np.where(total > 0.9, 0.9 / np.maximum(total, 1e-6), 1.0)
+    scale = np.where(total > 1.1, 1.1 / np.maximum(total, 1e-6), 1.0)
     track = (track * scale).clip(0, 1)
     return [[round(float(v), 2) for v in row] for row in track]
