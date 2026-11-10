@@ -18,7 +18,8 @@ from PIL import Image, ImageDraw, ImageFilter
 
 from services.host.vrm_textures import extract, image_name, read_glb, repack, write_glb
 
-SKIN_MUL = (0.76, 0.60, 0.50)  # light-medium brown from the model's pale base
+SKIN_MUL = (0.86, 0.72, 0.62)  # light brown from the model's pale base
+NAME_ON_HOODIE = "Nishanth R"
 BEARD = (34, 22, 16)
 
 
@@ -43,9 +44,12 @@ def beard_mask(size: tuple[int, int], seed: int = 3) -> Image.Image:
     # chin block under the lower lip and the moustache above the lip
     d = ImageDraw.Draw(m)
     d.rounded_rectangle([300, 812, 724, 905], radius=120, fill=255)
-    d.ellipse([410, 722, 614, 764], fill=255)
+    d.ellipse([400, 718, 624, 768], fill=255)
+    # connect the moustache to the chin beard round both mouth corners
+    d.rounded_rectangle([386, 730, 446, 830], radius=28, fill=255)
+    d.rounded_rectangle([578, 730, 638, 830], radius=28, fill=255)
     # keep the lips clear
-    d.ellipse([420, 760, 604, 806], fill=0)
+    d.ellipse([436, 764, 588, 808], fill=0)
     # soften, then break up with noise so it reads as hair, not paint
     m = m.filter(ImageFilter.GaussianBlur(14))
     rng = np.random.default_rng(seed)
@@ -83,6 +87,32 @@ def black_hoodie(tops: Image.Image) -> Image.Image:
     return Image.fromarray(np.concatenate([out.clip(0, 255), a], axis=2).astype(np.uint8), "RGBA")
 
 
+def name_on_hoodie(tops: Image.Image, text: str = NAME_ON_HOODIE) -> Image.Image:
+    """Small embroidered-style name on the left chest: front panel spans x 740..1330,
+    collar at y ~1000..1080 on the 2048 texture; the wearer's left is the panel's right."""
+    from PIL import ImageFont
+
+    out = tops.convert("RGBA")
+    font_path = Path(__file__).resolve().parents[2] / "assets" / "fonts" / "Inter-Variable.ttf"
+    try:
+        font = ImageFont.truetype(str(font_path), 27)
+        try:
+            font.set_variation_by_name("SemiBold")
+        except Exception:
+            pass
+    except Exception:
+        font = ImageFont.load_default()
+    layer = Image.new("RGBA", out.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    d.text((1084, 1176), text, font=font, fill=(236, 236, 240, 235))
+    # a faint stitch shadow so it sits in the fabric
+    shadow = Image.new("RGBA", out.size, (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).text((1086, 1179), text, font=font, fill=(0, 0, 0, 120))
+    out.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(1.5)))
+    out.alpha_composite(layer)
+    return out
+
+
 def darker_lips(mouth: Image.Image) -> Image.Image:
     arr = np.asarray(mouth.convert("RGBA")).astype(np.float32)
     arr[:, :, 0] *= 0.78
@@ -101,7 +131,7 @@ def main(argv: list[str]) -> int:
             "Face_00": lambda im: paint_beard(tint_skin(im)),
             "Body_00": tint_skin,
             "EyeIris_00": brown_eyes,
-            "Tops_01": black_hoodie,
+            "Tops_01": lambda im: name_on_hoodie(black_hoodie(im)),
             "FaceMouth_00": darker_lips,
         }
         edited = tdir / "edited"
