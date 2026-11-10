@@ -104,10 +104,10 @@ def name_on_hoodie(tops: Image.Image, text: str = NAME_ON_HOODIE) -> Image.Image
         font = ImageFont.load_default()
     layer = Image.new("RGBA", out.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
-    d.text((1084, 1176), text, font=font, fill=(236, 236, 240, 235))
+    d.text((1108, 1176), text, font=font, fill=(236, 236, 240, 235))
     # a faint stitch shadow so it sits in the fabric
     shadow = Image.new("RGBA", out.size, (0, 0, 0, 0))
-    ImageDraw.Draw(shadow).text((1086, 1179), text, font=font, fill=(0, 0, 0, 120))
+    ImageDraw.Draw(shadow).text((1110, 1179), text, font=font, fill=(0, 0, 0, 120))
     out.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(1.5)))
     out.alpha_composite(layer)
     return out
