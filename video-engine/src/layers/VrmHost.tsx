@@ -27,6 +27,7 @@ type Props = {
   modelUrl: string; // path under public/
   globalFrame: number;
   envelope: number[];
+  expressions?: number[][];
   width: number;
   height: number;
   framing?: VrmFraming;
@@ -62,9 +63,10 @@ const headY = (vrm: VRM): number => {
   return 1.4;
 };
 
-type PoseProps = { globalFrame: number; envelope: number[]; mood: "hype" | "calm"; seed: number; motion: number; framing: VrmFraming; url: string };
+type PoseProps = { globalFrame: number; envelope: number[]; expressions: number[][]; mood: "hype" | "calm"; seed: number; motion: number; framing: VrmFraming; url: string };
+const PRESETS = ["happy", "angry", "sad", "relaxed", "surprised"] as const;
 
-const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, mood, seed, motion, framing }) => {
+const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, expressions, mood, seed, motion, framing }) => {
   const gltf = useLoader(GLTFLoader, url, (loader) => {
     loader.register((parser) => new VRMLoaderPlugin(parser));
   }) as unknown as GLTF;
@@ -86,7 +88,13 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, mood, seed, mo
       em.setValue("ih", Math.max(0, Math.sin(t * 9.3) * 0.25) * open);
       em.setValue("ou", Math.max(0, Math.sin(t * 6.1 + 1) * 0.3) * open);
       em.setValue("blink", blink);
-      em.setValue("happy", mood === "hype" ? 0.12 : 0.25);
+      // tone of the words: per-frame preset weights computed at synthesis time
+      const row = expressions[Math.max(0, Math.min(expressions.length - 1, Math.round(globalFrame)))] ?? [];
+      const base = mood === "hype" ? 0.1 : 0.2;
+      PRESETS.forEach((name, i) => {
+        const v = row[i] ?? 0;
+        em.setValue(name, name === "happy" ? Math.min(1, base + v) : v);
+      });
       em.update();
     }
 
@@ -149,7 +157,7 @@ const Model: React.FC<PoseProps> = ({ url, globalFrame, envelope, mood, seed, mo
   return <primitive object={vrm.scene} />;
 };
 
-export const VrmHost: React.FC<Props> = ({ modelUrl, globalFrame, envelope, width, height, framing = "bust", mood = "hype", seed = 7, motion = 1 }) => {
+export const VrmHost: React.FC<Props> = ({ modelUrl, globalFrame, envelope, expressions = [], width, height, framing = "bust", mood = "hype", seed = 7, motion = 1 }) => {
   const url = staticFile(modelUrl);
   const fov = framing === "face" ? 26 : 24;
   return (
@@ -168,7 +176,7 @@ export const VrmHost: React.FC<Props> = ({ modelUrl, globalFrame, envelope, widt
       <directionalLight position={[1.2, 2.4, 2.0]} intensity={1.6} />
       <directionalLight position={[-1.5, 1.0, 1.0]} intensity={0.5} color="#9fb4ff" />
       {/* no Suspense here: ThreeCanvas's own boundary delays the render until the model is loaded */}
-      <Model url={url} globalFrame={globalFrame} envelope={envelope} mood={mood} seed={seed} motion={motion} framing={framing} />
+      <Model url={url} globalFrame={globalFrame} envelope={envelope} expressions={expressions} mood={mood} seed={seed} motion={motion} framing={framing} />
     </ThreeCanvas>
   );
 };

@@ -29,6 +29,7 @@ from services.common import paths
 from services.common.rules import check_storyboard
 from services.common.schema import Caption, PresenterSpec, ReelSpec, Storyboard, TimedScene
 from services.common.env import load_dotenv
+from services.tts.expressions import expression_track
 from services.tts.provider import TTSResult, WordTiming, get_provider, pick_provider_name, realign_words, text_hash
 
 log = logging.getLogger("reelforge.tts.synthesize")
@@ -175,6 +176,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
     full = full * (10 ** (-3 / 20) / peak)
     sf.write(voice_dir / "full.wav", full, OUT_SR, subtype="PCM_16")
 
+    envelope = mouth_envelope(full, OUT_SR, 30)
     problems = validate_monotonic(captions)
     if problems:
         log.warning("caption problems: %s", problems[:5])
@@ -185,7 +187,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         style=sb.style,
         durationMs=cursor_ms,
         voice={"file": f"voice/{sb.id}/full.wav", "provider": provider.name, "voice": voice_id, "speed": sb.voice.speed},
-        presenter=PresenterSpec(**sb.presenter.model_dump(), fps=30, envelope=mouth_envelope(full, OUT_SR, 30), rig=load_rig(sb)),
+        presenter=PresenterSpec(**sb.presenter.model_dump(), fps=30, envelope=envelope, rig=load_rig(sb), expressions=expression_track(timed, captions, envelope, 30, cursor_ms)),
         music=sb.music,
         captions=captions,
         captionMode=caption_mode,  # type: ignore[arg-type]

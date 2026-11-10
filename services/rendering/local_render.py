@@ -109,6 +109,7 @@ def render(spec_path: Path, profile: str, out: Path, concurrency: int, compositi
         "--concurrency", str(concurrency), "--log=warn",
         # WebGL for the VRM host: ANGLE on Windows/macOS, SwiftShader elsewhere (override with REMOTION_GL)
         f"--gl={os.environ.get('REMOTION_GL') or ('angle' if os.name == 'nt' else 'swiftshader')}",
+        "--bundle-cache=false",  # the cache does not notice changed files under public/ (host.vrm)
     ]
     t0 = time.time()
     proc = subprocess.Popen(cmd, cwd=paths.VIDEO_ENGINE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")

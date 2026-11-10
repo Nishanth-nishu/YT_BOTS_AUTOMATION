@@ -103,6 +103,8 @@ class PresenterSpec(PresenterConfig):
     envelope: list[float] = Field(default_factory=list)
     # Rig for look "image" (assets/images/host.json), copied in at synthesis time.
     rig: Optional[dict[str, Any]] = None
+    # Per-frame [happy, angry, sad, relaxed, surprised] weights from the tone of the words.
+    expressions: list[list[float]] = Field(default_factory=list)
 
 
 class ReelSpec(BaseModel):

@@ -64,6 +64,8 @@ export const presenterSchema = z.object({
   rig: z.record(z.string(), z.any()).nullable().optional(),
   fps: z.number().default(30),
   envelope: z.array(z.number()).default([]),
+  /** Per-frame [happy, angry, sad, relaxed, surprised] weights from the tone of the words. */
+  expressions: z.array(z.array(z.number())).default([]),
 });
 
 export const reelSpecSchema = z.object({

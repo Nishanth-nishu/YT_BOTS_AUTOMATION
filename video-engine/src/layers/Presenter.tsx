@@ -337,7 +337,7 @@ export const PresenterPip: React.FC<{ hiddenUntilFrame: number; x?: number; y?: 
         }}
       >
         {data.look === "vrm" ? (
-          <VrmHost modelUrl={data.model ?? "models/host.vrm"} globalFrame={frame} envelope={data.envelope} width={size} height={size} framing="face" mood={data.mood} seed={11} motion={0.7} />
+          <VrmHost modelUrl={data.model ?? "models/host.vrm"} globalFrame={frame} envelope={data.envelope} expressions={data.expressions} width={size} height={size} framing="face" mood={data.mood} seed={11} motion={0.7} />
         ) : data.look === "image" && data.rig ? (
           (() => {
             const rig = data.rig as Rig;
@@ -390,7 +390,7 @@ export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; si
       <div style={{ position: "absolute", left: "50%", top: HERO_HEADROOM + size * 0.42, width: size * 0.9, height: size * 0.9, translate: "-50% -50%", borderRadius: "50%", background: `radial-gradient(circle, ${p.glow}, transparent 62%)`, filter: "blur(18px)" }} />
       {data.look === "vrm" ? (
         <div style={{ position: "absolute", left: w / 2 - 360, top: HERO_HEADROOM - 20, width: 720, height: size + 40 }}>
-          <VrmHost modelUrl={data.model ?? "models/host.vrm"} globalFrame={frame + sceneStartFrame} envelope={data.envelope} width={720} height={size + 40} framing="bust" mood={data.mood} seed={5} motion={1} />
+          <VrmHost modelUrl={data.model ?? "models/host.vrm"} globalFrame={frame + sceneStartFrame} envelope={data.envelope} expressions={data.expressions} width={720} height={size + 40} framing="bust" mood={data.mood} seed={5} motion={1} />
           <HookExtras sinceAppear={frame} x={720 * 0.6} y={(size + 40) * 0.3} bangX={720 * 0.74} bangY={(size + 40) * 0.12} styleId={data.styleId} scale={size / 760} />
         </div>
       ) : data.look === "image" && data.rig ? (
