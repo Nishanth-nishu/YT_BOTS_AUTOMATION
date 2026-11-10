@@ -198,3 +198,24 @@ def test_synthesis_uses_each_scenes_own_voice(tmp_path, monkeypatch):
     spec = syn.synthesize_storyboard(sb, force=True)
     assert used == ["am_fenrir", "am_fenrir", "am_puck", "am_fenrir", "am_puck", "am_fenrir"]
     assert [s.kind for s in spec.scenes].count("dialogue") == 4 and spec.scenes[2].voice.voice == "am_puck"
+
+
+def test_small_model_slips_are_repaired_before_the_strict_check():
+    raw = good_story_json()
+    raw["beats"][0] = {"role": "hook", "narration": "A raccoon broke into a liquor shop. Then it got paid for it, which is more than most of us can say about a night out!", "title": "", "emotion": "amazed"}
+    raw["beats"][2] = {"role": "guest", "narration": raw["beats"][2]["narration"], "title": "It goes viral", "emotion": "skeptical", "highlight": "viral"}
+    story = writer.story_from_json(raw, CAND)
+    hook, guest = story.beats[0], story.beats[2]
+    assert hook.narration == "A raccoon broke into a liquor shop." and hook.title == "A raccoon broke into a" and hook.emotion == "surprised"
+    assert (guest.role, guest.speaker, guest.emotion, guest.highlight) == ("escalation", "guest", "surprised", ["viral"])
+
+
+def test_invented_quotes_and_claims_are_rejected():
+    raw = good_story_json()
+    raw["beats"][2]["narration"] += " The shop owner said he was proud of him."
+    assert any("words or claims" in p for p in writer.check_story(writer.story_from_json(raw, CAND)))
+
+
+def test_retry_shows_the_model_its_previous_attempt():
+    messages = writer.build_messages(CAND, ["hook is 25 words"], previous='{"title": "old"}')
+    assert [m["role"] for m in messages] == ["system", "user", "assistant", "user"] and messages[2]["content"] == '{"title": "old"}'
