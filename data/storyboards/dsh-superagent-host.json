@@ -11,8 +11,7 @@
     "enabled": true,
     "name": "host",
     "mood": "hype",
-    "look": "image",
-    "image": "images/host.png"
+    "look": "curly"
   },
   "music": {
     "file": "music/ambient_bed.wav",

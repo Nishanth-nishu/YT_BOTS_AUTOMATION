@@ -37,7 +37,7 @@ class PresenterConfig(BaseModel):
     # curly: big curly hair, full beard, headphones round the neck (default)
     # waves: long wavy hair swept back; fade: short curly top; shades: curly with dark glasses
     # image: the host illustration in assets/images/host.png animated in layers (default)
-    look: Literal["curly", "waves", "fade", "shades", "image"] = "image"
+    look: Literal["curly", "waves", "fade", "shades", "image"] = "curly"
     image: Optional[str] = "images/host.png"
 
 
