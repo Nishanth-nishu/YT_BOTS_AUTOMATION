@@ -384,7 +384,9 @@ export const PresenterHero: React.FC<{ sceneStartFrame: number; top?: number; si
       {data.look === "image" && data.rig ? (
         (() => {
           const rig = data.rig as Rig;
-          const h = size / (rig.cropBottom - rig.cropTop);
+          // Fill the stage: 6% taller than the box, anchored by the crop top, so the
+          // arms end just above the caption band (y 1230) instead of leaving dead space.
+          const h = (size * 1.06) / (rig.cropBottom - rig.cropTop);
           const iw = (HOST_W / HOST_H) * h;
           return (
             <div style={{ position: "absolute", left: w / 2 - 0.47 * iw, top: HERO_HEADROOM - rig.cropTop * h }}>
