@@ -5,6 +5,9 @@
  "cover": "cover.png",
  "duration_s": 53.325,
  "qa": "PASS",
- "status": "ready_for_manual_upload",
- "post_url": null
+ "status": "published",
+ "post_url": "https://www.instagram.com/reel/DfkWD7Txu1A/",
+ "media_id": "18449803003135288",
+ "video_url": "https://raw.githubusercontent.com/Nishanth-nishu/insta-bot/media/dsh-superagent.mp4",
+ "published_at": "2026-11-10T16:34:16Z"
 }
