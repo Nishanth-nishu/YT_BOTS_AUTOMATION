@@ -34,7 +34,18 @@ import httpx
 
 from services.common import paths
 
-GRAPH = "https://graph.facebook.com/v21.0"
+API_VERSION = "v21.0"
+
+
+def graph_base() -> str:
+    """Graph host. 'facebook' (default) is the Facebook-login flavour (needs a linked Page);
+    'instagram' is the Instagram-login flavour (graph.instagram.com, no Page needed)."""
+    flavour = (os.environ.get("IG_API_HOST") or "facebook").strip().lower()
+    host = "graph.instagram.com" if flavour.startswith("instagram") else "graph.facebook.com"
+    return f"https://{host}/{API_VERSION}"
+
+
+GRAPH = graph_base()
 REPO = os.environ.get("MEDIA_GITHUB_REPO", "Nishanth-nishu/insta-bot")
 MEDIA_BRANCH = os.environ.get("MEDIA_BRANCH", "media")
 
@@ -109,7 +120,7 @@ def create_container(ig_user: str, token: str, video_url: str, caption: str, cov
     data = {"media_type": "REELS", "video_url": video_url, "caption": caption, "share_to_feed": "true", "access_token": token}
     if cover_url:
         data["cover_url"] = cover_url
-    r = httpx.post(f"{GRAPH}/{ig_user}/media", data=data, timeout=60)
+    r = httpx.post(f"{graph_base()}/{ig_user}/media", data=data, timeout=60)
     body = r.json()
     if r.status_code != 200 or "id" not in body:
         raise RuntimeError(f"container creation failed: {body}")
@@ -119,7 +130,7 @@ def create_container(ig_user: str, token: str, video_url: str, caption: str, cov
 def wait_container(creation_id: str, token: str, timeout_s: int = 600) -> None:
     t0 = time.time()
     while time.time() - t0 < timeout_s:
-        r = httpx.get(f"{GRAPH}/{creation_id}", params={"fields": "status_code,status", "access_token": token}, timeout=30).json()
+        r = httpx.get(f"{graph_base()}/{creation_id}", params={"fields": "status_code,status", "access_token": token}, timeout=30).json()
         code = r.get("status_code")
         if code == "FINISHED":
             return
@@ -130,11 +141,11 @@ def wait_container(creation_id: str, token: str, timeout_s: int = 600) -> None:
 
 
 def publish_container(ig_user: str, token: str, creation_id: str) -> PublishResult:
-    r = httpx.post(f"{GRAPH}/{ig_user}/media_publish", data={"creation_id": creation_id, "access_token": token}, timeout=60).json()
+    r = httpx.post(f"{graph_base()}/{ig_user}/media_publish", data={"creation_id": creation_id, "access_token": token}, timeout=60).json()
     if "id" not in r:
         raise RuntimeError(f"publish failed: {r}")
     media_id = r["id"]
-    info = httpx.get(f"{GRAPH}/{media_id}", params={"fields": "permalink", "access_token": token}, timeout=30).json()
+    info = httpx.get(f"{graph_base()}/{media_id}", params={"fields": "permalink", "access_token": token}, timeout=30).json()
     return PublishResult(media_id=media_id, permalink=info.get("permalink", ""), video_url="")
 
 
@@ -166,11 +177,40 @@ def publish_package(package_dir: Path, confirm: bool) -> dict:
     return plan
 
 
+def check_credentials() -> dict:
+    """Read-only: confirm the token can see the Instagram account. Never prints the token."""
+    token = _env("IG_ACCESS_TOKEN")
+    ig_user = _env("IG_USER_ID")
+    if not token:
+        raise RuntimeError("IG_ACCESS_TOKEN is empty in .env")
+    base = graph_base()
+    if "graph.instagram.com" in base:
+        me = httpx.get(f"{base}/me", params={"fields": "user_id,username,account_type", "access_token": token}, timeout=30).json()
+        found_id = str(me.get("user_id") or me.get("id") or "")
+    else:
+        if not ig_user:
+            raise RuntimeError("IG_USER_ID is empty in .env (Facebook-login flavour needs it)")
+        me = httpx.get(f"{base}/{ig_user}", params={"fields": "id,username", "access_token": token}, timeout=30).json()
+        found_id = str(me.get("id") or "")
+    if "error" in me:
+        raise RuntimeError(f"token check failed: {me['error'].get('message')}")
+    perms = httpx.get(f"{base}/me/permissions" if "facebook" in base else f"{base}/me", params={"access_token": token}, timeout=30).json()
+    granted = [p["permission"] for p in perms.get("data", []) if p.get("status") == "granted"] if "facebook" in base else []
+    return {"host": base, "username": me.get("username"), "account_type": me.get("account_type"), "ig_user_id": found_id,
+            "ig_user_id_matches_env": (found_id == str(ig_user)) if ig_user else None, "granted": granted}
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--package", required=True, help="output/approved/<date>/<id>")
+    ap.add_argument("--package", help="output/approved/<date>/<id>")
     ap.add_argument("--confirm", action="store_true", help="actually host and publish (default is a dry run)")
+    ap.add_argument("--check", action="store_true", help="read-only: verify IG_ACCESS_TOKEN against the API")
     args = ap.parse_args(argv)
+    if args.check:
+        print(json.dumps(check_credentials(), indent=1))
+        return 0
+    if not args.package:
+        ap.error("--package is required unless --check is given")
     result = publish_package(Path(args.package), args.confirm)
     print(json.dumps(result, indent=1))
     return 0

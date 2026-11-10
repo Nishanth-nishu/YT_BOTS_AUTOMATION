@@ -10,17 +10,27 @@ REELFORGE never posts on its own. Every reel ends as a package in `output/approv
 
 ## Option B: Graph API publishing (one-time setup, free)
 
-Requirements set by Meta, not by REELFORGE:
+Two flavours exist; the publisher supports both via `IG_API_HOST` in `.env`.
 
-1. An Instagram **Professional** account (Creator or Business), linked to a Facebook Page.
-2. A Meta developer app (developers.facebook.com) with the **Instagram Graph API** product.
-3. A long-lived user access token with scopes `instagram_basic`, `instagram_content_publish`, `pages_show_list`, `pages_read_engagement`. Use the Graph API Explorer to generate a short-lived token, then exchange it for a long-lived one (about 60 days).
-4. Your numeric Instagram user id: `GET /me/accounts` for the page id, then `GET /<page-id>?fields=instagram_business_account`.
-5. Put both in `.env` (git-ignored):
+**Unified / Instagram login (recommended, no Facebook Page needed)**
+
+1. Instagram app: Settings → Account type and tools → switch to a **Professional** account (Creator or Business).
+2. https://developers.facebook.com/apps/ → your app → Products → Instagram → **API setup with Unified login**.
+3. Step 2 "Generate access tokens": **Add account**, log in with the Instagram account, then click **Generate token** next to it and approve. The number shown beside the username is the Instagram user id.
+4. Put them in `.env` (git-ignored):
    ```
    IG_ACCESS_TOKEN=...
-   IG_USER_ID=...
+   IG_USER_ID=<number beside the username>
+   IG_API_HOST=facebook
    ```
+   Unified-login tokens are used against graph.facebook.com; set `instagram` only for a token from the older Instagram-login-only product.
+5. Verify without posting: `.venv\Scripts\python -m services.publishing.instagram --check`
+
+**Facebook login (needs an Instagram Professional account linked to a Facebook Page)**
+
+1. Graph API Explorer (https://developers.facebook.com/tools/explorer/): pick the app, "Get User Access Token", add `instagram_basic`, `instagram_content_publish`, `pages_show_list`, `pages_read_engagement`, Generate Access Token and select the Page and Instagram account in the dialog.
+2. Extend it at https://developers.facebook.com/tools/debug/accesstoken/ (about 60 days).
+3. `GET me/accounts?fields=instagram_business_account` gives the Instagram user id. Set `IG_API_HOST=facebook`.
 
 Instagram downloads the video from a public HTTPS URL. REELFORGE hosts the approved MP4 on the project's public GitHub repository on an orphan `media` branch and uses the `raw.githubusercontent.com` URL, which costs nothing. Set `PUBLIC_MEDIA_BASE_URL` in `.env` to use another host.
 
