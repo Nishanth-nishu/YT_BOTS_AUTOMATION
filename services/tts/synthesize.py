@@ -158,17 +158,23 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
         # a scene may carry its own voice (dialogue: one voice per character)
         scene_voice = provider.resolve_voice(scene.voice.voice) if scene.voice and scene.voice.voice else voice_id
         scene_speed = scene.voice.speed if scene.voice and scene.voice.speed else sb.voice.speed
-        key = text_hash(scene.narration, provider.name, scene_voice, scene_speed, scene.captionText)
+        pitch = (scene.voice.pitch if scene.voice and scene.voice.pitch else sb.voice.pitch) or 1.0
+        key = text_hash(scene.narration, provider.name, scene_voice, round(scene_speed / pitch, 4), scene.captionText)
         result = None if force else _cached(paths.AUDIO_CACHE, key)
         if result is None:
             log.info("synthesizing scene %s (%d chars)", scene.id, len(scene.narration))
-            result = provider.synthesize(scene.narration, scene_voice, scene_speed, caption_text=scene.captionText)
+            # spoken slower by the pitch factor, then sped back up below: the pitch moves, the pace does not
+            result = provider.synthesize(scene.narration, scene_voice, scene_speed / pitch, caption_text=scene.captionText)
             _store(paths.AUDIO_CACHE, key, result)
             total_synth += result.synth_seconds
         else:
             log.info("cache hit for scene %s", scene.id)
 
         result.words = realign_words(result.words, scene.captionText or scene.narration)
+        if abs(pitch - 1.0) > 0.005:
+            result.audio = _resample(result.audio, int(round(result.sample_rate * pitch)), result.sample_rate)
+            for w in result.words:
+                w.start, w.end = w.start / pitch, w.end / pitch
         result.audio = match_level(result.audio)  # one loudness for every speaker
         audio48 = _resample(result.audio, result.sample_rate, OUT_SR)
         audio_ms = int(round(len(audio48) / OUT_SR * 1000))

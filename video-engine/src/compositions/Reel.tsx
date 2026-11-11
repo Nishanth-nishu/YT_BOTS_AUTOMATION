@@ -24,6 +24,7 @@ import { WorkflowScene } from "../scenes/WorkflowScene";
 import { PayoffScene } from "../scenes/PayoffScene";
 import { ConceptScene } from "../scenes/ConceptScene";
 import { DialogueScene } from "../scenes/DialogueScene";
+import { Backdrop, type BackdropName } from "../layers/Backdrop";
 import { TerminalScene } from "../scenes/TerminalScene";
 import { ChartScene } from "../scenes/ChartScene";
 import { NeuralNetScene } from "../scenes/NeuralNetScene";
@@ -134,7 +135,9 @@ const MusicBed: React.FC<{ spec: ReelSpec }> = ({ spec }) => {
 const useInDialogue = (spec: ReelSpec): boolean => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  return spec.scenes.some((s) => s.kind === "dialogue" && frame >= msToFrames(s.startMs, fps) && frame < msToFrames(s.endMs, fps));
+  // a narrated dialogue scene (speaker not on stage) keeps the narrator's badge
+  const spoken = (s: TimedScene) => Array.isArray(s.data.cast) ? s.data.cast.some((m: { name: string }) => m.name === s.data.speaker) : true;
+  return spec.scenes.some((s) => s.kind === "dialogue" && spoken(s) && frame >= msToFrames(s.startMs, fps) && frame < msToFrames(s.endMs, fps));
 };
 
 const Pip: React.FC<{ spec: ReelSpec; hookEnd: number }> = ({ spec, hookEnd }) => (useInDialogue(spec) ? null : <PresenterPip hiddenUntilFrame={hookEnd} />);
@@ -175,6 +178,7 @@ export const Reel: React.FC<ReelProps> = ({ spec, quality: profile }) => {
           return (
             <Sequence key={scene.id} name={scene.id} from={from} durationInFrames={Math.max(1, to - from)}>
               <SceneShell enterFrom={prev} exitWith={next}>
+                {scene.data.backdrop ? <Backdrop name={scene.data.backdrop as BackdropName} /> : null}
                 <SceneByKind scene={scene} styleId={spec.style} particleScale={q.particleScale} />
               </SceneShell>
             </Sequence>

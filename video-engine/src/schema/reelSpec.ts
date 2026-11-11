@@ -36,7 +36,7 @@ export const timedSceneSchema = z.object({
   kind: sceneKindSchema,
   narration: z.string(),
   /** Per-scene voice override (dialogue: one voice per character). */
-  voice: z.object({ voice: z.string().nullable().optional(), speed: z.number().nullable().optional() }).nullable().optional(),
+  voice: z.object({ voice: z.string().nullable().optional(), speed: z.number().nullable().optional(), pitch: z.number().nullable().optional() }).nullable().optional(),
   /** Romanised Hinglish for captions when narration carries Devanagari. */
   captionText: z.string().nullable().optional(),
   title: z.string().nullable().optional(),
@@ -74,7 +74,7 @@ export const presenterSchema = z.object({
 export const reelSpecSchema = z.object({
   id: z.string(),
   title: z.string(),
-  style: z.enum(["cinematic", "explainer", "experimental"]),
+  style: z.enum(["cinematic", "explainer", "experimental", "epic"]),
   fps: z.number().default(30),
   width: z.number().default(1080),
   height: z.number().default(1920),

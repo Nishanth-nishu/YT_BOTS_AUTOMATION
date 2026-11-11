@@ -5,7 +5,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
-StyleId = Literal["cinematic", "explainer", "experimental"]
+StyleId = Literal["cinematic", "explainer", "experimental", "epic"]
 SceneKind = Literal["hook", "loop", "reasoning", "toolCall", "memory", "workflow", "payoff", "concept", "code", "terminal", "chart", "neuralNet", "rag", "dialogue"]
 Seam = Literal["current", "up", "zoomIn", "zoomOut", "burst"]
 
@@ -19,6 +19,7 @@ class VoiceConfig(BaseModel):
     provider: Literal["kokoro", "piper", "sarvam"] = "kokoro"
     voice: str = "am_fenrir"
     speed: float = 1.05
+    pitch: float = 1.0
 
 
 class MusicConfig(BaseModel):
@@ -49,6 +50,8 @@ class SceneVoice(BaseModel):
 
     voice: Optional[str] = None
     speed: Optional[float] = None
+    # 1.0 = the voice as it is; 0.85 = deeper, 1.15 = lighter. Lets characters sharing a voice sound different.
+    pitch: Optional[float] = None
 
 
 class StoryboardScene(BaseModel):

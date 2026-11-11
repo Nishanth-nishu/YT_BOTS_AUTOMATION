@@ -4,7 +4,7 @@
  * Never inline a hex colour or font name inside a scene component.
  */
 
-export type StyleId = "cinematic" | "explainer" | "experimental";
+export type StyleId = "cinematic" | "explainer" | "experimental" | "epic";
 
 export type Palette = {
   bg: string;
@@ -68,6 +68,22 @@ export const palettes: Record<StyleId, Palette> = {
     textMuted: "#6E6E78",
     glow: "rgba(228, 255, 59, 0.35)",
     line: "rgba(184, 184, 192, 0.16)",
+    success: "#3DDC97",
+    warn: "#FFB84C",
+  },
+  // STYLE D: epic stories. Gold on deep indigo, saffron and vermilion accents, over illustrated backdrops
+  epic: {
+    bg: "#0E0718",
+    bgAlt: "#1A0F2B",
+    surface: "#241536",
+    hero: "#FFB627",
+    accent: "#FF8A3D",
+    accent2: "#E63946",
+    text: "#FFF7E6",
+    textDim: "#EAD9B8",
+    textMuted: "#A9946F",
+    glow: "rgba(255, 182, 39, 0.45)",
+    line: "rgba(255, 230, 180, 0.2)",
     success: "#3DDC97",
     warn: "#FFB84C",
   },

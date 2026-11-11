@@ -1,0 +1,382 @@
+{
+ "id": "arjun-chidiya-ki-aankh",
+ "title": "Arjun ko sirf chidiya ki aankh kyon dikhi?",
+ "style": "epic",
+ "voice": {
+  "provider": "kokoro",
+  "voice": "hm_psi",
+  "speed": 1.06,
+  "pitch": 1.14
+ },
+ "presenter": {
+  "enabled": true,
+  "name": "narada",
+  "mood": "hype",
+  "look": "vrm",
+  "model": "models/narada.vrm",
+  "image": "images/host.png"
+ },
+ "music": {
+  "file": "music/ambient_bed.wav",
+  "volume": 0.18,
+  "bpm": 84.0
+ },
+ "caption": "Guru Dronacharya ki pariksha, aur Arjun ka woh jawab jo aaj bhi focus ki sabse badi misaal hai.\n\nSubscribe for a new story from the epics.",
+ "hashtags": [
+  "#mahabharat",
+  "#arjun",
+  "#hindistory",
+  "#motivation",
+  "#shorts"
+ ],
+ "sources": [
+  "Mahabharata, Adi Parva"
+ ],
+ "dmKeyword": "SUBSCRIBE",
+ "dmLink": null,
+ "scenes": [
+  {
+   "id": "hook1",
+   "kind": "hook",
+   "narration": "एक तीर। एक निशाना। और एक जवाब जिसने इतिहास बदल दिया।",
+   "voice": null,
+   "captionText": "Ek teer. Ek nishana. Aur ek jawab jisne itihaas badal diya.",
+   "title": "Ek teer. Ek nishana.",
+   "lines": [],
+   "highlight": [
+    "nishana"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "narrator",
+    "kicker": "MAHABHARAT / ADI PARVA"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 150,
+   "padAfterMs": 250,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "story2",
+   "kind": "dialogue",
+   "narration": "गुरु द्रोणाचार्य ने अपने शिष्यों की परीक्षा ली। पेड़ पर लकड़ी की एक चिड़िया रखी गई।",
+   "voice": null,
+   "captionText": "Guru Dronacharya ne apne shishyon ki pariksha li. Ped par lakdi ki ek chidiya rakhi gayi.",
+   "title": "Guru ki pariksha",
+   "lines": [],
+   "highlight": [
+    "pariksha"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "narrator",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "drona": "calm",
+     "arjuna": "focus"
+    },
+    "gestures": {},
+    "kicker": "MAHABHARAT"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "story3",
+   "kind": "dialogue",
+   "narration": "सबसे पहले युधिष्ठिर आए। उन्होंने कहा, मुझे पेड़, डालियाँ और अपने भाई दिख रहे हैं।",
+   "voice": null,
+   "captionText": "Sabse pehle Yudhishthir aaye. Unhone kaha, mujhe ped, daaliyan aur apne bhai dikh rahe hain.",
+   "title": "Pehla jawab",
+   "lines": [],
+   "highlight": [
+    "jawab"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "narrator",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "drona": "worried",
+     "arjuna": "calm"
+    },
+    "gestures": {},
+    "kicker": "MAHABHARAT"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "line4",
+   "kind": "dialogue",
+   "narration": "गलत जवाब। पीछे हट जाओ।",
+   "voice": {
+    "voice": "hm_omega",
+    "speed": 0.98,
+    "pitch": 0.9
+   },
+   "captionText": "Galat jawab. Peeche hat jao.",
+   "title": "Galat jawab!",
+   "lines": [],
+   "highlight": [
+    "Galat"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "drona",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "drona": "stern",
+     "arjuna": "shock"
+    },
+    "gestures": {
+     "drona": "point"
+    },
+    "kicker": "GURU DRONA"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "line5",
+   "kind": "dialogue",
+   "narration": "अर्जुन, अब तुम बताओ। तुम्हें क्या दिख रहा है?",
+   "voice": {
+    "voice": "hm_omega",
+    "speed": 0.98,
+    "pitch": 0.9
+   },
+   "captionText": "Arjun, ab tum batao. Tumhe kya dikh raha hai?",
+   "title": "Arjun, tumhe kya dikh raha hai?",
+   "lines": [],
+   "highlight": [
+    "Arjun"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "drona",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "drona": "stern",
+     "arjuna": "focus"
+    },
+    "gestures": {
+     "drona": "open"
+    },
+    "kicker": "GURU DRONA"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "line6",
+   "kind": "dialogue",
+   "narration": "गुरुदेव, मुझे सिर्फ चिड़िया की आँख दिख रही है। और कुछ नहीं।",
+   "voice": {
+    "voice": "hm_psi",
+    "speed": 1.02,
+    "pitch": 0.97
+   },
+   "captionText": "Gurudev, mujhe sirf chidiya ki aankh dikh rahi hai. Aur kuch nahi.",
+   "title": "Sirf chidiya ki aankh",
+   "lines": [],
+   "highlight": [
+    "aankh"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "arjuna",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "arjuna": "focus",
+     "drona": "awe"
+    },
+    "gestures": {
+     "arjuna": "point"
+    },
+    "kicker": "ARJUN"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "line7",
+   "kind": "dialogue",
+   "narration": "शाबाश! तीर चलाओ!",
+   "voice": {
+    "voice": "hm_omega",
+    "speed": 0.98,
+    "pitch": 0.9
+   },
+   "captionText": "Shabash! Teer chalao!",
+   "title": "Shabash! Teer chalao!",
+   "lines": [],
+   "highlight": [
+    "Shabash"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "drona",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "drona": "grin",
+     "arjuna": "focus"
+    },
+    "gestures": {
+     "drona": "raise"
+    },
+    "kicker": "GURU DRONA"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "story8",
+   "kind": "dialogue",
+   "narration": "तीर सीधा चिड़िया की आँख में लगा। उस दिन अर्जुन सबसे महान धनुर्धर बनने की राह पर निकल पड़ा।",
+   "voice": null,
+   "captionText": "Teer seedha chidiya ki aankh mein laga. Us din Arjun sabse mahaan dhanurdhar banne ki raah par nikal pada.",
+   "title": "Nishana seedha laga",
+   "lines": [],
+   "highlight": [
+    "seedha"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "narrator",
+    "cast": [
+     {
+      "name": "drona",
+      "label": "Guru Drona",
+      "model": "models/drona.vrm"
+     },
+     {
+      "name": "arjuna",
+      "label": "Arjun",
+      "model": "models/arjuna.vrm"
+     }
+    ],
+    "emotes": {
+     "drona": "grin",
+     "arjuna": "grin"
+    },
+    "gestures": {
+     "arjuna": "raise"
+    },
+    "kicker": "MAHABHARAT"
+   },
+   "transition": "current",
+   "cta": null,
+   "leadInMs": 180,
+   "padAfterMs": 260,
+   "minDurationMs": 2500
+  },
+  {
+   "id": "moral9",
+   "kind": "payoff",
+   "narration": "सीख सीधी है। जब लक्ष्य एक हो, तो ध्यान भी एक ही होना चाहिए। अगली कहानी के लिए सब्सक्राइब करो।",
+   "voice": null,
+   "captionText": "Seekh seedhi hai. Jab lakshya ek ho, to dhyaan bhi ek hi hona chahiye. Agli kahani ke liye subscribe karo.",
+   "title": "Lakshya ek, dhyaan ek",
+   "lines": [],
+   "highlight": [
+    "Lakshya"
+   ],
+   "data": {
+    "backdrop": "gurukul",
+    "speaker": "narrator",
+    "kicker": "SEEKH"
+   },
+   "transition": "current",
+   "cta": "Subscribe for the next story",
+   "leadInMs": 150,
+   "padAfterMs": 900,
+   "minDurationMs": 2500
+  }
+ ]
+}
