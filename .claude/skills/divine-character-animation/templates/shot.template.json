@@ -1,0 +1,26 @@
+{
+ "id": "<character>-<nn>-<short-name>",
+ "character": "<character id with a complete reference sheet>",
+ "seconds": 5,
+ "width": 720,
+ "height": 1280,
+ "fps": 16,
+ "action": "One sentence: what the character does in this shot.",
+ "camera": "static | slow push-in | orbit left | crane up",
+ "visual_direction": "must match the character's",
+ "engine": "wan2.2-fun-control | wan2.2-animate | blender",
+ "control": {
+  "first_frame": "path to a still made from the reference sheet",
+  "last_frame": "",
+  "pose_sequence": "path to pose frames from our own reference video or a Blender armature",
+  "depth": "",
+  "edges": "",
+  "reference_video": "",
+  "reference_video_rights": "who filmed it, who appears in it, and their agreement"
+ },
+ "effects": ["divine aura", "particles"],
+ "defining": {},
+ "story_reason": {},
+ "seed": null,
+ "notes": ""
+}

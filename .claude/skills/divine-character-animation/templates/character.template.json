@@ -1,0 +1,48 @@
+{
+ "id": "",
+ "name": "",
+ "kind": "adapted | original",
+ "source": "the work this character comes from, or 'invented for this channel'",
+ "rights_status": "pending",
+ "rights_basis": "why this character and this design may be used",
+ "appearance": "one paragraph: age, build, face, bearing",
+ "defining": {
+  "skin": "",
+  "hair": "",
+  "eyes": "",
+  "arms": 2,
+  "build": "",
+  "costume": "",
+  "ornaments": [],
+  "attributes": []
+ },
+ "palette": {
+  "skin": "#",
+  "hair": "#",
+  "primary": "#",
+  "secondary": "#",
+  "metal": "#",
+  "aura": "#"
+ },
+ "expressions": [
+  "neutral",
+  "serene",
+  "joyful",
+  "stern",
+  "wrathful",
+  "compassionate",
+  "surprised",
+  "sorrowful"
+ ],
+ "visual_direction": "traditional devotional painting | 3D cinematic | stylised anime | epic fantasy",
+ "do_not": [
+  "copy any film, TV, game or comic design",
+  "change a defining attribute without a story reason"
+ ],
+ "lora": {
+  "file": "",
+  "base_checkpoint": "",
+  "trained_on": "only images we made or own",
+  "trigger": ""
+ }
+}

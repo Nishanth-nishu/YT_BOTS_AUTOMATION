@@ -1,0 +1,558 @@
+{
+ "_about": "AnimeForge model registry. One entry per model or tool the platform may use. `status` decides whether the pipeline may load it for monetized output: cleared = yes; conditional = yes, if every item in `conditions` is met; unverified = licence not fully read yet, so no; blocked = licence forbids commercial use, so no. Nothing here has been benchmarked: `benchmark` stays null until a real run on the target GPU is recorded. Licences were read on `verified_on` from the URLs in `sources`; re-check before relying on them.",
+ "verified_on": "2026-11-11",
+ "models": [
+  {
+   "id": "comfyui",
+   "role": "image",
+   "name": "ComfyUI",
+   "repo": "https://github.com/Comfy-Org/ComfyUI",
+   "checkpoint": null,
+   "code_license": "GPL-3.0",
+   "weight_license": null,
+   "status": "conditional",
+   "commercial": "Output images are not covered by the GPL. The GPL applies to distributing ComfyUI or code linked with it.",
+   "conditions": [
+    "Run ComfyUI as a separate process and talk to it over its HTTP API; do not import its code into AnimeForge."
+   ],
+   "hardware": "Depends on the checkpoint loaded.",
+   "install": "git clone, pip install -r requirements.txt, torch with CUDA.",
+   "sources": [
+    "https://api.github.com/repos/Comfy-Org/ComfyUI"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "ipadapter-plus",
+   "role": "image",
+   "name": "ComfyUI IPAdapter Plus + IP-Adapter weights",
+   "repo": "https://github.com/cubiq/ComfyUI_IPAdapter_plus",
+   "checkpoint": "h94/IP-Adapter (SDXL: ip-adapter-plus_sdxl_vit-h)",
+   "code_license": "GPL-3.0 (node); Apache-2.0 (tencent-ailab/IP-Adapter)",
+   "weight_license": "Apache-2.0 (h94/IP-Adapter)",
+   "status": "conditional",
+   "commercial": "The standard IP-Adapter weights are Apache-2.0.",
+   "conditions": [
+    "Use only the non-FaceID weights. The FaceID variants need InsightFace models, which are non-commercial (see ipadapter-faceid).",
+    "Node is GPL-3.0: use it inside ComfyUI only."
+   ],
+   "hardware": "Adds roughly 1-2 GB VRAM on SDXL (not measured here).",
+   "install": "ComfyUI custom node + weights in models/ipadapter and a CLIP vision encoder.",
+   "sources": [
+    "https://api.github.com/repos/cubiq/ComfyUI_IPAdapter_plus",
+    "https://huggingface.co/api/models/h94/IP-Adapter"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "ipadapter-faceid",
+   "role": "image",
+   "name": "IP-Adapter FaceID",
+   "repo": "https://huggingface.co/h94/IP-Adapter-FaceID",
+   "checkpoint": "h94/IP-Adapter-FaceID",
+   "code_license": "Apache-2.0",
+   "weight_license": "none stated on the model card",
+   "status": "blocked",
+   "commercial": "Requires InsightFace face models, which InsightFace licenses for non-commercial research only.",
+   "conditions": [],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://huggingface.co/h94/IP-Adapter-FaceID",
+    "https://github.com/deepinsight/insightface#license"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "insightface-models",
+   "role": "dependency",
+   "name": "InsightFace pretrained models (buffalo_l, antelopev2)",
+   "repo": "https://github.com/deepinsight/insightface",
+   "checkpoint": "buffalo_l / antelopev2",
+   "code_license": "MIT",
+   "weight_license": "non-commercial research only",
+   "status": "blocked",
+   "commercial": "README: models trained on their data \"are available for non-commercial research purposes only\", including auto-downloaded ones. A commercial licence must be obtained from InsightFace.",
+   "conditions": [],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://github.com/deepinsight/insightface#license"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "pulid",
+   "role": "image",
+   "name": "PuLID",
+   "repo": "https://github.com/ToTheBeginning/PuLID",
+   "checkpoint": "guozinan/PuLID",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "unverified",
+   "commercial": "Code and weights are Apache-2.0, but PuLID is an identity method for real human faces and is commonly run with InsightFace antelopev2 (non-commercial). That dependency was not confirmed from the PuLID repo itself.",
+   "conditions": [
+    "Confirm which face models the chosen PuLID workflow loads. If it needs InsightFace models, treat as blocked.",
+    "Check it helps on anime faces at all before spending time on it."
+   ],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://api.github.com/repos/ToTheBeginning/PuLID",
+    "https://huggingface.co/api/models/guozinan/PuLID"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "controlnet-union-sdxl",
+   "role": "image",
+   "name": "ControlNet (SDXL union)",
+   "repo": "https://github.com/lllyasviel/ControlNet",
+   "checkpoint": "xinsir/controlnet-union-sdxl-1.0",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "cleared",
+   "commercial": "No restriction beyond Apache-2.0.",
+   "conditions": [],
+   "hardware": "Adds roughly 2-3 GB VRAM on SDXL (not measured here).",
+   "install": "Weights in ComfyUI models/controlnet.",
+   "sources": [
+    "https://api.github.com/repos/lllyasviel/ControlNet",
+    "https://huggingface.co/api/models/xinsir/controlnet-union-sdxl-1.0"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "kohya-sd-scripts",
+   "role": "training",
+   "name": "Kohya sd-scripts (LoRA training)",
+   "repo": "https://github.com/kohya-ss/sd-scripts",
+   "checkpoint": null,
+   "code_license": "Apache-2.0",
+   "weight_license": null,
+   "status": "conditional",
+   "commercial": "The tool is Apache-2.0. A trained LoRA inherits the base checkpoint's licence and the rights in the training images.",
+   "conditions": [
+    "Train only on images we own or generated ourselves from cleared models; record them in the asset rights registry."
+   ],
+   "hardware": "SDXL LoRA training fits in 24 GB (not measured here).",
+   "install": "git clone, own venv.",
+   "sources": [
+    "https://api.github.com/repos/kohya-ss/sd-scripts"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "sdxl-base",
+   "role": "image-checkpoint",
+   "name": "Stable Diffusion XL base 1.0",
+   "repo": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+   "checkpoint": "stabilityai/stable-diffusion-xl-base-1.0",
+   "code_license": null,
+   "weight_license": "CreativeML Open RAIL++-M",
+   "status": "cleared",
+   "commercial": "Commercial use allowed; the licence's use restrictions apply.",
+   "conditions": [],
+   "hardware": "About 8-12 GB VRAM at 1024px (not measured here).",
+   "install": "ComfyUI models/checkpoints.",
+   "sources": [
+    "https://huggingface.co/api/models/stabilityai/stable-diffusion-xl-base-1.0"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "animagine-xl-4",
+   "role": "image-checkpoint",
+   "name": "Animagine XL 4.0 (anime SDXL)",
+   "repo": "https://huggingface.co/cagliostrolab/animagine-xl-4.0",
+   "checkpoint": "cagliostrolab/animagine-xl-4.0",
+   "code_license": null,
+   "weight_license": "CreativeML Open RAIL++-M",
+   "status": "conditional",
+   "commercial": "Licence allows commercial use.",
+   "conditions": [
+    "Anime checkpoints learn from existing anime art and can reproduce known characters by name. Prompt only our own original characters; never name an existing franchise character or artist."
+   ],
+   "hardware": "About 8-12 GB VRAM at 1024px (not measured here).",
+   "install": "ComfyUI models/checkpoints.",
+   "sources": [
+    "https://huggingface.co/api/models/cagliostrolab/animagine-xl-4.0"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "illustrious-xl",
+   "role": "image-checkpoint",
+   "name": "Illustrious XL / NoobAI XL",
+   "repo": "https://huggingface.co/OnomaAIResearch/Illustrious-xl-early-release-v0",
+   "checkpoint": "OnomaAIResearch/Illustrious-xl-early-release-v0, Laxhar/noobai-XL-1.1",
+   "code_license": null,
+   "weight_license": "Fair AI Public License 1.0-SD",
+   "status": "unverified",
+   "commercial": "Custom licence (https://freedevproject.org/faipl-1.0-sd/). Its terms for commercial output and for derivatives were not read in full.",
+   "conditions": [
+    "Read the full licence before use."
+   ],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://huggingface.co/api/models/OnomaAIResearch/Illustrious-xl-early-release-v0",
+    "https://huggingface.co/api/models/Laxhar/noobai-XL-1.1"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "wan2.1",
+   "role": "video",
+   "name": "Wan2.1",
+   "repo": "https://github.com/Wan-Video/Wan2.1",
+   "checkpoint": "Wan-AI/Wan2.1-I2V-14B-480P (image-to-video), Wan-AI/Wan2.1-T2V-1.3B (small text-to-video)",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "cleared",
+   "commercial": "README: models are Apache-2.0 and the authors claim no rights over generated content. Content restrictions in the licence apply.",
+   "conditions": [],
+   "hardware": "README: T2V-1.3B needs 8.19 GB VRAM, about 4 minutes for 5 s of 480p on an RTX 4090. The 14B image-to-video model's fit in 24 GB was not verified.",
+   "install": "ComfyUI native nodes or kijai/ComfyUI-WanVideoWrapper (Apache-2.0).",
+   "sources": [
+    "https://github.com/Wan-Video/Wan2.1#license-agreement",
+    "https://huggingface.co/api/models/Wan-AI/Wan2.1-I2V-14B-480P"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "wan2.2-animate",
+   "role": "video",
+   "name": "Wan 2.2 Animate",
+   "repo": "https://github.com/Wan-Video/Wan2.2",
+   "checkpoint": "Wan-AI/Wan2.2-Animate-14B (67.4 GB repository)",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "conditional",
+   "commercial": "Code and weights are Apache-2.0.",
+   "conditions": [
+    "It animates a character image from a driving video of a person. Use only reference video we filmed ourselves or hold a licence for; the performer must have agreed to this use.",
+    "The official commands are documented for a GPU with at least 80 GB VRAM. Running on 24 GB needs a quantized or offloaded variant, which is a different checkpoint: register and licence-check that exact file before using it."
+   ],
+   "hardware": "README: official inference commands need 80 GB VRAM. Fit on 24 GB is not verified.",
+   "install": "Wan2.2 repository or ComfyUI nodes; preprocessing models for pose and face are extra downloads whose licences must be checked.",
+   "sources": [
+    "https://api.github.com/repos/Wan-Video/Wan2.2",
+    "https://huggingface.co/api/models/Wan-AI/Wan2.2-Animate-14B"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "wan2.2-fun-control",
+   "role": "video",
+   "name": "Wan 2.2 Fun Control",
+   "repo": "https://github.com/aigc-apps/VideoX-Fun",
+   "checkpoint": "alibaba-pai/Wan2.2-Fun-A14B-Control, alibaba-pai/Wan2.2-Fun-5B-Control",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "conditional",
+   "commercial": "Code and weights are Apache-2.0.",
+   "conditions": [
+    "Control inputs (pose, depth, edges) come from a reference video: use only video we own or licensed.",
+    "The 5B variant is the realistic starting point for 24 GB; the A14B variant's fit is not verified."
+   ],
+   "hardware": "Not verified on 24 GB.",
+   "install": "VideoX-Fun or ComfyUI nodes.",
+   "sources": [
+    "https://api.github.com/repos/aigc-apps/VideoX-Fun",
+    "https://huggingface.co/api/models/alibaba-pai/Wan2.2-Fun-A14B-Control"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "ltx-video",
+   "role": "video",
+   "name": "LTX-Video",
+   "repo": "https://github.com/Lightricks/LTX-Video",
+   "checkpoint": "Lightricks/LTX-Video (0.9.6+ under LTXV Open Weights License 0.X)",
+   "code_license": "Apache-2.0",
+   "weight_license": "LTXV Open Weights License 0.X (custom), older versions have their own licence files",
+   "status": "unverified",
+   "commercial": "Custom weight licence dated 2025-04-15. Its commercial-use terms were not read in full.",
+   "conditions": [
+    "Read LTX-Video-Open-Weights-License-0.X.txt in full, including any revenue limit, before use."
+   ],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://huggingface.co/Lightricks/LTX-Video/blob/main/LTX-Video-Open-Weights-License-0.X.txt"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "animatediff",
+   "role": "video",
+   "name": "AnimateDiff",
+   "repo": "https://github.com/guoyww/AnimateDiff",
+   "checkpoint": "guoyww/animatediff motion modules",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "cleared",
+   "commercial": "No restriction beyond Apache-2.0. SD1.5-era; the base checkpoint used with it carries its own licence.",
+   "conditions": [],
+   "hardware": "About 8-12 GB VRAM for 16 frames at 512px (not measured here).",
+   "install": "Kosinkadink/ComfyUI-AnimateDiff-Evolved (Apache-2.0).",
+   "sources": [
+    "https://api.github.com/repos/guoyww/AnimateDiff",
+    "https://huggingface.co/api/models/guoyww/animatediff"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "blender",
+   "role": "render",
+   "name": "Blender",
+   "repo": "https://projects.blender.org/blender/blender",
+   "checkpoint": null,
+   "code_license": "GPL (not re-verified here)",
+   "weight_license": null,
+   "status": "conditional",
+   "commercial": "Renders made with Blender are the user's own.",
+   "conditions": [
+    "Call Blender as an external program; do not link its code."
+   ],
+   "hardware": null,
+   "install": "Not installed on the development machine.",
+   "sources": [
+    "https://www.blender.org/about/license/"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "indic-parler-tts",
+   "role": "voice",
+   "name": "AI4Bharat Indic Parler-TTS",
+   "repo": "https://huggingface.co/ai4bharat/indic-parler-tts",
+   "checkpoint": "ai4bharat/indic-parler-tts",
+   "code_license": "Apache-2.0 (huggingface/parler-tts)",
+   "weight_license": "Apache-2.0 (gated)",
+   "status": "unverified",
+   "commercial": "Tagged Apache-2.0, but the model is gated and its card (which carries the access terms) returned HTTP 401 without a login.",
+   "conditions": [
+    "Log in to Hugging Face, read and accept the access terms, then record them here.",
+    "Voices are made from text descriptions, so no reference recording of a real person is needed: the best fit for original character voices."
+   ],
+   "hardware": null,
+   "install": "pip install parler-tts.",
+   "sources": [
+    "https://huggingface.co/api/models/ai4bharat/indic-parler-tts"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "indicf5",
+   "role": "voice",
+   "name": "AI4Bharat IndicF5",
+   "repo": "https://github.com/AI4Bharat/IndicF5",
+   "checkpoint": "ai4bharat/IndicF5",
+   "code_license": "none in the GitHub repo",
+   "weight_license": "MIT (gated)",
+   "status": "unverified",
+   "commercial": "Weights tagged MIT but gated (card returned HTTP 401). The GitHub repository has no licence file.",
+   "conditions": [
+    "Read and accept the access terms on Hugging Face and record them here.",
+    "It clones the voice in a reference clip. Use only reference audio we recorded ourselves or hold a licence for; never a real actor's or a private person's voice, and not the sample prompts shipped with the repo unless their terms allow it."
+   ],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://api.github.com/repos/AI4Bharat/IndicF5",
+    "https://huggingface.co/api/models/ai4bharat/IndicF5"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "chatterbox-multilingual",
+   "role": "voice",
+   "name": "Resemble AI Chatterbox Multilingual",
+   "repo": "https://github.com/resemble-ai/chatterbox",
+   "checkpoint": "ResembleAI/chatterbox (multilingual), ResembleAI/Chatterbox-Multilingual-hi (Hindi pack)",
+   "code_license": "MIT",
+   "weight_license": "MIT",
+   "status": "conditional",
+   "commercial": "MIT. Hindi is a listed language. Every generated file carries an inaudible PerTh watermark.",
+   "conditions": [
+    "Voice cloning needs a reference clip: use only audio we recorded or licensed.",
+    "The README says the repository stays public as an archive with no support or updates."
+   ],
+   "hardware": "0.5B model (VRAM not measured here).",
+   "install": "pip install chatterbox-tts.",
+   "sources": [
+    "https://github.com/resemble-ai/chatterbox#supported-languages",
+    "https://huggingface.co/api/models/ResembleAI/chatterbox"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "indic-speak",
+   "role": "voice",
+   "name": "Indic-Speak",
+   "repo": "https://huggingface.co/bodhan-ai/indic-speak",
+   "checkpoint": "bodhan-ai/indic-speak",
+   "code_license": null,
+   "weight_license": "other (unnamed), gated; base model meta-llama/Llama-3.2-3B",
+   "status": "unverified",
+   "commercial": "Licence is tagged only as \"other\" and the card is gated. Built on Llama 3.2, which has its own community licence.",
+   "conditions": [
+    "Read the model's licence and the Llama 3.2 licence before use."
+   ],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://huggingface.co/api/models/bodhan-ai/indic-speak"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "kokoro",
+   "role": "voice",
+   "name": "Kokoro-82M (already used by the existing pipeline)",
+   "repo": "https://github.com/hexgrad/kokoro",
+   "checkpoint": "hexgrad/Kokoro-82M, voices hm_omega, hm_psi, hf_alpha, hf_beta",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0 (as stated in this repo's requirements.txt; not re-verified today)",
+   "status": "cleared",
+   "commercial": "No restriction beyond Apache-2.0.",
+   "conditions": [],
+   "hardware": "Runs on CPU.",
+   "install": "pip install kokoro.",
+   "sources": [
+    "https://api.github.com/repos/hexgrad/kokoro"
+   ],
+   "benchmark": {
+    "machine": "i5-13500, no GPU",
+    "note": "about 40 s to synthesize a 48 s Hindi episode (services/tts), 2026-11-11"
+   }
+  },
+  {
+   "id": "latentsync",
+   "role": "lipsync",
+   "name": "LatentSync",
+   "repo": "https://github.com/bytedance/LatentSync",
+   "checkpoint": "ByteDance/LatentSync-1.5",
+   "code_license": "Apache-2.0",
+   "weight_license": "OpenRAIL++",
+   "status": "unverified",
+   "commercial": "Code Apache-2.0, weights OpenRAIL++. Which face detector its preprocessing loads was not checked; if it is an InsightFace model, that part is non-commercial.",
+   "conditions": [
+    "Check the face-detection dependency.",
+    "It was built for real faces; the README's anime demo clips come from another project. Test on our anime characters before adopting."
+   ],
+   "hardware": "README: 8 GB VRAM for inference with 1.5, 18 GB with 1.6.",
+   "install": null,
+   "sources": [
+    "https://github.com/bytedance/LatentSync",
+    "https://huggingface.co/api/models/ByteDance/LatentSync-1.5"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "musetalk",
+   "role": "lipsync",
+   "name": "MuseTalk",
+   "repo": "https://github.com/TMElyralab/MuseTalk",
+   "checkpoint": "TMElyralab/MuseTalk",
+   "code_license": "MIT",
+   "weight_license": "MIT",
+   "status": "conditional",
+   "commercial": "README: code MIT with no limit on commercial use; trained models \"available for any purpose, even commercially\".",
+   "conditions": [
+    "README: other models it uses (whisper, ft-mse-vae, dwpose, S3FD and others) must comply with their own licences: check each before use.",
+    "Its test data is non-commercial: do not ship it.",
+    "Built for real faces: test on our anime characters before adopting."
+   ],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://github.com/TMElyralab/MuseTalk#disclaimerlicense"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "wav2lip",
+   "role": "lipsync",
+   "name": "Wav2Lip",
+   "repo": "https://github.com/Rudrabha/Wav2Lip",
+   "checkpoint": null,
+   "code_license": "none",
+   "weight_license": "non-commercial",
+   "status": "blocked",
+   "commercial": "README: results are for research, academic and personal use only; \"any form of commercial use is strictly prohibited\".",
+   "conditions": [],
+   "hardware": null,
+   "install": null,
+   "sources": [
+    "https://github.com/Rudrabha/Wav2Lip"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "rife",
+   "role": "interpolation",
+   "name": "RIFE frame interpolation",
+   "repo": "https://github.com/hzwer/Practical-RIFE",
+   "checkpoint": null,
+   "code_license": "MIT",
+   "weight_license": "not checked",
+   "status": "unverified",
+   "commercial": "Code is MIT; the licence of the released weights was not checked.",
+   "conditions": [
+    "Check the weight licence."
+   ],
+   "hardware": null,
+   "install": "Fannovel16/ComfyUI-Frame-Interpolation (MIT).",
+   "sources": [
+    "https://api.github.com/repos/hzwer/Practical-RIFE"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "remotion",
+   "role": "render",
+   "name": "Remotion (already used by the existing pipeline)",
+   "repo": "https://github.com/remotion-dev/remotion",
+   "checkpoint": null,
+   "code_license": "Remotion License (custom)",
+   "weight_license": null,
+   "status": "conditional",
+   "commercial": "Free, including commercial use, for individuals and for-profit organisations of up to 3 employees; larger companies need a company licence.",
+   "conditions": [
+    "Stay within the free-licence eligibility, or buy a company licence."
+   ],
+   "hardware": "CPU render; about 7 frames per second at 720x1280 on the development machine.",
+   "install": "npm install in video-engine/.",
+   "sources": [
+    "https://github.com/remotion-dev/remotion/blob/main/LICENSE.md"
+   ],
+   "benchmark": {
+    "machine": "i5-13500, no GPU",
+    "note": "1,458 frames in 214 s at 720x1280, 2026-11-11"
+   }
+  },
+  {
+   "id": "ffmpeg",
+   "role": "render",
+   "name": "FFmpeg",
+   "repo": "https://ffmpeg.org",
+   "checkpoint": null,
+   "code_license": "LGPL/GPL depending on the build (the installed gyan.dev full build is GPL)",
+   "weight_license": null,
+   "status": "conditional",
+   "commercial": "Using it as an external program to encode our own video is fine.",
+   "conditions": [
+    "Call it as a separate program; do not redistribute it with the platform without meeting its licence."
+   ],
+   "hardware": "CPU.",
+   "install": "Installed (9.0.2).",
+   "sources": [
+    "https://ffmpeg.org/legal.html"
+   ],
+   "benchmark": null
+  }
+ ]
+}

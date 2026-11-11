@@ -75,3 +75,6 @@ video-engine/public/models/*
 !assets/models/
 assets/models/*
 !assets/models/LICENSE.txt
+
+# --- AnimeForge working data (database, models, caches) ---
+data/animeforge/
