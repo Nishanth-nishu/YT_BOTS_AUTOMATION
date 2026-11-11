@@ -1,0 +1,70 @@
+{
+ "id": "karna-kavach-daan",
+ "title": "कर्ण ने अपना कवच क्यों दान कर दिया?",
+ "source": "Mahabharata, Vana Parva (public-domain epic; this retelling is our own)",
+ "character": {
+  "id": "karna",
+  "tags": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes",
+  "reference_seed": 11,
+  "reference_scene": "upper body, simple background, looking at viewer"
+ },
+ "shots": [
+  {
+   "id": "s01",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna performing morning prayers under a tree, sunlight filtering through leaves, serene light, wide shot",
+   "motion": "Anime style. Karna kneels in prayer, hands folded, with a golden armour and earrings visible, camera zooms in on his face, then out to the serene morning scene Consistent face, smooth natural motion.",
+   "line": "कर्ण सोने के कवच और कुंडल के साथ जन्मे थे।",
+   "use_reference": true,
+   "seed": null
+  },
+  {
+   "id": "s02",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna standing with a poor brahmin, both in simple attire, sunlight is warm and golden, mid-shot",
+   "motion": "Anime style. The brahmin approaches Karna, asking for the golden armour, Karna nods, camera pans to show the exchange Consistent face, smooth natural motion.",
+   "line": "हर सुबह सूर्य पूजा के बाद वे हर माँगने वाले को दान देते थे।",
+   "use_reference": true,
+   "seed": null
+  },
+  {
+   "id": "s03",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Close-up of Karna's face, determination in his eyes, mid-shot, sunlight is golden and warm",
+   "motion": "Anime style. Karna looks at the brahmin, then the golden armour, then back to the brahmin, nodding firmly Consistent face, smooth natural motion.",
+   "line": "एक दिन इंद्र गरीब ब्राह्मण बनकर उनके पास आए।",
+   "use_reference": true,
+   "seed": null
+  },
+  {
+   "id": "s04",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna walking towards the river, golden armour and earrings on the ground, sunlight is golden, wide shot",
+   "motion": "Anime style. Karna walks away, turning to look back at the armour and earrings, camera follows his movement Consistent face, smooth natural motion.",
+   "line": "उन्होंने कर्ण से उनका कवच और कुंडल माँग लिया।",
+   "use_reference": true,
+   "seed": null
+  },
+  {
+   "id": "s05",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna standing in the battlefield, holding the divine spear, sunlight is golden and bright, wide shot",
+   "motion": "Anime style. Karna stands tall, spear in hand, ready for the great war, camera zooms out to show the vast battlefield Consistent face, smooth natural motion.",
+   "line": "कर्ण सब जानते थे, फिर भी उन्होंने दान कर दिया।",
+   "use_reference": true,
+   "seed": null
+  },
+  {
+   "id": "s06",
+   "subject": "original, An elderly sage teacher standing with a poor brahmin in a simple dhoti, sunlight is warm and golden, mid-shot",
+   "motion": "Anime style. The sage teacher points to the battlefield, brahmin looks on, camera pans to the distant battlefield Smooth natural motion.",
+   "line": "वचन निभाने वाला ही सच्चा महान होता है।",
+   "use_reference": false,
+   "seed": null
+  }
+ ],
+ "steps": 50,
+ "reference_scale": 0.6,
+ "caption": "Karna jaanta tha ki maangne wala kaun hai, phir bhi usne mana nahin kiya.",
+ "hashtags": [
+  "#mahabharat",
+  "#karna",
+  "#hindistory",
+  "#shorts"
+ ]
+}

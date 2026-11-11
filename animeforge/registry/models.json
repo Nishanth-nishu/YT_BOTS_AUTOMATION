@@ -42,7 +42,14 @@
     "https://api.github.com/repos/cubiq/ComfyUI_IPAdapter_plus",
     "https://huggingface.co/api/models/h94/IP-Adapter"
    ],
-   "benchmark": null
+   "benchmark": {
+    "date": "2026-11-12",
+    "gpu": "NVIDIA GeForce RTX 3090 24 GB",
+    "task": "Animagine XL 4.0 + ip-adapter-plus_sdxl_vit-h, 768x1344, 28 steps, through diffusers (not the GPL ComfyUI node)",
+    "seconds_per_image": 7.7,
+    "peak_vram_gb": 10.91,
+    "finding": "At scale 0.6 with a reference that has scenery, mean similarity to the reference rose from 0.710 (text only) to 0.804 over six scenes, but the adapter also copied the forest background into every scene, made the character look younger, and once drew two figures. Use a plain-background reference and a lower scale."
+   }
   },
   {
    "id": "ipadapter-faceid",
@@ -178,7 +185,13 @@
    "sources": [
     "https://huggingface.co/api/models/cagliostrolab/animagine-xl-4.0"
    ],
-   "benchmark": null
+   "benchmark": {
+    "date": "2026-11-12",
+    "gpu": "NVIDIA GeForce RTX 3090 24 GB",
+    "task": "768x1344 still, 28 steps, fp16",
+    "seconds": 7.8,
+    "peak_vram_gb": 8.92
+   }
   },
   {
    "id": "illustrious-xl",
@@ -212,13 +225,72 @@
    "status": "cleared",
    "commercial": "README: models are Apache-2.0 and the authors claim no rights over generated content. Content restrictions in the licence apply.",
    "conditions": [],
-   "hardware": "README: T2V-1.3B needs 8.19 GB VRAM, about 4 minutes for 5 s of 480p on an RTX 4090. The 14B image-to-video model's fit in 24 GB was not verified.",
+   "hardware": "Not benchmarked. The 14B image-to-video transformer is about 28 GB in 16-bit weights (14e9 parameters x 2 bytes), more than the 24 GB card, so it needs a quantized file (a separate checkpoint to licence-check) or sequential offload. The Diffusers repository is 90.1 GB.",
    "install": "ComfyUI native nodes or kijai/ComfyUI-WanVideoWrapper (Apache-2.0).",
    "sources": [
     "https://github.com/Wan-Video/Wan2.1#license-agreement",
     "https://huggingface.co/api/models/Wan-AI/Wan2.1-I2V-14B-480P"
    ],
    "benchmark": null
+  },
+  {
+   "id": "wan2.2-ti2v-5b",
+   "role": "video",
+   "name": "Wan 2.2 TI2V-5B",
+   "repo": "https://github.com/Wan-Video/Wan2.2",
+   "checkpoint": "Wan-AI/Wan2.2-TI2V-5B-Diffusers (34.2 GB repository, not gated)",
+   "code_license": "Apache-2.0",
+   "weight_license": "Apache-2.0",
+   "status": "cleared",
+   "commercial": "Model card licence field is apache-2.0 (read from the Hugging Face API on 2026-11-11). Content restrictions in the licence apply.",
+   "conditions": [],
+   "hardware": "Measured on an RTX 3090: fits with model offload and tiled VAE decode; see benchmark.",
+   "install": "diffusers WanImageToVideoPipeline with AutoencoderKLWan.",
+   "sources": [
+    "https://huggingface.co/api/models/Wan-AI/Wan2.2-TI2V-5B-Diffusers",
+    "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B-Diffusers/raw/main/README.md"
+   ],
+   "benchmark": {
+    "date": "2026-11-12",
+    "gpu": "NVIDIA GeForce RTX 3090 24 GB (Ada gnode114)",
+    "software": "diffusers 0.42.1, torch 2.6.0+cu124, bf16 transformer, fp32 VAE, model CPU offload, tiled VAE decode",
+    "task": "image-to-video, 121 frames at 24 fps (5.04 s), same first frame and seed",
+    "runs": [
+     {
+      "size": "704x1280",
+      "steps": 50,
+      "seconds": 1050,
+      "peak_vram_gb": 17.19,
+      "shot_qa": "pass"
+     },
+     {
+      "size": "704x1280",
+      "steps": 30,
+      "seconds": 680,
+      "peak_vram_gb": 17.19,
+      "shot_qa": "pass"
+     },
+     {
+      "size": "480x864",
+      "steps": 30,
+      "seconds": 267,
+      "peak_vram_gb": 14.38,
+      "shot_qa": "flicker check flagged 2 brightness jumps; hands softer by eye"
+     },
+     {
+      "size": "480x864",
+      "steps": 20,
+      "seconds": 203,
+      "peak_vram_gb": 14.38,
+      "shot_qa": "flicker check flagged 1 brightness jump"
+     }
+    ],
+    "does_not_fit": [
+     "704x1280 without tiled VAE decode: out of memory in the decoder after denoising",
+     "704x1280 with everything kept on the GPU (no offload): out of memory"
+    ],
+    "default": "704x1280, 30 steps: about 11 minutes a shot"
+   }
   },
   {
    "id": "wan2.2-animate",
@@ -437,17 +509,19 @@
    "checkpoint": "ByteDance/LatentSync-1.5",
    "code_license": "Apache-2.0",
    "weight_license": "OpenRAIL++",
-   "status": "unverified",
-   "commercial": "Code Apache-2.0, weights OpenRAIL++. Which face detector its preprocessing loads was not checked; if it is an InsightFace model, that part is non-commercial.",
+   "status": "blocked",
+   "commercial": "Blocked for monetized output: its requirements.txt pins insightface==0.7.3 and its README says faces are aligned with landmarks detected by InsightFace, whose pretrained models are non-commercial (read 2026-11-11).",
    "conditions": [
-    "Check the face-detection dependency.",
-    "It was built for real faces; the README's anime demo clips come from another project. Test on our anime characters before adopting."
+    "Usable only with separate commercial authorization for the InsightFace models, or after replacing the face alignment with a cleared detector.",
+    "Built for real faces; not tested on anime characters."
    ],
    "hardware": "README: 8 GB VRAM for inference with 1.5, 18 GB with 1.6.",
    "install": null,
    "sources": [
     "https://github.com/bytedance/LatentSync",
-    "https://huggingface.co/api/models/ByteDance/LatentSync-1.5"
+    "https://huggingface.co/api/models/ByteDance/LatentSync-1.5",
+    "https://raw.githubusercontent.com/bytedance/LatentSync/main/requirements.txt",
+    "https://raw.githubusercontent.com/bytedance/LatentSync/main/README.md"
    ],
    "benchmark": null
   },
@@ -459,10 +533,10 @@
    "checkpoint": "TMElyralab/MuseTalk",
    "code_license": "MIT",
    "weight_license": "MIT",
-   "status": "conditional",
-   "commercial": "README: code MIT with no limit on commercial use; trained models \"available for any purpose, even commercially\".",
+   "status": "unverified",
+   "commercial": "MuseTalk's own code and model are MIT and allowed commercially (README). But it requires face-parse-bisent weights, distributed from a Google Drive link with no licence stated, and S3FD face-detection weights; neither licence could be established on 2026-11-11.",
    "conditions": [
-    "README: other models it uses (whisper, ft-mse-vae, dwpose, S3FD and others) must comply with their own licences: check each before use.",
+    "Establish the licence of the face-parse-bisent and S3FD weights before any use.",
     "Its test data is non-commercial: do not ship it.",
     "Built for real faces: test on our anime characters before adopting."
    ],
@@ -551,6 +625,45 @@
    "install": "Installed (9.0.2).",
    "sources": [
     "https://ffmpeg.org/legal.html"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "whisper-large-v3",
+   "role": "qa",
+   "name": "Whisper large-v3 (faster-whisper build)",
+   "repo": "https://github.com/SYSTRAN/faster-whisper",
+   "checkpoint": "Systran/faster-whisper-large-v3 (3.1 GB, not gated)",
+   "code_license": "MIT",
+   "weight_license": "MIT",
+   "status": "cleared",
+   "commercial": "Licence field on the Hugging Face API is mit (read 2026-11-11); the original openai/whisper-large-v3 is listed apache-2.0. Used only to check speech, never in the published video.",
+   "conditions": [],
+   "hardware": "Runs in float16 on the GPU.",
+   "install": "pip install faster-whisper",
+   "sources": [
+    "https://huggingface.co/api/models/Systran/faster-whisper-large-v3",
+    "https://huggingface.co/api/models/openai/whisper-large-v3"
+   ],
+   "benchmark": null
+  },
+  {
+   "id": "lbpcascade-animeface",
+   "role": "face-detect",
+   "name": "lbpcascade_animeface (OpenCV anime face cascade)",
+   "repo": "https://github.com/nagadomi/lbpcascade_animeface",
+   "checkpoint": "lbpcascade_animeface.xml (0.25 MB)",
+   "code_license": "none stated",
+   "weight_license": "none stated",
+   "status": "unverified",
+   "commercial": "The GitHub API reports no licence for the repository and the README states none (read 2026-11-11).",
+   "conditions": [
+    "Do not use until the author states a licence."
+   ],
+   "hardware": "CPU.",
+   "install": "OpenCV CascadeClassifier.",
+   "sources": [
+    "https://api.github.com/repos/nagadomi/lbpcascade_animeface"
    ],
    "benchmark": null
   }

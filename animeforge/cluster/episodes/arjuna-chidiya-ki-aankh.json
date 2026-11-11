@@ -1,0 +1,41 @@
+{
+ "id": "arjuna-chidiya-ki-aankh",
+ "title": "अर्जुन को केवल चिड़िया की आँख क्यों दिखी?",
+ "source": "Mahabharata, Adi Parva (public-domain epic; this retelling and these designs are our own)",
+ "caption": "Guru Dronacharya ki pariksha aur Arjun ka woh jawab jo aaj bhi focus ki sabse badi misaal hai.",
+ "hashtags": ["#mahabharat", "#arjun", "#hindistory", "#motivation", "#shorts"],
+ "steps": 30,
+ "reference_scale": 0.45,
+ "character": {
+  "id": "arjuna",
+  "tags": "1boy, solo, original, young indian warrior prince, archer, brown skin, long black hair in a topknot, small golden crown, determined eyes, ornate blue and gold armor over white dhoti, red sash, golden armbands",
+  "reference_seed": 11,
+  "reference_scene": "upper body, looking at viewer, simple background, white background"
+ },
+ "shots": [
+  {"id": "s01-gurukul", "use_reference": false,
+   "subject": "1boy, solo, original, elderly indian sage teacher, long white beard, white hair in a bun, white robes, wooden prayer beads, standing in a forest hermitage courtyard, thatched huts, sacred fire, morning mist, wide shot",
+   "motion": "Anime style. An elderly sage teacher in white robes stands in a forest hermitage courtyard; smoke rises from the sacred fire, mist drifts, leaves fall. He slowly turns his head. Slow camera push-in. Smooth natural motion.",
+   "line": "गुरु द्रोणाचार्य ने अपने शिष्यों की परीक्षा ली।"},
+  {"id": "s02-chidiya", "use_reference": false,
+   "subject": "no humans, original, small carved wooden bird toy perched on a high tree branch, painted eye, green leaves, sunlight through canopy, shallow depth of field, close-up",
+   "motion": "Anime style. A small carved wooden bird sits still on a high branch while leaves sway in the wind and sunlight flickers through the canopy. Slow camera tilt up toward the bird. Smooth natural motion.",
+   "line": "पेड़ की डाल पर लकड़ी की एक चिड़िया रखी गई।"},
+  {"id": "s03-prashn", "use_reference": false,
+   "subject": "1boy, solo, original, elderly indian sage teacher, long white beard, white hair in a bun, white robes, wooden prayer beads, pointing upward with one hand, stern expression, forest background, upper body",
+   "motion": "Anime style. An elderly sage teacher with a long white beard raises his arm and points up toward the treetops, speaking sternly. His robes and beard move in the breeze. Static camera. Smooth natural motion.",
+   "line": "गुरु ने पूछा, बताओ, तुम्हें क्या दिखाई देता है?"},
+  {"id": "s04-arjun-aaye", "use_reference": true,
+   "subject": "1boy, solo, original, young indian warrior prince, archer, brown skin, long black hair in a topknot, small golden crown, ornate blue and gold armor over white dhoti, red sash, golden armbands, walking forward holding a longbow, forest clearing, cowboy shot, calm confident expression",
+   "motion": "Anime style. A young warrior prince in blue and gold armor steps forward through a forest clearing holding his longbow, calm and confident. His red sash and hair sway. Camera slowly tracks backward. Consistent face, smooth natural motion.",
+   "line": "सबने पेड़ और पत्ते गिनाए। फिर अर्जुन आगे आए।"},
+  {"id": "s05-aankh", "use_reference": true,
+   "subject": "1boy, solo, original, young indian warrior prince, archer, brown skin, long black hair in a topknot, small golden crown, ornate blue and gold armor, golden armbands, drawing a longbow, arrow nocked, aiming upward, intense focused eyes, close-up portrait, forest light",
+   "motion": "Anime style. Close-up of a young warrior prince drawing his bow, the arrow beside his cheek, eyes narrowing in total focus. The bowstring tightens, strands of hair move in the wind. Very slow camera push-in. Consistent face, smooth natural motion.",
+   "line": "अर्जुन बोले, मुझे केवल चिड़िया की आँख दिखती है।"},
+  {"id": "s06-teer", "use_reference": true,
+   "subject": "1boy, solo, original, young indian warrior prince, archer, brown skin, long black hair in a topknot, small golden crown, ornate blue and gold armor over white dhoti, red sash, golden armbands, releasing an arrow from a longbow, dynamic pose, from side, wind, golden light, forest",
+   "motion": "Anime style. A young warrior prince releases an arrow from his longbow; the string snaps forward, his hair and red sash whip in the wind, golden light flares. He lowers the bow with a faint smile. Static camera. Consistent face, smooth natural motion.",
+   "line": "तीर छूटा और सीधा निशाने पर लगा।"}
+ ]
+}

@@ -22,8 +22,14 @@ def test_registry_is_well_formed_and_records_no_unmeasured_benchmarks():
     for mid in ("wan2.1", "wan2.2-animate", "wan2.2-fun-control", "ltx-video", "animatediff", "indicf5", "indic-parler-tts", "chatterbox-multilingual", "indic-speak",
                 "latentsync", "musetalk", "wav2lip", "comfyui", "ipadapter-plus", "pulid", "controlnet-union-sdxl", "kohya-sd-scripts", "blender", "remotion", "ffmpeg"):
         assert mid in models, mid
-    # nothing GPU-bound has been run, so only the two CPU tools measured on the laptop may carry a benchmark
-    assert {m["id"] for m in models.values() if m["benchmark"]} == {"kokoro", "remotion"}
+    # a benchmark is a record of a real run: GPU ones must say when and on which card
+    cpu = {"kokoro", "remotion"}
+    for m in models.values():
+        if m["benchmark"] and m["id"] not in cpu:
+            assert m["benchmark"].get("date") and "RTX 3090" in m["benchmark"].get("gpu", ""), m["id"]
+    # models that were never run on the GPU must not carry numbers
+    for mid in ("wan2.1", "wan2.2-animate", "wan2.2-fun-control", "ltx-video", "animatediff", "latentsync", "musetalk"):
+        assert not models[mid]["benchmark"], mid
 
 
 def test_blocked_and_unverified_models_are_refused_and_there_is_no_fallback():
