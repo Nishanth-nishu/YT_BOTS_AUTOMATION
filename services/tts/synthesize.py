@@ -36,6 +36,23 @@ log = logging.getLogger("reelforge.tts.synthesize")
 OUT_SR = 48000
 
 
+def match_level(audio: np.ndarray, target_db: float = -20.0, peak_limit: float = 0.9) -> np.ndarray:
+    """Bring a scene's speech to a common loudness so two voices sit at the same level.
+    The level is the RMS of the voiced samples only (silence would drag it down); the gain
+    is capped so the loudest sample stays under `peak_limit`."""
+    if not len(audio):
+        return audio
+    peak = float(np.abs(audio).max())
+    if peak <= 0:
+        return audio
+    voiced = audio[np.abs(audio) > peak * 0.05]
+    rms = float(np.sqrt(np.mean(voiced.astype(np.float64) ** 2))) if len(voiced) else 0.0
+    if rms <= 0:
+        return audio
+    gain = min(10 ** (target_db / 20) / rms, peak_limit / peak)
+    return (audio * gain).astype(np.float32)
+
+
 def _resample(audio: np.ndarray, sr_in: int, sr_out: int) -> np.ndarray:
     if sr_in == sr_out:
         return audio
@@ -152,6 +169,7 @@ def synthesize_storyboard(sb: Storyboard, device: str = "auto", force: bool = Fa
             log.info("cache hit for scene %s", scene.id)
 
         result.words = realign_words(result.words, scene.captionText or scene.narration)
+        result.audio = match_level(result.audio)  # one loudness for every speaker
         audio48 = _resample(result.audio, result.sample_rate, OUT_SR)
         audio_ms = int(round(len(audio48) / OUT_SR * 1000))
         start_ms = cursor_ms

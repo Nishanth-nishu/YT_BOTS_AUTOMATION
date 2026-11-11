@@ -84,3 +84,21 @@ def test_realign_restores_original_spelling():
     engine = [WordTiming("The", 0, 0.1), WordTiming("L L M", 0.1, 0.5), WordTiming("runs", 0.5, 0.8), WordTiming(".", 0.8, 0.85)]
     out = realign_words(engine, "The LLM runs.")
     assert [w.text for w in out] == ["The", "LLM", "runs."]
+
+
+def test_two_voices_are_brought_to_the_same_level():
+    import numpy as np
+
+    from services.tts.synthesize import match_level
+
+    rng = np.random.default_rng(0)
+    loud = np.concatenate([rng.normal(0, 0.2, 24000), np.zeros(12000)]).astype(np.float32)
+    quiet = np.concatenate([np.zeros(6000), rng.normal(0, 0.05, 24000)]).astype(np.float32)
+
+    def voiced_db(a):
+        v = a[np.abs(a) > np.abs(a).max() * 0.05]
+        return 20 * np.log10(np.sqrt(np.mean(v.astype(np.float64) ** 2)))
+    a, b = match_level(loud), match_level(quiet)
+    assert abs(voiced_db(a) - voiced_db(b)) < 0.5 and abs(voiced_db(a) - -20.0) < 0.5
+    assert np.abs(a).max() <= 0.9 + 1e-6 and np.abs(b).max() <= 0.9 + 1e-6
+    assert match_level(np.zeros(100, dtype=np.float32)).max() == 0
