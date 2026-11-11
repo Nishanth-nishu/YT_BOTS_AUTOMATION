@@ -17,27 +17,32 @@ export type PropSpec =
   | { kind: "tilak"; color?: string; shape?: "line" | "dot" }
   | { kind: "halo"; color?: string };
 
-export type CharacterLook = { props: PropSpec[]; scale?: number };
+/** Body pieces hung on the chest, neck, arms and hips.
+ *  armor: shoulder guards, breastplate, armbands, belt.  royal: necklaces, sash, armbands, belt.
+ *  sage: prayer-bead necklace and a cloth sash. `main` is the metal or cloth colour, `trim` the accent; `bulky` for characters in thick clothes. */
+export type Costume = { kind: "armor" | "royal" | "sage"; main?: string; trim?: string; bulky?: boolean };
+
+export type CharacterLook = { props: PropSpec[]; scale?: number; costume?: Costume };
 
 const GOLD = "#FFC83D";
 
 export const EPIC_CAST: Record<string, CharacterLook> = {
-  narada: { props: [{ kind: "topknot", color: "#1A1820", band: GOLD }, { kind: "tilak", color: "#FFFFFF" }, { kind: "earrings" }] },
-  drona: { props: [{ kind: "topknot", color: "#D6D6DC", band: "#B5651D" }, { kind: "tilak", color: "#E63946" }] },
-  arjuna: { props: [{ kind: "crown", gem: "#4CC9F0" }, { kind: "earrings" }] },
-  krishna: { props: [{ kind: "crown", gem: "#E63946" }, { kind: "feather" }, { kind: "tilak", color: "#FFD166" }, { kind: "earrings" }, { kind: "halo" }] },
-  karna: { props: [{ kind: "earrings", size: 1.7 }, { kind: "headband", color: "#E07A1F" }, { kind: "tilak", color: "#E63946" }] },
-  bhima: { props: [{ kind: "headband", color: "#B5651D" }], scale: 1.12 },
-  yudhishthira: { props: [{ kind: "crown", gem: "#F5F5F5" }, { kind: "tilak", color: "#E63946" }] },
-  abhimanyu: { props: [{ kind: "headband", color: GOLD, gem: "#E63946" }] },
-  ashwatthama: { props: [{ kind: "headband", color: "#3A3A52", gem: "#7DF9FF" }] },
-  rama: { props: [{ kind: "crown", gem: "#3DDC97" }, { kind: "tilak", color: "#E63946" }, { kind: "earrings" }, { kind: "halo" }] },
-  lakshmana: { props: [{ kind: "headband", color: GOLD }, { kind: "tilak", color: "#E63946" }] },
-  ravana: { props: [{ kind: "crown", color: "#C9972B", gem: "#E63946", tall: true }, { kind: "earrings", size: 1.4 }], scale: 1.1 },
-  parashurama: { props: [{ kind: "topknot", color: "#46281A", band: "#B5651D" }, { kind: "tilak", color: "#FFFFFF" }] },
-  draupadi: { props: [{ kind: "tilak", color: "#E63946", shape: "dot" }, { kind: "earrings", size: 1.3 }, { kind: "headband", color: GOLD, gem: "#E63946" }] },
-  durga: { props: [{ kind: "crown", gem: "#E63946", tall: true }, { kind: "tilak", color: "#E63946", shape: "dot" }, { kind: "earrings", size: 1.3 }, { kind: "halo" }] },
-  kali: { props: [{ kind: "crown", color: "#B8860B", gem: "#E63946" }, { kind: "tilak", color: "#E63946", shape: "dot" }, { kind: "halo", color: "#E63946" }] },
+  narada: { props: [{ kind: "topknot", color: "#1A1820", band: GOLD }, { kind: "tilak", color: "#FFFFFF" }, { kind: "earrings" }], costume: { kind: "sage", main: "#FFF3D6", trim: "#8B5A2B" } },
+  drona: { props: [{ kind: "topknot", color: "#D6D6DC", band: "#B5651D" }, { kind: "tilak", color: "#E63946" }], costume: { kind: "sage", main: "#E07A1F", trim: "#6B3F1D", bulky: true } },
+  arjuna: { props: [{ kind: "crown", gem: "#4CC9F0" }, { kind: "earrings" }], costume: { kind: "armor", main: GOLD, trim: "#4CC9F0" } },
+  krishna: { props: [{ kind: "crown", gem: "#E63946" }, { kind: "feather" }, { kind: "tilak", color: "#FFD166" }, { kind: "earrings" }, { kind: "halo" }], costume: { kind: "royal", main: GOLD, trim: "#E63946" } },
+  karna: { props: [{ kind: "earrings", size: 1.7 }, { kind: "headband", color: "#E07A1F" }, { kind: "tilak", color: "#E63946" }], costume: { kind: "armor", main: "#FFD24A", trim: "#E63946", bulky: true } },
+  bhima: { props: [{ kind: "headband", color: "#B5651D" }], scale: 1.12, costume: { kind: "armor", main: "#B5651D", trim: GOLD, bulky: true } },
+  yudhishthira: { props: [{ kind: "crown", gem: "#F5F5F5" }, { kind: "tilak", color: "#E63946" }], costume: { kind: "royal", main: GOLD, trim: "#F5F5F5" } },
+  abhimanyu: { props: [{ kind: "headband", color: GOLD, gem: "#E63946" }], costume: { kind: "armor", main: GOLD, trim: "#E63946" } },
+  ashwatthama: { props: [{ kind: "headband", color: "#3A3A52", gem: "#7DF9FF" }], costume: { kind: "armor", main: "#5A5A78", trim: "#7DF9FF", bulky: true } },
+  rama: { props: [{ kind: "crown", gem: "#3DDC97" }, { kind: "tilak", color: "#E63946" }, { kind: "earrings" }, { kind: "halo" }], costume: { kind: "royal", main: GOLD, trim: "#3DDC97" } },
+  lakshmana: { props: [{ kind: "headband", color: GOLD }, { kind: "tilak", color: "#E63946" }], costume: { kind: "armor", main: GOLD, trim: "#3DDC97" } },
+  ravana: { props: [{ kind: "crown", color: "#C9972B", gem: "#E63946", tall: true }, { kind: "earrings", size: 1.4 }], scale: 1.1, costume: { kind: "armor", main: "#C9972B", trim: "#E63946", bulky: true } },
+  parashurama: { props: [{ kind: "topknot", color: "#46281A", band: "#B5651D" }, { kind: "tilak", color: "#FFFFFF" }], costume: { kind: "sage", main: "#D66E28", trim: "#6B3F1D", bulky: true } },
+  draupadi: { props: [{ kind: "tilak", color: "#E63946", shape: "dot" }, { kind: "earrings", size: 1.3 }, { kind: "headband", color: GOLD, gem: "#E63946" }], costume: { kind: "royal", main: GOLD, trim: "#E63946" } },
+  durga: { props: [{ kind: "crown", gem: "#E63946", tall: true }, { kind: "tilak", color: "#E63946", shape: "dot" }, { kind: "earrings", size: 1.3 }, { kind: "halo" }], costume: { kind: "royal", main: GOLD, trim: "#E63946" } },
+  kali: { props: [{ kind: "crown", color: "#B8860B", gem: "#E63946" }, { kind: "tilak", color: "#E63946", shape: "dot" }, { kind: "halo", color: "#E63946" }], costume: { kind: "royal", main: "#B8860B", trim: "#E63946" } },
 };
 
 export const lookFor = (modelUrl: string): CharacterLook | null => {

@@ -26,7 +26,7 @@ import * as THREE from "three";
 import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { VRM, VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm";
 import { staticFile, useVideoConfig } from "remotion";
-import { EMOTES, lookFor, type Gesture, type PropSpec } from "../design/epicCast";
+import { EMOTES, lookFor, type Costume, type Gesture, type PropSpec } from "../design/epicCast";
 import { blinkAt, mouthAt } from "./Presenter";
 
 export type VrmFraming = "bust" | "face" | "stage";
@@ -153,6 +153,116 @@ const buildProp = (spec: PropSpec, f: number): THREE.Object3D => {
   return g;
 };
 
+/** A ring around the body, wider than it is deep (shoulders are wider than the chest is thick). */
+const bodyRing = (radius: number, tube: number, color: string, depth = 0.7) => {
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, 10, 48), mat(color));
+  ring.scale.set(1, depth, 1);
+  ring.rotation.x = Math.PI / 2;
+  return ring;
+};
+
+/** Hang a costume on the body bones. `f` is the facing sign (see buildProp); the left arm points along f * X. */
+const dress = (vrm: VRM, costume: Costume, f: number, bulky: boolean) => {
+  const bone = (name: string) => vrm.humanoid.getRawBoneNode(name as never);
+  const chest = bone("upperChest") ?? bone("chest") ?? bone("spine");
+  const neck = bone("neck");
+  const hips = bone("hips");
+  const main = costume.main ?? "#FFC83D";
+  const trim = costume.trim ?? "#E63946";
+  const pad = bulky ? 1.18 : 1; // a hoodie is thicker than a shirt
+  const add = (to: THREE.Object3D | null, ...items: THREE.Object3D[]) => items.forEach((o) => to?.add(o));
+
+  // necklace: a ring round the neck whose front hangs down on the chest
+  const necklace = (radius: number, tilt: number, color: string, tube = 0.009, pendant?: string) => {
+    const g = new THREE.Group();
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, 10, 44), mat(color));
+    ring.rotation.x = Math.PI / 2 + f * tilt;
+    g.add(ring);
+    if (pendant) {
+      const gem = new THREE.Mesh(new THREE.SphereGeometry(tube * 2.4, 12, 12), mat(pendant));
+      gem.position.set(0, -Math.sin(tilt) * radius, f * Math.cos(tilt) * radius);
+      g.add(gem);
+    }
+    g.position.set(0, 0.0, f * 0.012);
+    return g;
+  };
+  // sash: a loop from one shoulder to the opposite hip
+  const sash = (color: string, tube: number) => {
+    const g = new THREE.Group();
+    g.add(bodyRing(0.2 * pad, tube, color, 0.66));
+    g.rotation.z = 0.82;
+    g.position.set(0, -0.03, f * 0.005);
+    return g;
+  };
+  const armband = (side: number, color: string, at = 0.1) => {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.058 * pad, 0.011, 8, 28), mat(color));
+    ring.rotation.y = Math.PI / 2;
+    ring.position.x = side * f * at;
+    return ring;
+  };
+  const belt = (color: string, gem: string) => {
+    const g = new THREE.Group();
+    g.add(bodyRing(0.155 * pad, 0.02, color, 0.72));
+    const buckle = new THREE.Mesh(new THREE.SphereGeometry(0.03, 14, 14), mat(gem));
+    buckle.position.set(0, 0, f * 0.155 * pad * 0.72);
+    buckle.scale.set(1, 1, 0.5);
+    g.add(buckle);
+    g.position.y = 0.09;
+    return g;
+  };
+
+  if (costume.kind === "sage") {
+    // prayer beads: a ring of small spheres, and a cloth sash
+    const beads = new THREE.Group();
+    const n = 26;
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      const b = new THREE.Mesh(new THREE.SphereGeometry(0.0125, 8, 8), mat(trim));
+      b.position.set(Math.sin(a) * 0.105, 0, Math.cos(a) * 0.105);
+      beads.add(b);
+    }
+    beads.rotation.x = f * 0.62;
+    beads.position.set(0, -0.005, f * 0.012);
+    add(neck, beads);
+    add(chest, sash(main, 0.03));
+    return;
+  }
+  [1, -1].forEach((side) => add(bone(side === 1 ? "leftUpperArm" : "rightUpperArm"), armband(side, main), ...(costume.kind === "armor" ? [armband(side, trim, 0.135)] : [])));
+  add(hips, belt(main, trim));
+  if (costume.kind === "royal") {
+    add(neck, necklace(0.088, 0.5, main), necklace(0.118, 0.72, main, 0.008, trim));
+    add(chest, sash(trim, 0.024));
+    return;
+  }
+  // armor: banded cuirass (three metal bands round the chest), small shoulder guards, a boss and a collar.
+  // Metal is lit (Lambert) so the bands and guards read as rounded forms, with some glow so it stays bright.
+  const metal = (color: string) => new THREE.MeshLambertMaterial({ color, emissive: color, emissiveIntensity: 0.38, side: THREE.DoubleSide });
+  [1, -1].forEach((side) => {
+    const guard = new THREE.Mesh(new THREE.SphereGeometry(0.07 * pad, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.5), metal(main));
+    guard.position.set(side * f * 0.035, 0.018, 0);
+    guard.scale.set(1.25, 0.62, 1.1);
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.07 * pad, 0.005, 8, 30), mat(trim));
+    rim.rotation.x = Math.PI / 2;
+    rim.position.set(side * f * 0.035, 0.018, 0);
+    rim.scale.set(1.25, 1.1, 1);
+    add(bone(side === 1 ? "leftUpperArm" : "rightUpperArm"), guard, rim);
+  });
+  [0.05, -0.005, -0.06].forEach((y, i) => {
+    const band = new THREE.Mesh(new THREE.TorusGeometry((0.168 - i * 0.008) * pad, 0.03, 10, 48), metal(main));
+    band.scale.set(1, 0.68, 0.5); // flattened: a plate, not a tube
+    band.rotation.x = Math.PI / 2;
+    band.position.set(0, y, f * 0.004);
+    const line = bodyRing((0.17 - i * 0.008) * pad, 0.004, trim, 0.7);
+    line.position.set(0, y - 0.027, f * 0.004);
+    add(chest, band, line);
+  });
+  const boss = new THREE.Mesh(new THREE.SphereGeometry(0.03, 16, 16), mat(trim));
+  boss.scale.set(1, 1, 0.5);
+  boss.position.set(0, 0.03, f * 0.168 * pad * 0.68);
+  add(chest, boss);
+  add(neck, necklace(0.08, 0.3, main, 0.012));
+};
+
 /** Prepare a freshly loaded VRM once (useLoader caches the gltf per url). */
 const prepare = (gltf: GLTF, modelUrl: string): VRM => {
   const vrm = gltf.userData.vrm as VRM;
@@ -186,6 +296,9 @@ const prepare = (gltf: GLTF, modelUrl: string): VRM => {
       const props = new THREE.Group();
       look.props.forEach((p) => props.add(buildProp(p, faces)));
       head.add(props);
+      if (look.costume) {
+        dress(vrm, look.costume, faces, Boolean(look.costume.bulky));
+      }
     }
     vrm.scene.userData.__scale = look?.scale ?? 1;
     vrm.scene.scale.setScalar(look?.scale ?? 1);

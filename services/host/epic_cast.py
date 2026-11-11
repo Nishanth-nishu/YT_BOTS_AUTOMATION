@@ -40,16 +40,16 @@ BLACK = (26, 24, 30)
 # name: base model, colours, voice. skin = ("mul", rgb multipliers) keeps the face detail and
 # only tints; ("set", rgb) repaints the skin a new colour (blue Krishna, dark Kali).
 CAST: dict[str, dict] = {
-    "narada":       dict(label="Narad", base="fumiriya", skin=("mul", (0.93, 0.80, 0.68)), hair=BLACK, tops=(240, 150, 40), bottoms=(250, 235, 200), accessory=GOLD, eyes=(120, 80, 40), voice="hm_psi", pitch=1.14, speed=1.06),
-    "drona":        dict(label="Guru Drona", base="host", skin=("mul", (0.96, 0.92, 0.90)), hair=(214, 214, 220), beard=(206, 206, 212), tops=WHITE, bottoms=(232, 226, 210), voice="hm_omega", pitch=0.90, speed=0.98),
+    "narada":       dict(label="Narad", base="fumiriya", skin=("mul", (0.93, 0.80, 0.68)), hair=BLACK, tops=(240, 150, 40), bottoms=(250, 235, 200), accessory=GOLD, eyes=(120, 80, 40), voice="hm_psi", pitch=1.14, speed=1.06, motif=(170, 60, 30)),
+    "drona":        dict(label="Guru Drona", base="host", skin=("mul", (0.96, 0.92, 0.90)), hair=(214, 214, 220), beard=(206, 206, 212), tops=WHITE, bottoms=(232, 226, 210), voice="hm_omega", pitch=0.90, speed=0.98, motif=(214, 122, 40)),
     "arjuna":       dict(label="Arjun", base="fumiriya", skin=("mul", (0.86, 0.70, 0.58)), hair=BLACK, tops=(30, 70, 170), bottoms=(240, 200, 90), accessory=GOLD, eyes=(90, 60, 30), voice="hm_psi", pitch=0.97, speed=1.02),
-    "krishna":      dict(label="Krishna", base="fumiriya", skin=("set", (70, 130, 215)), hair=(20, 22, 40), tops=(245, 196, 40), bottoms=(245, 196, 40), accessory=(200, 40, 60), eyes=(40, 30, 60), voice="hm_psi", pitch=1.04, speed=0.98),
+    "krishna":      dict(label="Krishna", base="fumiriya", skin=("set", (70, 130, 215)), hair=(20, 22, 40), tops=(245, 196, 40), bottoms=(245, 196, 40), accessory=(200, 40, 60), eyes=(40, 30, 60), voice="hm_psi", pitch=1.04, speed=0.98, motif=(190, 40, 60)),
     "karna":        dict(label="Karn", base="host", skin=("mul", (0.98, 0.90, 0.82)), hair=(40, 26, 18), tops=(196, 60, 30), bottoms=(60, 30, 24), voice="hm_omega", pitch=1.0, speed=1.0),
     "bhima":        dict(label="Bheem", base="host", skin=("mul", (0.92, 0.80, 0.72)), hair=BLACK, tops=(150, 40, 40), bottoms=(70, 40, 30), voice="hm_omega", pitch=0.82, speed=0.96, scale=1.12),
-    "yudhishthira": dict(label="Yudhishthir", base="fumiriya", skin=("mul", (0.90, 0.76, 0.64)), hair=(30, 24, 22), tops=WHITE, bottoms=(230, 190, 110), accessory=GOLD, eyes=(80, 56, 30), voice="hm_omega", pitch=1.08, speed=0.96),
+    "yudhishthira": dict(label="Yudhishthir", base="fumiriya", skin=("mul", (0.90, 0.76, 0.64)), hair=(30, 24, 22), tops=WHITE, bottoms=(230, 190, 110), accessory=GOLD, eyes=(80, 56, 30), voice="hm_omega", pitch=1.08, speed=0.96, motif=(200, 150, 40)),
     "abhimanyu":    dict(label="Abhimanyu", base="fumiriya", skin=("mul", (0.90, 0.74, 0.62)), hair=(36, 24, 20), tops=(220, 70, 40), bottoms=(250, 220, 150), accessory=GOLD, eyes=(90, 60, 30), voice="hm_psi", pitch=1.10, speed=1.06),
     "ashwatthama":  dict(label="Ashwatthama", base="host", skin=("mul", (0.78, 0.74, 0.80)), hair=(60, 60, 78), tops=(40, 36, 60), bottoms=(26, 24, 36), voice="hm_omega", pitch=0.86, speed=0.94),
-    "rama":         dict(label="Ram", base="fumiriya", skin=("set", (96, 150, 200)), hair=BLACK, tops=(246, 170, 40), bottoms=(246, 170, 40), accessory=GOLD, eyes=(50, 36, 30), voice="hm_omega", pitch=1.06, speed=0.96),
+    "rama":         dict(label="Ram", base="fumiriya", skin=("set", (96, 150, 200)), hair=BLACK, tops=(246, 170, 40), bottoms=(246, 170, 40), accessory=GOLD, eyes=(50, 36, 30), voice="hm_omega", pitch=1.06, speed=0.96, motif=(190, 60, 40)),
     "lakshmana":    dict(label="Lakshman", base="fumiriya", skin=("mul", (0.92, 0.80, 0.68)), hair=BLACK, tops=(60, 130, 70), bottoms=(240, 220, 160), accessory=GOLD, eyes=(80, 56, 30), voice="hm_psi", pitch=1.0, speed=1.04),
     "ravana":       dict(label="Ravan", base="host", skin=("mul", (0.84, 0.70, 0.66)), hair=BLACK, tops=(90, 20, 30), bottoms=(30, 20, 26), voice="hm_omega", pitch=0.78, speed=0.92, scale=1.1),
     "parashurama":  dict(label="Parashuram", base="host", skin=("mul", (0.92, 0.82, 0.74)), hair=(70, 40, 26), tops=(214, 110, 40), bottoms=(120, 60, 30), voice="hm_omega", pitch=0.94, speed=1.0),
@@ -105,6 +105,25 @@ def lighten_beard(face: Image.Image, colour: tuple[int, int, int]) -> Image.Imag
     return Image.fromarray(arr.clip(0, 255).astype(np.uint8), "RGBA")
 
 
+def motif(im: Image.Image, colour: tuple[int, int, int] = GOLD, step: int = 104, size: int = 15) -> Image.Image:
+    """Woven-in gold motifs: a staggered grid of small diamonds with a dot between them,
+    so plain cloth reads as printed or brocade fabric. Only painted where there is cloth."""
+    out = im.convert("RGBA")
+    scale = out.size[0] / 2048
+    step, size = max(8, int(step * scale)), max(3, int(size * scale))
+    layer = Image.new("RGBA", out.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    for row, y in enumerate(range(step // 2, out.size[1], step)):
+        for x in range((step // 2) if row % 2 else step, out.size[0], step):
+            d.polygon([(x, y - size), (x + size * 0.7, y), (x, y + size), (x - size * 0.7, y)], fill=(*colour, 215))
+            d.ellipse([x + step // 2 - 3, y - 3, x + step // 2 + 3, y + 3], fill=(*colour, 170))
+    alpha = np.asarray(out)[:, :, 3]
+    arr = np.asarray(layer).copy()
+    arr[:, :, 3] = np.minimum(arr[:, :, 3], alpha)
+    out.alpha_composite(Image.fromarray(arr, "RGBA"))
+    return out
+
+
 def erase_name(tops: Image.Image) -> Image.Image:
     out = tops.convert("RGBA")
     scale = out.size[0] / 2048
@@ -152,10 +171,16 @@ def build(name: str, out_dir: Path | None = None) -> Path:
             return lighten_beard(im, spec["beard"]) if spec.get("beard") else im
         if kind == "skin_body":
             return skin(im, spec["skin"])
+        patterned = spec.get("fabric", "motif") == "motif"
         if kind == "tops":
-            return recolour(erase_name(im) if spec["base"] == "host" else im, spec["tops"], floor=0.45)
-        if kind in ("bottoms", "accessory") and spec.get(kind):
-            return recolour(im, spec[kind], floor=0.45)
+            cloth = recolour(erase_name(im) if spec["base"] == "host" else im, spec["tops"], floor=0.45)
+            return motif(cloth, spec.get("motif", GOLD)) if patterned else cloth
+        if kind == "accessory":
+            # the school tie or bow: dyed to match the top so it disappears under the jewellery
+            return recolour(im, spec["tops"], floor=0.45)
+        if kind == "bottoms" and spec.get("bottoms"):
+            cloth = recolour(im, spec["bottoms"], floor=0.45)
+            return motif(cloth, spec.get("motif", GOLD)) if patterned else cloth
         if kind == "hair":
             return recolour(im, spec["hair"], floor=0.3, gain=1.0)
         if kind == "eyes" and spec.get("eyes"):

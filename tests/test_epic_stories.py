@@ -116,3 +116,19 @@ def test_pitch_shifts_the_voice_without_changing_the_pace(tmp_path, monkeypatch)
     assert asked == [1.05, round(1.05 / 0.8, 3)]  # the deep voice is asked to speak faster, then slowed back down
     a, b = (s.audioEndMs - s.audioStartMs for s in spec.scenes)
     assert abs(a - b) <= 30  # same pace either way
+
+
+def test_every_character_has_a_costume_and_motifs_only_land_on_cloth():
+    from PIL import Image
+
+    ts = (ROOT / "video-engine" / "src" / "design" / "epicCast.ts").read_text(encoding="utf-8")
+    block = ts.split("export const EPIC_CAST", 1)[1].split("};", 1)[0]
+    kinds = dict(re.findall(r'^\s{2}(\w+): \{ props.*costume: \{ kind: "(\w+)"', block, re.M))
+    assert set(kinds) == set(epic_cast.CAST) and set(kinds.values()) == {"armor", "royal", "sage"}
+    # thick-clothed (hoodie) characters must be flagged so their pieces clear the cloth
+    bulky = set(re.findall(r"^\s{2}(\w+): \{ props.*bulky: true", block, re.M))
+    assert bulky == {n for n, s in epic_cast.CAST.items() if s["base"] == "host"}
+    cloth = np.zeros((256, 256, 4), np.uint8)
+    cloth[:, :128] = (30, 70, 170, 255)  # left half is cloth, right half is empty texture space
+    out = np.asarray(epic_cast.motif(Image.fromarray(cloth, "RGBA"), (236, 178, 60), step=40, size=8))
+    assert (out[:, 128:, 3] == 0).all() and (out[:, :128] != cloth[:, :128]).any()
