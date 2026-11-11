@@ -3,3 +3,14 @@ Author: VRoid Project (pixiv). Licence: CC0, as published at
 https://opengameart.org/content/vroid-studio-cc0-models (submitted by hecko, 2024-12-24),
 referencing https://vroid.pixiv.help/hc/en-us/articles/4402614652569
 Downloaded 2026-11-11. video-engine/public/models/host.vrm is a copy of HairSample_Male.vrm.
+
+Additional cast (fetched by services/host/fetch_cast.py, not committed):
+  video-engine/public/models/fumiriya.vrm = "Sakurada Fumiriya", shown as "Leo"
+  video-engine/public/models/shino.vrm    = "Sendagaya Shino", shown as "Mira"
+Author: VRoid Project (pixiv Inc.). Licence: CC0. pixiv's pages state "To the extent possible under
+law, pixiv Inc. has waived all copyright and related or neighboring rights to this model":
+  https://vroid.pixiv.help/hc/en-us/articles/360014788554-Sakurada-Fumiriya
+  https://vroid.pixiv.help/hc/en-us/articles/360013482714-Sendagaya-Shino
+Files from https://opengameart.org/content/vroid-studio-cc0-models, downloaded 2026-11-11.
+The licence embedded in each VRM allows commercial use, modification and redistribution, no credit.
+video-engine/public/models/guest.vrm ("Sam") is host.vrm recoloured by services/host/make_guest.py.

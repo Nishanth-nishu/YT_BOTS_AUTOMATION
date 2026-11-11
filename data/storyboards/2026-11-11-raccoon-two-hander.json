@@ -85,8 +85,8 @@
      },
      {
       "name": "guest",
-      "label": "Sam",
-      "model": "models/guest.vrm"
+      "label": "Mira",
+      "model": "models/shino.vrm"
      }
     ]
    },
@@ -101,7 +101,7 @@
    "kind": "dialogue",
    "narration": "Wait. Drunk? The raccoon was drunk? How does a raccoon even pay for that?",
    "voice": {
-    "voice": "am_puck",
+    "voice": "af_heart",
     "speed": null
    },
    "captionText": null,
@@ -125,8 +125,8 @@
      },
      {
       "name": "guest",
-      "label": "Sam",
-      "model": "models/guest.vrm"
+      "label": "Mira",
+      "model": "models/shino.vrm"
      }
     ]
    },
@@ -162,8 +162,8 @@
      },
      {
       "name": "guest",
-      "label": "Sam",
-      "model": "models/guest.vrm"
+      "label": "Mira",
+      "model": "models/shino.vrm"
      }
     ]
    },
@@ -178,7 +178,7 @@
    "kind": "dialogue",
    "narration": "Okay. So that is the end of the story. Sad little hangover, everyone goes home.",
    "voice": {
-    "voice": "am_puck",
+    "voice": "af_heart",
     "speed": null
    },
    "captionText": null,
@@ -202,8 +202,8 @@
      },
      {
       "name": "guest",
-      "label": "Sam",
-      "model": "models/guest.vrm"
+      "label": "Mira",
+      "model": "models/shino.vrm"
      }
     ]
    },
@@ -239,8 +239,8 @@
      },
      {
       "name": "guest",
-      "label": "Sam",
-      "model": "models/guest.vrm"
+      "label": "Mira",
+      "model": "models/shino.vrm"
      }
     ]
    },
@@ -255,7 +255,7 @@
    "kind": "dialogue",
    "narration": "So I stay sober all year and get a tax bill, and he has one wild night and funds a whole department. I picked the wrong career.",
    "voice": {
-    "voice": "am_puck",
+    "voice": "af_heart",
     "speed": null
    },
    "captionText": null,
@@ -279,8 +279,8 @@
      },
      {
       "name": "guest",
-      "label": "Sam",
-      "model": "models/guest.vrm"
+      "label": "Mira",
+      "model": "models/shino.vrm"
      }
     ]
    },

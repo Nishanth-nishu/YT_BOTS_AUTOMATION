@@ -154,6 +154,7 @@ def two_hander_json():
 
 def test_a_second_speaker_turns_the_middle_into_dialogue_scenes_with_cast_and_voices(monkeypatch):
     monkeypatch.delenv("STORY_GUEST_VOICE", raising=False)
+    monkeypatch.setenv("STORY_GUEST", "sam")
     story = writer.story_from_json(two_hander_json(), CAND)
     assert writer.check_story(story, CAND["summary"]) == []
     sb = generate.to_storyboard(story)
@@ -199,6 +200,7 @@ def test_synthesis_uses_each_scenes_own_voice(tmp_path, monkeypatch):
     monkeypatch.setattr(paths, "ensure_dirs", lambda: [(tmp_path / d).mkdir(exist_ok=True) for d in ("public", "assets", "cache", "boards")])
     monkeypatch.setattr(syn, "get_provider", lambda name, device="auto": Fake())
     monkeypatch.delenv("STORY_GUEST_VOICE", raising=False)
+    monkeypatch.setenv("STORY_GUEST", "sam")
     sb = generate.to_storyboard(writer.story_from_json(two_hander_json(), CAND))
     spec = syn.synthesize_storyboard(sb, force=True)
     assert used == ["am_fenrir", "am_fenrir", "am_puck", "am_fenrir", "am_puck", "am_fenrir"]
@@ -284,3 +286,24 @@ def test_an_explanation_the_source_does_not_give_is_flagged():
 
 def test_elected_officials_are_screened_out_of_the_news():
     assert "politics or religion" in trending.risk_reason("Masked wrestler elected to Japan city council gets OK to wear mask in chamber")
+
+
+def test_guests_take_turns_by_date_and_fall_back_when_a_model_is_missing(tmp_path, monkeypatch):
+    from datetime import date
+
+    from services.common import paths
+
+    monkeypatch.delenv("STORY_GUEST", raising=False)
+    monkeypatch.delenv("STORY_GUEST_VOICE", raising=False)
+    monkeypatch.setattr(paths, "PUBLIC", tmp_path)
+    (tmp_path / "models").mkdir()
+    d1, d2 = date(2026, 11, 11), date(2026, 11, 12)
+    assert generate.pick_guest(d1) == generate.pick_guest(d2) == "sam"          # nothing downloaded yet
+    (tmp_path / "models" / "shino.vrm").write_bytes(b"glTF")
+    assert generate.pick_guest(d1) == generate.pick_guest(d2) == "mira"         # only one available
+    (tmp_path / "models" / "fumiriya.vrm").write_bytes(b"glTF")
+    assert {generate.pick_guest(d1), generate.pick_guest(d2)} == {"mira", "leo"}  # they alternate
+    guest = generate.cast(d1)[1]
+    assert guest["name"] == "guest" and (guest["label"], guest["voice"]) in {("Mira", "af_heart"), ("Leo", "am_puck")}
+    monkeypatch.setenv("STORY_GUEST", "leo")
+    assert generate.pick_guest(d1) == generate.pick_guest(d2) == "leo"

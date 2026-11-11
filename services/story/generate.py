@@ -35,10 +35,34 @@ CTA_TEXT = "Subscribe for tomorrow's story"
 GUEST_MODEL = paths.PUBLIC / "models" / "guest.vrm"
 
 
-def cast() -> list[dict]:
+# Who can play the "guest". All are CC0 VRoid sample characters (assets/models/LICENSE.txt), given
+# our own names. "sam" is the host model recoloured and needs no download; it is the fallback.
+GUESTS: dict[str, dict] = {
+    "mira": {"label": "Mira", "model": "models/shino.vrm", "voice": "af_heart"},
+    "leo": {"label": "Leo", "model": "models/fumiriya.vrm", "voice": "am_puck"},
+    "sam": {"label": "Sam", "model": "models/guest.vrm", "voice": "am_puck"},
+}
+ROTATION = ("mira", "leo")
+
+
+def pick_guest(day: date | None = None) -> str:
+    """STORY_GUEST names the guest; otherwise the downloaded characters take turns by date.
+    A character whose model file is missing is skipped, down to "sam"."""
+    wanted = (os.environ.get("STORY_GUEST") or "").strip().lower()
+    order = [wanted] if wanted in GUESTS else []
+    turn = (day or date.today()).toordinal() % len(ROTATION)
+    order += [ROTATION[turn], ROTATION[1 - turn]]
+    for name in order:
+        if name == "sam" or (paths.PUBLIC / GUESTS[name]["model"]).exists():
+            return name
+    return "sam"
+
+
+def cast(day: date | None = None) -> list[dict]:
     """Left character first. Voices are Kokoro ids; STORY_GUEST_VOICE overrides the guest's."""
+    guest = GUESTS[pick_guest(day)]
     return [{"name": "host", "label": "Nish", "model": "models/host.vrm", "voice": None},
-            {"name": "guest", "label": "Sam", "model": "models/guest.vrm", "voice": os.environ.get("STORY_GUEST_VOICE") or "am_puck"}]
+            {"name": "guest", "label": guest["label"], "model": guest["model"], "voice": os.environ.get("STORY_GUEST_VOICE") or guest["voice"]}]
 CAPTION_TAIL = "Subscribe for a new weird-but-true story every day."
 
 
@@ -48,7 +72,7 @@ def to_storyboard(story: Story, day: date | None = None) -> Storyboard:
     stamp = (day or date.today()).strftime("%d %b %Y").upper().lstrip("0")
     scenes: list[StoryboardScene] = []
     counts: dict[str, int] = {}
-    people = cast()
+    people = cast(day)
     voices = {m["name"]: m["voice"] for m in people}
     # with a second speaker the middle of the story is staged as a two-character dialogue
     two_handed = any(b.speaker.strip().lower() != "host" for b in story.beats)
@@ -84,7 +108,8 @@ def save(story: Story, source_text: str = "", out_stories: Path | None = None, o
     if problems:
         raise RuntimeError("story rejected:\n- " + "\n- ".join(problems))
     sb = to_storyboard(story)
-    if any(s.kind == "dialogue" for s in sb.scenes) and not GUEST_MODEL.exists():
+    uses_sam = any(m["model"] == GUESTS["sam"]["model"] for s in sb.scenes for m in s.data.get("cast", []))
+    if uses_sam and not GUEST_MODEL.exists():
         from services.host.make_guest import main as make_guest  # needs Pillow; only when a guest is on stage
 
         make_guest([])
