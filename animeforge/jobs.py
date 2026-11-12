@@ -159,6 +159,9 @@ def work(handlers: dict[str, Callable[[dict], dict | None]], once: bool = False,
 
 
 def main(argv: list[str] | None = None) -> int:
+    import sys
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")   # Hindi text crashed the Windows console encoding
     argv = sys.argv[1:] if argv is None else argv
     cmd = argv[0] if argv else "list"
     if cmd == "list":

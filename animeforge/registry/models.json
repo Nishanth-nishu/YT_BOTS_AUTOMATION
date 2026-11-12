@@ -48,7 +48,7 @@
     "task": "Animagine XL 4.0 + ip-adapter-plus_sdxl_vit-h, 768x1344, 28 steps, through diffusers (not the GPL ComfyUI node)",
     "seconds_per_image": 7.7,
     "peak_vram_gb": 10.91,
-    "finding": "At scale 0.6 with a reference that has scenery, mean similarity to the reference rose from 0.710 (text only) to 0.804 over six scenes, but the adapter also copied the forest background into every scene, made the character look younger, and once drew two figures. Use a plain-background reference and a lower scale."
+    "finding": "Two runs over the same six scenes. (1) Reference with a forest background, scale 0.6: mean similarity to the reference 0.710 text-only, 0.804 with the adapter; costume held but the forest was copied into every scene, the character looked younger, and one image had two figures. (2) Reference on a plain white background, scale 0.45: 0.752 text-only, 0.823 with the adapter; armour, sash, dhoti and hair held and each scene's setting was followed, but backgrounds came out paler and the face still varies between images. Conclusion: use a plain-background reference at about 0.45 for costume consistency; it does not lock the face. A character LoRA has not been trained."
    }
   },
   {
@@ -142,12 +142,27 @@
    "conditions": [
     "Train only on images we own or generated ourselves from cleared models; record them in the asset rights registry."
    ],
-   "hardware": "SDXL LoRA training fits in 24 GB (not measured here).",
-   "install": "git clone, own venv.",
+   "hardware": "Measured on an RTX 3090: about 8 GB for an SDXL LoRA; see benchmark.",
+   "install": "git clone at tag v0.12.3 into its own venv; torch 2.6.0 from the PyTorch cu124 index, then requirements.txt (animeforge/cluster/setup_train.sh).",
    "sources": [
     "https://api.github.com/repos/kohya-ss/sd-scripts"
    ],
-   "benchmark": null
+   "benchmark": {
+    "date": "2026-11-12",
+    "gpu": "NVIDIA GeForce RTX 3090 24 GB (Ada gnode114)",
+    "software": "sd-scripts v0.12.3, torch 2.6.0+cu124, diffusers 0.40.0",
+    "task": "SDXL LoRA on Animagine XL 4.0: 33 pictures, 10 repeats, batch 2, rank 16, U-Net only, 1200 steps, bf16, cached latents and text-encoder outputs",
+    "seconds": 1490,
+    "peak_vram_gb_whole_gpu": 7.8,
+    "file_mb": 81,
+    "findings": [
+     "mixed_precision fp16 fails at once: the trainer then asks the base model for fp16-variant files that the Animagine repository does not have. bf16 works.",
+     "The trainer's tokenizers were taken from the base model's own folders (tokenizer_cache_dir), so nothing was downloaded from openai/clip-vit-large-patch14.",
+     "Six test scenes, same seeds. At weight 0.9 (step 1200) the character is the same in every picture but skin lightens and backgrounds bleach. At weight 0.6 with the step-800 file skin and scene colour hold and the character still matches by eye.",
+     "ViT-H similarity among the six pictures: text only 0.789, IP-Adapter 0.45 alone 0.854, LoRA 0.6 alone 0.813, LoRA 0.9 alone 0.838. The adapter scores higher partly because it copies the reference's pose and pale background; the choice of LoRA 0.6 was made by eye.",
+     "Training pictures were themselves drawn with IP-Adapter and many have pale backgrounds, which is the likely cause of the bleaching at high weight."
+    ]
+   }
   },
   {
    "id": "sdxl-base",
@@ -452,13 +467,65 @@
     "Voice cloning needs a reference clip: use only audio we recorded or licensed.",
     "The README says the repository stays public as an archive with no support or updates."
    ],
-   "hardware": "0.5B model (VRAM not measured here).",
-   "install": "pip install chatterbox-tts.",
+   "hardware": "Measured on an RTX 3090: 3.16 GB peak VRAM; see benchmark.",
+   "install": "torch 2.6.0 and torchaudio 2.6.0 from the PyTorch cu124 index, then pip install chatterbox-tts \"setuptools<81\" (the watermark library imports pkg_resources).",
    "sources": [
     "https://github.com/resemble-ai/chatterbox#supported-languages",
     "https://huggingface.co/api/models/ResembleAI/chatterbox"
    ],
-   "benchmark": null
+   "benchmark": {
+    "date": "2026-11-12",
+    "gpu": "NVIDIA GeForce RTX 3090 24 GB (Ada gnode115)",
+    "software": "chatterbox-tts 0.1.7, torch 2.6.0+cu124",
+    "task": "six Hindi lines, built-in voice with no reference clip, transcribed back by faster-whisper large-v3",
+    "load_seconds": 11.7,
+    "peak_vram_gb": 3.16,
+    "mean_character_error_rate": 0.086,
+    "real_time_factor": "0.56 to 0.64 once warm (the first line, including warm-up, took 2.41)",
+    "lines": [
+     {
+      "name": "narration",
+      "audio_seconds": 5.72,
+      "rtf": 2.41,
+      "cer": 0.078
+     },
+     {
+      "name": "question",
+      "audio_seconds": 3.6,
+      "rtf": 0.6,
+      "cer": 0.0
+     },
+     {
+      "name": "answer",
+      "audio_seconds": 4.12,
+      "rtf": 0.58,
+      "cer": 0.0
+     },
+     {
+      "name": "command",
+      "audio_seconds": 2.88,
+      "rtf": 0.64,
+      "cer": 0.091
+     },
+     {
+      "name": "moral",
+      "audio_seconds": 4.6,
+      "rtf": 0.57,
+      "cer": 0.028
+     },
+     {
+      "name": "hinglish",
+      "audio_seconds": 5.48,
+      "rtf": 0.56,
+      "cer": 0.317
+     }
+    ],
+    "findings": [
+     "Two pure-Hindi lines came back with no errors; the others differ by one or two sounds (बाण heard as बार, निश्चय as निष्चे).",
+     "The mixed Hindi-English line scores 0.317 mostly because Whisper writes the English words in Devanagari; it is not a fair error figure for that line.",
+     "Judged by transcription only. Nobody has yet listened to the clips for naturalness or accent."
+    ]
+   }
   },
   {
    "id": "indic-speak",

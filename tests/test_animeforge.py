@@ -73,13 +73,13 @@ def test_download_is_refused_when_it_would_eat_the_reserve(tmp_path):
 
 def test_seed_registers_the_cast_as_adapted_and_conditional(tmp_path):
     db = tmp_path / "af.sqlite"
-    assert rights.seed(db) == {"assets": 7, "characters": 16}
+    assert rights.seed(db) == {"assets": 11, "characters": 16}
     krishna = rights.get_character("krishna", db)
     assert krishna.kind == "adapted" and "Mahabharata" in krishna.source and krishna.rights_status == "conditional"
     assert krishna.assets == ["vrm-sakurada-fumiriya", "voice-kokoro-hindi"] and krishna.voice.voice == "hm_psi"
     assert rights.get_character("rama", db).source.startswith("Ramayana")
     assert len(rights.list_characters(db, kind="adapted")) == 16 and rights.list_characters(db, kind="original") == []
-    assert rights.seed(db) == {"assets": 7, "characters": 16}  # running it again changes nothing
+    assert rights.seed(db) == {"assets": 11, "characters": 16}  # running it again changes nothing
 
 
 def test_casting_needs_cleared_rights_territory_and_cleared_assets(tmp_path):

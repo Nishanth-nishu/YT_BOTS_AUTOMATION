@@ -2,11 +2,11 @@
 #SBATCH -A plafnet2
 #SBATCH -p plafnet2
 #SBATCH -J af_voice
-#SBATCH -w gnode114
+#SBATCH --exclude=gnode118
 #SBATCH --gres=gpu:1
 #SBATCH -c 6
 #SBATCH --mem=32G
-#SBATCH --time=01:30:00
+#SBATCH --time=03:00:00
 #SBATCH --output=animeforge/logs/voice_%j.log
 # Phase 2: Hindi voice benchmark (Chatterbox Multilingual, checked by Whisper).
 set -euo pipefail
@@ -17,9 +17,8 @@ SRC=$AF/src-$SLURM_JOB_ID
 mkdir -p "$AF" && cp -r "$HOME/animeforge/src" "$SRC"   # private copy: a later upload cannot change a running job
 export PATH="$AF/bin:$PATH" UV_CACHE_DIR="$AF/cache/uv" UV_PYTHON_INSTALL_DIR="$AF/python"
 export HF_HOME=$AF/hf TMPDIR=$AF/tmp PYTHONPATH=$SRC ANIMEFORGE_MODELS_DIR=$AF/hf
-bash "$SRC/animeforge/cluster/setup_env.sh"
 bash "$SRC/animeforge/cluster/setup_tts.sh"
-source "$SRC/animeforge/cluster/models_sync.sh"; af_restore
+source "$SRC/animeforge/cluster/models_sync.sh"; af_restore "models--ResembleAI*" "models--Systran*"
 export ANIMEFORGE_ACK=chatterbox-multilingual
 mkdir -p "$AF/tmp"
 

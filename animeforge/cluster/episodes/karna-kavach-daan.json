@@ -6,60 +6,60 @@
   "id": "karna",
   "tags": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes",
   "reference_seed": 11,
-  "reference_scene": "upper body, simple background, looking at viewer"
+  "reference_scene": "upper body, white background, simple background, looking at viewer"
  },
  "shots": [
   {
    "id": "s01",
-   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna performing morning prayers under a tree, sunlight filtering through leaves, serene light, wide shot",
-   "motion": "Anime style. Karna kneels in prayer, hands folded, with a golden armour and earrings visible, camera zooms in on his face, then out to the serene morning scene Consistent face, smooth natural motion.",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, standing on a riverbank at sunrise, golden armor glowing, upper body, looking at viewer, green trees behind",
+   "motion": "Anime style. A tall Indian warrior in a radiant golden breastplate stands still on a riverbank at sunrise. His hair moves gently in the breeze and the armour glints. Very slow camera push-in. Consistent face, smooth natural motion.",
    "line": "कर्ण सोने के कवच और कुंडल के साथ जन्मे थे।",
    "use_reference": true,
-   "seed": null
+   "seed": 700
   },
   {
    "id": "s02",
-   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna standing with a poor brahmin, both in simple attire, sunlight is warm and golden, mid-shot",
-   "motion": "Anime style. The brahmin approaches Karna, asking for the golden armour, Karna nods, camera pans to show the exchange Consistent face, smooth natural motion.",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, standing in a river at dawn, both hands raised offering water to the rising sun, eyes closed, from side, orange sky",
+   "motion": "Anime style. An Indian warrior stands in a calm river at dawn with raised hands, water trickling from his palms toward the rising sun. Ripples spread slowly. The camera holds still. Consistent face, smooth natural motion.",
    "line": "हर सुबह सूर्य पूजा के बाद वे हर माँगने वाले को दान देते थे।",
    "use_reference": true,
-   "seed": null
+   "seed": 701
   },
   {
    "id": "s03",
-   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Close-up of Karna's face, determination in his eyes, mid-shot, sunlight is golden and warm",
-   "motion": "Anime style. Karna looks at the brahmin, then the golden armour, then back to the brahmin, nodding firmly Consistent face, smooth natural motion.",
+   "subject": "1boy, solo, original, elderly indian brahmin, thin, long white beard, white hair in a small bun, plain white dhoti, wooden walking stick, bare chest, sacred thread, kind tired eyes, walking on a forest path beside a river, morning light, full body",
+   "motion": "Anime style. An old brahmin with a white beard walks slowly along a riverside path, leaning on a wooden stick. Leaves drift down. The camera follows gently. Smooth natural motion.",
    "line": "एक दिन इंद्र गरीब ब्राह्मण बनकर उनके पास आए।",
-   "use_reference": true,
-   "seed": null
+   "use_reference": false,
+   "seed": 702
   },
   {
    "id": "s04",
-   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna walking towards the river, golden armour and earrings on the ground, sunlight is golden, wide shot",
-   "motion": "Anime style. Karna walks away, turning to look back at the armour and earrings, camera follows his movement Consistent face, smooth natural motion.",
+   "subject": "1boy, solo, original, elderly indian brahmin, thin, long white beard, white hair in a small bun, plain white dhoti, wooden walking stick, bare chest, sacred thread, kind tired eyes, holding out both open palms, asking for alms, upper body, looking at viewer, riverbank background",
+   "motion": "Anime style. An old brahmin with a white beard slowly holds out his open palms and tilts his head, asking for a gift. Soft morning light. The camera holds still. Smooth natural motion.",
    "line": "उन्होंने कर्ण से उनका कवच और कुंडल माँग लिया।",
-   "use_reference": true,
-   "seed": null
+   "use_reference": false,
+   "seed": 703
   },
   {
    "id": "s05",
-   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, Karna standing in the battlefield, holding the divine spear, sunlight is golden and bright, wide shot",
-   "motion": "Anime style. Karna stands tall, spear in hand, ready for the great war, camera zooms out to show the vast battlefield Consistent face, smooth natural motion.",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, close-up, eyes closed, gentle smile, one hand resting on his golden breastplate, warm sunlight on face, green trees behind",
+   "motion": "Anime style. Close-up of an Indian warrior with his hand on his golden breastplate. He slowly opens his eyes and smiles calmly. Sunlight shifts softly on his face. The camera holds still. Consistent face, smooth natural motion.",
    "line": "कर्ण सब जानते थे, फिर भी उन्होंने दान कर दिया।",
    "use_reference": true,
-   "seed": null
+   "seed": 704
   },
   {
    "id": "s06",
-   "subject": "original, An elderly sage teacher standing with a poor brahmin in a simple dhoti, sunlight is warm and golden, mid-shot",
-   "motion": "Anime style. The sage teacher points to the battlefield, brahmin looks on, camera pans to the distant battlefield Smooth natural motion.",
+   "subject": "1boy, solo, original, tall indian warrior, brown skin, shoulder-length black hair, golden earrings, radiant golden breastplate, crimson dhoti, sun emblem, proud calm eyes, hands folded in namaste, head slightly bowed, sun rays behind him, upper body, riverbank at sunrise",
+   "motion": "Anime style. An Indian warrior folds his hands and bows his head slowly as sun rays spread behind him. His hair sways in the breeze. Very slow camera pull-back. Consistent face, smooth natural motion.",
    "line": "वचन निभाने वाला ही सच्चा महान होता है।",
-   "use_reference": false,
-   "seed": null
+   "use_reference": true,
+   "seed": 705
   }
  ],
- "steps": 50,
- "reference_scale": 0.6,
+ "steps": 30,
+ "reference_scale": 0.45,
  "caption": "Karna jaanta tha ki maangne wala kaun hai, phir bhi usne mana nahin kiya.",
  "hashtags": [
   "#mahabharat",

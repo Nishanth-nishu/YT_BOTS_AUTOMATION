@@ -5,6 +5,8 @@ set -euo pipefail
 
 AF="${ANIMEFORGE_HOME:-/scratch/$USER/animeforge}"
 mkdir -p "$AF"/{bin,hf,out,cache,tmp}
+# Two jobs starting together on one node both tried to create the environment; take turns.
+exec 9>"$AF/setup.lock"; flock 9
 export UV_CACHE_DIR="$AF/cache/uv" UV_PYTHON_INSTALL_DIR="$AF/python" TMPDIR="$AF/tmp"
 
 free_gb=$(df -BG --output=avail "$AF" | tail -1 | tr -dc 0-9)
@@ -23,7 +25,7 @@ uv pip install --python "$AF/venv/bin/python" \
   torch torchvision --index-url https://download.pytorch.org/whl/cu124
 uv pip install --python "$AF/venv/bin/python" \
   diffusers transformers accelerate safetensors sentencepiece protobuf ftfy \
-  pillow numpy imageio imageio-ffmpeg huggingface_hub
+  pillow numpy imageio imageio-ffmpeg huggingface_hub peft
 
 "$AF/venv/bin/python" - <<'EOF'
 import torch, diffusers, transformers

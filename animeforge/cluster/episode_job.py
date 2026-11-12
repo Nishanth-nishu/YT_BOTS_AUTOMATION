@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import gc
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -20,6 +21,7 @@ from animeforge.cluster.gen_still import NEG
 
 QUALITY = "anime coloring, masterpiece, high score, great score, absurdres"
 W, H, FRAMES, FPS = 704, 1280, 121, 24
+LORAS = Path(os.environ.get("ANIMEFORGE_LORAS", str(Path.home() / "animeforge" / "loras")))
 
 
 def stills(spec: dict, out: Path) -> dict:
@@ -28,7 +30,20 @@ def stills(spec: dict, out: Path) -> dict:
     from PIL import Image
     from transformers import CLIPVisionModelWithProjection
 
-    todo = [s for s in spec["shots"] if not (out / s["id"] / "still.png").exists()]
+    # A shot whose seed was changed in the episode file is a redo: drop its old still and clip.
+    # A shot that continues the scene starts from the previous clip, so it is redone with it.
+    redo_next = False
+    for s in spec["shots"]:
+        meta = out / s["id"] / "still.json"
+        changed = meta.exists() and json.loads(meta.read_text()).get("seed") != s["seed"]
+        if changed or (redo_next and s.get("continues")):
+            for name in ("still.png", "still.json", "shot.mp4", "shot.json"):
+                (out / s["id"] / name).unlink(missing_ok=True)
+            print("redo", s["id"], "with seed", s["seed"], flush=True)
+            redo_next = True
+        else:
+            redo_next = redo_next and bool(s.get("continues"))
+    todo = [s for s in spec["shots"] if not s.get("continues") and not (out / s["id"] / "still.png").exists()]
     ref_path = out / "reference.png"
     if not todo and ref_path.exists():
         return {"stills_made": 0}
@@ -40,8 +55,16 @@ def stills(spec: dict, out: Path) -> dict:
     pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
     pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models",
                          weight_name="ip-adapter-plus_sdxl_vit-h.safetensors")
+    if spec.get("lora"):
+        # The character LoRA: trained on our own pictures of this character (see lora_train.sbatch).
+        pipe.load_lora_weights(str(LORAS), weight_name=spec["lora"], adapter_name="character")
     pipe.to("cuda")
     ch = spec["character"]
+    trigger = spec.get("lora_trigger", "")
+
+    def lora(on: bool) -> None:
+        if spec.get("lora"):
+            pipe.set_adapters(["character"], adapter_weights=[spec.get("lora_scale", 0.9) if on else 0.0])
 
     def render(prompt: str, seed: int, scale: float, ref):
         pipe.set_ip_adapter_scale(scale)
@@ -51,16 +74,19 @@ def stills(spec: dict, out: Path) -> dict:
 
     t = time.time()
     if not ref_path.exists():
+        lora(True)
         blank = Image.new("RGB", (224, 224), "gray")
         render(f"{ch['tags']}, {ch.get('reference_scene', 'upper body, simple background, looking at viewer')}, {QUALITY}",
                ch.get("reference_seed", 11), 0.0, blank).save(ref_path)
     ref = Image.open(ref_path).convert("RGB")
-    for i, s in enumerate(todo):
+    for s in todo:
         d = out / s["id"]
         d.mkdir(parents=True, exist_ok=True)
-        scale = spec.get("reference_scale", 0.6) if s.get("use_reference", True) else 0.0
-        prompt = f"{s['subject']}, {QUALITY}"
-        seed = s.get("seed", 500 + i)
+        hero = s.get("use_reference", True)
+        scale = spec.get("reference_scale", 0.6) if hero else 0.0
+        lora(hero)                       # other people in the story must not get the hero's face
+        prompt = f"{trigger + ', ' if trigger and hero else ''}{s['subject']}, {QUALITY}"
+        seed = s["seed"]
         render(prompt, seed, scale, ref).save(d / "still.png")
         (d / "still.json").write_text(json.dumps({"prompt": prompt, "seed": seed, "reference_scale": scale}, indent=1))
     made = {"stills_made": len(todo), "stills_seconds": round(time.time() - t, 1),
@@ -86,13 +112,22 @@ def clips(spec: dict, out: Path) -> dict:
     pipe.enable_model_cpu_offload()
     times = []
     torch.cuda.reset_peak_memory_stats()
-    for i, s in enumerate(todo):
+    by_id = {s["id"]: i for i, s in enumerate(spec["shots"])}
+    for s in todo:
         d = out / s["id"]
+        d.mkdir(parents=True, exist_ok=True)
+        if s.get("continues"):
+            # Same scene: the first frame is the previous clip's last frame, so motion carries over the cut.
+            import imageio.v3 as iio
+            from PIL import Image
+            prev = out / spec["shots"][by_id[s["id"]] - 1]["id"] / "shot.mp4"
+            Image.fromarray(iio.imread(prev)[-1]).save(d / "still.png")
+            (d / "still.json").write_text(json.dumps({"from": prev.parent.name, "seed": s["seed"]}, indent=1))
         image = gen_shot.fit(load_image(str(d / "still.png")), W, H)
         t = time.time()
         frames = pipe(image=image, prompt=s["motion"], negative_prompt=gen_shot.NEG, height=H, width=W,
                       num_frames=FRAMES, num_inference_steps=spec.get("steps", 50), guidance_scale=5.0,
-                      generator=torch.Generator("cpu").manual_seed(s.get("seed", 500 + i))).frames[0]
+                      generator=torch.Generator("cpu").manual_seed(s["seed"])).frames[0]
         tmp = d / "shot.partial.mp4"
         export_to_video(frames, str(tmp), fps=FPS)
         tmp.rename(d / "shot.mp4")
@@ -107,6 +142,9 @@ def clips(spec: dict, out: Path) -> dict:
 
 def main() -> None:
     spec = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    for i, s in enumerate(spec["shots"]):
+        if s.get("seed") is None:
+            s["seed"] = 500 + i            # the default every earlier run used
     out = Path(sys.argv[2])
     out.mkdir(parents=True, exist_ok=True)
     report = {"episode": spec["id"], **stills(spec, out), **clips(spec, out)}

@@ -2,7 +2,7 @@
 #SBATCH -A plafnet2
 #SBATCH -p plafnet2
 #SBATCH -J af_first_shot
-#SBATCH -w gnode114
+#SBATCH --exclude=gnode118
 #SBATCH --gres=gpu:1
 #SBATCH -c 8
 #SBATCH --mem=48G

@@ -164,6 +164,32 @@ def test_episode_rules_timeline_and_subtitles(db, tmp_path):
     assert episode.ass_time(65.25) == "0:01:05.25"
 
 
+def test_cut_dissolves_between_scenes_and_cuts_inside_a_chained_one(db, tmp_path):
+    from animeforge import episode, rights
+
+    rights.seed()
+    spec = episode.load("arjuna-chidiya-ki-aankh")
+    assert spec.lora and spec.lora_trigger and spec.shots[-1].continues
+    for s in spec.shots:
+        (tmp_path / s.id).mkdir()
+    seen = {}
+    res = episode.assemble(spec, tmp_path, tmp_path / "out.mp4", run=lambda cmd, **kw: seen.update(cmd=cmd))
+    graph = seen["cmd"][seen["cmd"].index("-filter_complex") + 1]
+    fades = [part for part in graph.split(";") if "xfade" in part]
+    assert len(fades) == 5 and "concat" not in graph
+    # scene changes dissolve for 0.4 s; the chained last shot is a one-frame cut
+    assert all("duration=0.400" in f for f in fades[:4]) and "duration=0.042" in fades[4]
+    # each fade starts where the next shot starts, so the dissolves do not shorten the episode
+    assert [f"offset={r['start']:.3f}" in f for r, f in zip(res["shots"][1:], fades)] == [True] * 5
+    assert res["seconds"] == pytest.approx(6 * 121 / 24, abs=0.01)
+
+    first = spec.model_copy(deep=True)
+    first.shots[0].continues = True
+    first.lora = "bad name.safetensors"
+    problems = " | ".join(episode.check(first))
+    assert "nothing to continue from" in problems and "lora: file name" in problems
+
+
 def test_story_engine_builds_a_checked_episode_and_feeds_problems_back(db):
     import json as _json
 

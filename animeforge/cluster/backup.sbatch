@@ -2,7 +2,7 @@
 #SBATCH -A plafnet2
 #SBATCH -p plafnet2
 #SBATCH -J af_backup
-#SBATCH -w gnode114
+#SBATCH --exclude=gnode118
 #SBATCH -c 2
 #SBATCH --mem=4G
 #SBATCH --time=02:00:00

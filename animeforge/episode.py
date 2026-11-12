@@ -47,6 +47,7 @@ class Shot(BaseModel):
     line: str = ""                    # Hindi, Devanagari
     use_reference: bool = True
     seed: int | None = None
+    continues: bool = False           # same scene: start from the previous clip's last frame, and cut without a fade
 
 
 class EpisodeSpec(BaseModel):
@@ -58,6 +59,10 @@ class EpisodeSpec(BaseModel):
     steps: int = 50
     reference_scale: float = 0.6
     caption: str = ""
+    crossfade: float = 0.4            # seconds of dissolve between scenes; 0 for hard cuts
+    lora: str = ""                    # file name under ~/animeforge/loras on the cluster
+    lora_scale: float = 0.9
+    lora_trigger: str = ""            # word the LoRA was trained on; added to shots that use the reference
     hashtags: list[str] = Field(default_factory=list)
 
 
@@ -84,6 +89,15 @@ def check(spec: EpisodeSpec, db: Path | None = None) -> list[str]:
             bad.append(f"{s.id}: line has {len(s.line.split())} words; a five-second shot holds about 16")
         if "original" not in s.subject.lower():
             bad.append(f"{s.id}: subject must carry the 'original' tag")
+    if spec.shots[0].continues:
+        bad.append(f"{spec.shots[0].id}: the first shot has nothing to continue from")
+    if spec.lora and not slurm.SAFE.match(spec.lora):
+        bad.append("lora: file name must be letters, digits, dot, dash, underscore")
+    if spec.lora:
+        try:
+            registry.require("kohya-sd-scripts", acknowledged=(*ACK, "kohya-sd-scripts"))
+        except registry.LicenceError as e:
+            bad.append(f"model kohya-sd-scripts: {str(e).splitlines()[0]}")
     bad += [f"character: {p}" for p in rights.why_not(spec.character.id, accept_conditions=True, db=db)]
     for m in MODELS:
         try:
@@ -120,7 +134,7 @@ def subtitles(rows: list[dict]) -> str:
     head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 720\nPlayResY: 1280\nWrapStyle: 0\n\n"
             "[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, "
             "BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-            "Style: hi,Noto Sans Devanagari,44,&H00FFFFFF,&H00101010,&H80000000,1,1,3,1,2,48,48,150,1\n\n"
+            "Style: hi,Noto Sans Devanagari,64,&H00FFFFFF,&H00101010,&H80000000,1,1,4,1,2,40,40,170,1\n\n"
             "[Events]\nFormat: Layer, Start, End, Style, Text\n")
     lines = [f"Dialogue: 0,{ass_time(r['voice_at'] - 0.1)},{ass_time(r['voice_at'] + r['voice'] + 0.25)},hi,{r['line']}"
              for r in rows if r["line"] and r["voice"] > 0]
@@ -141,11 +155,21 @@ def assemble(spec: EpisodeSpec, folder: Path, out: Path, run=subprocess.run) -> 
     for r in voiced:
         cmd += ["-i", str((folder / r["id"] / "voice.wav").resolve())]
     fc = []
+    # Shot i dissolves into shot i+1 over fades[i] seconds; a shot that continues the scene is a
+    # plain cut (one frame). Each clip is held that much longer, so the timeline does not shrink.
+    frame = 1 / 24
+    fades = [frame if (spec.shots[i + 1].continues or spec.crossfade <= frame) else spec.crossfade
+             for i in range(len(rows) - 1)] + [0.0]
     for i, r in enumerate(rows):
-        hold = max(0.0, r["duration"] - SHOT_SECONDS)
+        length = r["duration"] + fades[i]
+        hold = max(0.0, length - SHOT_SECONDS)
         fc.append(f"[{i}:v]fps=24,scale=720:-2,crop=720:1280,setsar=1,tpad=stop_mode=clone:stop_duration={hold:.3f},"
-                  f"trim=duration={r['duration']:.3f},setpts=PTS-STARTPTS[v{i}]")
-    fc.append("".join(f"[v{i}]" for i in range(len(rows))) + f"concat=n={len(rows)}:v=1:a=0[vc]")
+                  f"trim=duration={length:.3f},setpts=PTS-STARTPTS[v{i}]")
+    last = "v0"
+    for i in range(1, len(rows)):
+        fc.append(f"[{last}][v{i}]xfade=transition=fade:duration={fades[i - 1]:.3f}:offset={rows[i]['start']:.3f}[x{i}]")
+        last = f"x{i}"
+    fc.append(f"[{last}]null[vc]")
     fc.append("[vc]subtitles=subs.ass:fontsdir=.[vout]")
     total = sum(r["duration"] for r in rows)
     amap = []
@@ -215,6 +239,9 @@ def produce(ep_id: str, fetch_only: bool = False) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
+    import sys
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")   # Hindi text crashed the Windows console encoding
     argv = sys.argv[1:] if argv is None else argv
     if len(argv) < 2:
         print(__doc__)

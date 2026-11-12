@@ -1,72 +1,159 @@
 # AnimeForge roadmap and status
 
-Last updated 2026-11-11. A module is listed as working only when a real test of
-it has passed. "Not started" means no code exists.
+Last updated 2026-11-12. A module is listed as working only when a real run of
+it has passed. Every number below was measured on an RTX 3090 (24 GB) on the
+Ada cluster; details and dates are in `animeforge/registry/models.json`.
 
 ## Where things stand
 
 | Phase | What | Status |
 |---|---|---|
 | 1 | Hardware and dependency audit | **Done.** See [AUDIT.md](AUDIT.md). |
-| 2 | Hindi voice prototype | Not started for the new engines. The existing Kokoro Hindi voices work on CPU. IndicF5 and Indic Parler-TTS are gated and unverified; Chatterbox is usable but untested. |
-| 3 | Character consistency (ComfyUI, IPAdapter, ControlNet, LoRA) | Not started. Needs the GPU. Reference-sheet template and check exist. |
-| 4 | Image-to-video (Wan, LTX-Video, AnimateDiff) benchmarks | Not started. Needs the GPU. No model has been benchmarked. |
-| 5 | Lip-sync (LatentSync, MuseTalk) | Not started. Needs the GPU. Anime compatibility unknown. |
-| 6 | End-to-end 30-second video | Not started on the new stack. The older VRM/Remotion pipeline makes 50-second episodes today. |
-| 7 | Multi-episode automation | Not started. |
-| 8 | Quality, licensing and monetization audit | Licence registry and rights database exist; the audit itself is not done. |
+| 2 | Hindi voice | **Working, not yet listened to.** Chatterbox Multilingual, built-in voice. |
+| 3 | Character consistency | **Improved, not solved.** A character LoRA holds face and costume in the stills; the video model can still drift within a shot. |
+| 4 | Image-to-video | **Working.** Wan 2.2 TI2V-5B benchmarked at four settings. |
+| 5 | Lip-sync | **Prototype working** for a still close-up. No licensed face-model lip-sync exists yet. |
+| 6 | End-to-end 30-second video | **Done once.** `arjuna-chidiya-ki-aankh`, 31.7 s, voice and subtitles. |
+| 7 | Multi-episode automation | **Working mechanically.** A second episode ran through the queue with one automatic retry; its content failed review. |
+| 8 | Quality, licensing, monetization audit | **Done as a written audit below.** Open items listed. |
 
-## What exists and is tested (CPU only)
+## Measured results
 
-| Module | Purpose | Run it |
-|---|---|---|
-| `animeforge.audit` | Reports GPU, VRAM, RAM, disks, tools; says which phases a machine can run | `python -m animeforge.audit [--ssh-host ada]` |
-| `animeforge.storage` | Refuses a download that would leave under 20 GB free | `python -m animeforge.storage` |
-| `animeforge.registry` | 27 models and tools with code licence, weight licence, commercial limits; `require()` gate with no fallback | `python -m animeforge.registry` |
-| `animeforge.rights` | Character database and asset rights registry (SQLite); `require_character()` gate | `python -m animeforge.rights seed`, `list`, `check <id>` |
-| `animeforge.references` | Character reference-sheet template and completeness check | `python -m animeforge.references check <id>` |
-| `animeforge.shotqa` | Measures freeze, flicker, popped frames, motion; makes a contact sheet | `python -m animeforge.shotqa shot.mp4` |
-| Skill `divine-character-animation` | The gated one-shot-at-a-time workflow | `.claude/skills/divine-character-animation/SKILL.md` |
+### Phase 2: Hindi voice (Chatterbox Multilingual 0.1.7)
 
-## Phase 1 findings
+- 3.16 GB peak VRAM, 11.7 s to load, 0.56 to 0.64 x real time once warm.
+- Six test lines read back by Whisper large-v3: mean character error 0.086.
+  Two lines had no errors. Typical slips are one sound (बाण heard as बार).
+- The six lines of the Arjuna episode: errors 0.0 to 0.172, all under the 0.25 limit.
+- Voice is the engine's built-in one. No reference clip was used, so no real
+  person's voice is cloned. Every file carries the PerTh watermark.
+- **Not done:** nobody has listened for accent and naturalness. A transcription
+  score cannot judge that. The AI4Bharat engines are still gated.
 
-1. **The development laptop cannot run the GPU phases.** It has an Intel UHD
-   770, no NVIDIA GPU, 15.7 GB RAM (target 32 GB), no WSL, no Blender, and a
-   CPU-only PyTorch. It has 165 GB free on C: and two empty 195 GB drives.
-2. **A GPU cluster is reachable** (`ssh ada`, the IIIT Ada cluster). It was only
-   probed with status commands. Its home directory had 6.1 GB free. It is an
-   institutional research cluster: whether it may be used for a monetized
-   channel is a question for its usage policy and its owners, not something
-   this project can assume.
-3. **Licence findings that change the plan**
-   - Blocked for monetized output: Wav2Lip, InsightFace pretrained models, and
-     therefore IP-Adapter FaceID. PuLID is unverified for the same reason.
-   - Clear to use: Wan 2.1 and Wan 2.2 (Apache-2.0 code and weights),
-     AnimateDiff, ControlNet union SDXL, SDXL base, Animagine XL 4.0, standard
-     IP-Adapter, Kohya sd-scripts, MuseTalk (subject to its dependencies),
-     Chatterbox Multilingual (Hindi supported, output is watermarked).
-   - Not yet readable: IndicF5 and Indic Parler-TTS are gated on Hugging Face;
-     their terms need a logged-in read. LTX-Video's weights use a custom
-     licence that was not read in full. Indic-Speak is licensed "other" and
-     built on Llama 3.2.
-   - Wan 2.2 Animate 14B is 67.4 GB and its documented commands need 80 GB
-     VRAM. Running it on 24 GB needs a quantized variant, which must be
-     registered and licence-checked as its own checkpoint.
-4. **Existing assets:** the three base 3D models are CC0 with evidence
-   recorded. The sound-effects folder inherited from the earlier repository
-   has no recorded origin and is marked pending.
+### Phase 3: consistency
 
-## Not built yet (from the specification)
+**IP-Adapter Plus (first method).** Similarity to the reference across six
+scenes: 0.710 without it, 0.804 at 0.6 (copies the reference background too),
+0.823 with a plain-background reference at 0.45. In the first episode cut
+Arjuna kept crown, armour and sash but his face differed in each of his shots.
 
-REST API, job queue with retries, model caching, VRAM monitoring, structured
-logging; the story engine beyond the existing epic-episode format; subtitles
-in Devanagari (the fonts lack it); horizontal 1920x1080 layouts; thumbnails;
-every GPU engine and its adapter; ComfyUI and Blender templates; the sample
-five-second shot.
+**Character LoRA (current method).** Kohya sd-scripts v0.12.3 on Animagine XL 4.0.
 
-## Decisions needed before Phase 2 to 5 can start
+- Training set: 64 candidate pictures drawn by us in 16 framings, 33 chosen by
+  eye. 1200 steps, rank 16, 25 minutes, about 8 GB VRAM, 81 MB file.
+- Test (six scenes, same seeds, by eye): at weight 0.9 the character is the
+  same in every picture but skin lightens and backgrounds bleach. At weight
+  0.6 with the step-800 file, skin and scene colour hold and the character
+  still matches. That setting is used, with the adapter off.
+- The similarity score does not show the gain (pictures to each other: text
+  0.789, adapter 0.854, LoRA 0.6 0.813). The adapter is rewarded for copying
+  the reference's pose and pale background. The choice was made by eye.
+- In the re-cut episode, the walking shot and the aiming shot now show the
+  same Arjuna in a green forest. Two flaws remain: the walking still has a
+  decorative arch border at the top, and in the last shot the video model
+  changes his face as he turns toward the camera.
+- **Not done:** a second training round on cleaner pictures (the first set was
+  drawn with the adapter and is pale), LoRAs for other characters, ControlNet
+  poses, ComfyUI workflows, any identity control inside the video model.
 
-1. Which machine has the RTX 3090, and may it be used for this project?
-2. A Hugging Face login to read and accept the AI4Bharat model terms.
-3. Whether reference voices will be recorded by you (for the cloning engines)
-   or voices will be created from text descriptions only.
+**Transitions.** Scene changes dissolve over 0.4 s (`crossfade`). A shot marked
+`continues` starts from the previous clip's last frame and is joined with a
+plain cut, so motion carries across. Tried once (aim, then release): the join
+is seamless, but a large turn inside the chained shot made the face drift.
+Chained shots should keep the same framing and small motion.
+
+### Phase 4: image-to-video (Wan 2.2 TI2V-5B, diffusers)
+
+| Size | Steps | Time for 5 s | Peak VRAM | Shot check |
+|---|---|---|---|---|
+| 704x1280 | 50 | 1050 s | 17.19 GB | pass |
+| 704x1280 | 30 | 680 s | 17.19 GB | pass (the default) |
+| 480x864 | 30 | 267 s | 14.38 GB | flicker flagged |
+| 480x864 | 20 | 203 s | 14.38 GB | flicker flagged |
+
+Needs model CPU offload and tiled VAE decode; without either it runs out of
+memory. Of eight episode clips made so far, two failed the flicker check
+(fast motion: walking, arrow release) and passed when redone with a new seed
+and calmer motion. Wan 2.1 14B, Wan 2.2 Animate, LTX-Video and AnimateDiff were
+not benchmarked.
+
+### Phase 5: lip-sync
+
+- LatentSync is blocked (needs InsightFace models, non-commercial). MuseTalk is
+  unverified (unlicensed face-parsing weights). Wav2Lip stays blocked.
+- What works instead: "lip flaps". Two low-strength redraws of one close-up
+  (mouth closed, mouth open), the mouth found by image difference, opened by
+  the voice loudness, held on twos. Test: 3.5 s, 12 mouth changes, loudness to
+  mouth correlation 0.84, 8.9 GB VRAM. The face stays still and the mouth moves.
+- Limits: it is open/closed only (no vowel shapes), it works on a still
+  close-up, and the test close-up is a separately drawn face, not the
+  episode's Arjuna. It is not yet wired into the episode cut.
+
+### Phase 6: first episode
+
+`output/animeforge/arjuna-chidiya-ki-aankh.mp4`: 31.7 s, 720x1280, 24 fps, six
+shots, Hindi narration, burned Devanagari subtitles, loudness normalised. All
+six shots pass the measured checks. By eye: the hermitage shots are clean; the
+bird looks alive although the line says it is wooden; Arjuna is consistent in
+two of his three shots (see Phase 3). The earlier cut is kept beside it as
+`arjuna-chidiya-ki-aankh.v1-adapter.mp4` for comparison.
+No music or sound effects. Not uploaded anywhere.
+
+### Phase 7: automation
+
+- `animeforge.story` turns a seed (person-written Hindi lines) into an episode
+  file; the local 7B model writes only the picture plan. Its plan for Karna
+  did not match the lines and was rewritten by hand.
+- `animeforge.jobs` (SQLite queue, retries with doubling delay, dead-letter)
+  and `animeforge.api` (FastAPI) drive the cluster through `animeforge.slurm`.
+- `karna-kavach-daan` was queued and run by the worker. The first attempt
+  failed on a stalled package download and was retried automatically; the
+  second made six clips and six voices and assembled a 39.4 s video.
+- Review failed it, correctly: on one line the voice engine kept speaking
+  nonsense after the sentence (error 1.9). The voice step now transcribes
+  every take and retakes a bad one (up to four). Not yet re-run.
+- By eye it has a worse fault the checks cannot see: Karna was drawn looking
+  female in his first shot. He needs the same LoRA treatment as Arjuna.
+
+## Phase 8: audit
+
+**Licences.** Every model in the published video is gated by the registry:
+Animagine XL 4.0 (conditional, acknowledged), IP-Adapter Plus (acknowledged),
+Wan 2.2 TI2V-5B (Apache-2.0), Chatterbox (MIT, watermarked). Whisper is used
+only for checking. Noto Sans Devanagari is OFL, licence file included. Blocked
+or unverified models (Wav2Lip, InsightFace, IP-Adapter FaceID, LatentSync,
+MuseTalk, lbpcascade_animeface) are not used and nothing was substituted for them.
+
+**Rights.** Characters are original designs with entries in the rights
+database; the stories are retellings of public-domain epics in our own words.
+Prompts are checked for protected names and artist tags.
+
+**Open before monetized publishing**
+
+1. Ada is an institutional research cluster. Whether it may render videos for
+   a monetized channel is its owners' decision. Ask before relying on it.
+2. YouTube asks creators to disclose realistic altered or synthetic content.
+   Stylised animation is generally outside that, but the synthetic voice
+   should be considered when filling the upload form.
+3. Mass-produced, near-identical videos risk YouTube's "inauthentic content"
+   monetization rule. Six-shot narrated clips with one varying character are
+   close to that line until the picture quality and variety improve.
+4. Listen to the voice; finish the face consistency work; add music and sound
+   with recorded origins (the inherited sound-effects folder is still pending).
+5. Religious figures: the epics' characters are revered. Keep depictions
+   respectful and the retelling faithful; the fact-check step from the older
+   pipeline is not yet wired into `animeforge.story`.
+
+## Operations learned
+
+See `animeforge/cluster/README.md`. In short: node scratch is purged weekly, so
+models live on share6 (50 GB used by this project; about 9 GB of quota left)
+and are restored at job start; environments are rebuilt per node (about 2
+minutes when the package servers are fast); one episode costs roughly 70 to 75
+GPU-minutes, and a character LoRA about 45 (pictures, training, test).
+
+## Not built
+
+ComfyUI workflows, Blender templates, the motion-reference pipeline, Wan 2.2 Animate and Fun Control, AI4Bharat voices (need your
+Hugging Face login), lip flaps inside episodes, music, horizontal 1920x1080,
+thumbnails, and upload of AnimeForge videos (waiting for your go-ahead).

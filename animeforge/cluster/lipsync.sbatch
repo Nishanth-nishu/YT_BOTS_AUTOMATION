@@ -2,7 +2,7 @@
 #SBATCH -A plafnet2
 #SBATCH -p plafnet2
 #SBATCH -J af_lipsync
-#SBATCH -w gnode114
+#SBATCH --exclude=gnode118
 #SBATCH --gres=gpu:1
 #SBATCH -c 6
 #SBATCH --mem=32G
@@ -18,7 +18,7 @@ mkdir -p "$AF/tmp" && cp -r "$HOME/animeforge/src" "$SRC"
 export HF_HOME=$AF/hf TMPDIR=$AF/tmp PYTHONPATH=$SRC ANIMEFORGE_MODELS_DIR=$AF/hf
 bash "$SRC/animeforge/cluster/setup_env.sh"
 bash "$SRC/animeforge/cluster/setup_tts.sh"
-source "$SRC/animeforge/cluster/models_sync.sh"; af_restore
+source "$SRC/animeforge/cluster/models_sync.sh"; af_restore "models--ResembleAI*" "models--cagliostrolab*"
 export ANIMEFORGE_ACK=animagine-xl-4,chatterbox-multilingual
 PY=$AF/venv/bin/python
 TTS=$AF/venv-tts/bin/python
