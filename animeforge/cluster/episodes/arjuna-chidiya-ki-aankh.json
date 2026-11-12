@@ -43,7 +43,7 @@
   {
    "id": "s04-arjun-aaye",
    "use_reference": true,
-   "seed": 2503,
+   "seed": 2513,
    "subject": "1boy, solo, original, young indian warrior prince, archer, brown skin, long black hair in a topknot, small golden crown, ornate golden armor over white dhoti, red sash, golden armbands, walking forward holding a longbow, green forest clearing, trees, cowboy shot, calm confident expression",
    "motion": "Anime style. A young warrior prince in golden armor steps forward through a forest clearing holding his longbow, calm and confident. His red sash and hair sway. Camera slowly tracks backward. Consistent face, smooth natural motion.",
    "line": "सबने पेड़ और पत्ते गिनाए। फिर अर्जुन आगे आए।"
@@ -59,9 +59,9 @@
   {
    "id": "s06-teer",
    "use_reference": true,
-   "seed": 2505,
+   "seed": 2506,
    "subject": "1boy, solo, original, young indian warrior prince, archer, brown skin, long black hair in a topknot, small golden crown, ornate golden armor over white dhoti, red sash, golden armbands, lowering a longbow after a shot, faint smile, from side, green forest",
-   "motion": "Anime style. The young warrior prince lets the arrow fly, then slowly lowers his longbow and smiles faintly. His hair and red sash move gently in the wind, leaves drift past. Static camera. Consistent face, smooth natural motion.",
+   "motion": "Anime style. Same side view. The young warrior prince in golden armor releases the bowstring and the arrow flies out of frame. He keeps looking at the target without turning his head and lowers the bow only slightly. His hair moves gently in the wind. Static camera. Consistent face, smooth natural motion.",
    "line": "तीर छूटा और सीधा निशाने पर लगा।",
    "continues": true
   }

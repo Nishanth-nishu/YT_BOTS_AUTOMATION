@@ -9,7 +9,7 @@ import json
 import time
 from pathlib import Path
 
-NEG = ("lowres, bad anatomy, bad hands, text, error, missing finger, extra digits, "
+NEG = ("border, frame, picture frame, letterboxed, lowres, bad anatomy, bad hands, text, error, missing finger, extra digits, "
        "fewer digits, cropped, worst quality, low quality, low score, bad score, "
        "average score, signature, watermark, username, blurry, extra arms, extra legs")
 

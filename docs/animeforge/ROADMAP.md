@@ -48,10 +48,12 @@ Arjuna kept crown, armour and sash but his face differed in each of his shots.
 - The similarity score does not show the gain (pictures to each other: text
   0.789, adapter 0.854, LoRA 0.6 0.813). The adapter is rewarded for copying
   the reference's pose and pale background. The choice was made by eye.
-- In the re-cut episode, the walking shot and the aiming shot now show the
-  same Arjuna in a green forest. Two flaws remain: the walking still has a
-  decorative arch border at the top, and in the last shot the video model
-  changes his face as he turns toward the camera.
+- In the re-cut episode all three Arjuna shots show the same character in a
+  green forest. First try, the last shot had him turn to the camera and the
+  video model redrew his face; redone with the same side view and a small
+  motion, the face holds through the arrow's release. Remaining differences:
+  his crown is larger in the close shots than in the walking shot, and his
+  skin is a shade darker in the walking shot.
 - **Not done:** a second training round on cleaner pictures (the first set was
   drawn with the adapter and is pale), LoRAs for other characters, ControlNet
   poses, ComfyUI workflows, any identity control inside the video model.
@@ -59,8 +61,8 @@ Arjuna kept crown, armour and sash but his face differed in each of his shots.
 **Transitions.** Scene changes dissolve over 0.4 s (`crossfade`). A shot marked
 `continues` starts from the previous clip's last frame and is joined with a
 plain cut, so motion carries across. Tried once (aim, then release): the join
-is seamless, but a large turn inside the chained shot made the face drift.
-Chained shots should keep the same framing and small motion.
+is seamless, but a large turn inside the chained shot made the face drift;
+with the same framing and a small motion it held.
 
 ### Phase 4: image-to-video (Wan 2.2 TI2V-5B, diffusers)
 
@@ -94,9 +96,9 @@ not benchmarked.
 `output/animeforge/arjuna-chidiya-ki-aankh.mp4`: 31.7 s, 720x1280, 24 fps, six
 shots, Hindi narration, burned Devanagari subtitles, loudness normalised. All
 six shots pass the measured checks. By eye: the hermitage shots are clean; the
-bird looks alive although the line says it is wooden; Arjuna is consistent in
-two of his three shots (see Phase 3). The earlier cut is kept beside it as
-`arjuna-chidiya-ki-aankh.v1-adapter.mp4` for comparison.
+bird looks alive although the line says it is wooden; Arjuna is recognisably
+the same in his three shots (see Phase 3). Earlier cuts are kept beside it
+(`.v1-adapter.mp4`, `.v2-lora.mp4`) for comparison.
 No music or sound effects. Not uploaded anywhere.
 
 ### Phase 7: automation
